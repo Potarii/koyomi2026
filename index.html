@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>暦カレンダー 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Kaisei+Opti:wght@400;700&display=swap');
+:root{--gold:#c9a84c;--gold-l:#e8c97a;--deep:#1a1008;--warm:#2d1f0e;--paper:#faf3e0;--ink:#2c1810;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--deep);min-height:100vh;font-family:'Noto Serif JP',serif;color:var(--ink);
+  background-image:radial-gradient(ellipse at 20% 20%,rgba(201,168,76,.08) 0%,transparent 50%),
+    radial-gradient(ellipse at 80% 80%,rgba(201,168,76,.05) 0%,transparent 50%);}
+
+/* ─── ヘッダー ─── */
+header{background:linear-gradient(135deg,#1a1008,#2d1f0e 50%,#1a1008);border-bottom:2px solid var(--gold);
+  padding:12px 14px 8px;text-align:center;position:sticky;top:0;z-index:100;}
+header h1{font-family:'Kaisei Opti',serif;color:var(--gold-l);font-size:1.3rem;letter-spacing:.25em;text-shadow:0 0 20px rgba(201,168,76,.4);}
+header p{color:rgba(232,201,122,.5);font-size:.58rem;letter-spacing:.14em;margin-top:2px;}
+
+.wrap{max-width:900px;margin:0 auto;padding:12px 10px;}
+
+/* ─── フィルター ─── */
+.filter-box{background:rgba(42,28,14,.92);border:1px solid rgba(201,168,76,.28);border-radius:12px;padding:10px 12px;margin-bottom:12px;}
+.filter-hdr{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;}
+.filter-title{color:var(--gold-l);font-size:.67rem;letter-spacing:.15em;}
+.btn-clear{font-size:.58rem;padding:2px 9px;border-radius:10px;background:rgba(255,255,255,.07);border:1px solid rgba(201,168,76,.35);color:rgba(232,201,122,.75);cursor:pointer;font-family:'Noto Serif JP',serif;transition:all .18s;white-space:nowrap;}
+.btn-clear:hover{background:rgba(201,168,76,.2);color:var(--gold-l);}
+.filter-grid{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;}
+.fbtn{display:flex;align-items:center;gap:4px;padding:3px 8px;border-radius:20px;border:1px solid transparent;cursor:pointer;font-family:'Noto Serif JP',serif;font-size:.64rem;transition:all .18s;background:rgba(255,255,255,.05);color:rgba(255,255,255,.45);}
+.fbtn.on{background:rgba(201,168,76,.15);border-color:var(--gold);color:var(--gold-l);}
+.fbtn .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+
+/* ─── 月ナビ ─── */
+.mnav{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.mnav button{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);color:var(--gold-l);width:32px;height:32px;border-radius:50%;font-size:.9rem;cursor:pointer;transition:background .2s;}
+.mnav button:hover{background:rgba(201,168,76,.3);}
+.mnav h2{color:var(--gold-l);font-family:'Kaisei Opti',serif;font-size:1.1rem;letter-spacing:.15em;text-shadow:0 0 10px rgba(201,168,76,.3);}
+.mnav-center{display:flex;align-items:center;gap:8px;}
+.btn-today{font-family:'Noto Serif JP',serif;font-size:.6rem;padding:4px 10px;border-radius:12px !important;width:auto !important;height:auto !important;background:rgba(201,168,76,.25) !important;border:1px solid rgba(201,168,76,.6) !important;color:var(--gold-l) !important;letter-spacing:.08em;white-space:nowrap;}
+
+/* ─── カレンダー ─── */
+.cal-wrap{background:rgba(250,243,224,.97);border-radius:14px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.5),0 0 0 1px rgba(201,168,76,.3);}
+.wk-hdr{display:grid;grid-template-columns:repeat(7,1fr);background:linear-gradient(135deg,#2d1f0e,#1a1008);border-bottom:1px solid rgba(201,168,76,.3);}
+.wk-hdr div{text-align:center;padding:7px 2px;font-size:.67rem;color:rgba(232,201,122,.8);}
+.wk-hdr div:first-child{color:#e74c3c;}
+.wk-hdr div:last-child{color:#6699cc;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:rgba(201,168,76,.15);}
+
+.dc{background:var(--paper);min-height:112px;padding:5px 4px 4px;cursor:pointer;transition:background .12s;position:relative;overflow:hidden;}
+.dc:hover{background:#fff8e7;z-index:1;box-shadow:0 2px 12px rgba(0,0,0,.15);}
+.dc.emp{background:rgba(240,227,192,.3);cursor:default;}
+.dc.tod{background:#fffbe8;box-shadow:inset 0 0 0 2px var(--gold);}
+/* 満月・新月の日のセル背景 */
+.dc.fullmoon{background:#f0f8ff;}
+.dc.newmoon{background:#f5f0ff;}
+
+.dn-row{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:2px;}
+.dn{font-family:'Kaisei Opti',serif;font-size:1.05rem;font-weight:700;line-height:1;color:var(--ink);}
+.dc.sun .dn,.dc.hol .dn{color:#c0392b;}
+.dc.sat .dn{color:#2c5f8a;}
+
+/* 六曜バッジ */
+.ry{font-size:.46rem;padding:1px 3px;border-radius:3px;font-weight:600;letter-spacing:.03em;line-height:1.4;}
+.r0{background:#fff0f0;color:#c0392b;border:1px solid #e74c3c;}
+.r1{background:#ede7f6;color:#6c3483;border:1px solid #8e44ad;}
+.r2{background:#fff5e6;color:#d35400;border:1px solid #e67e22;}
+.r3{background:#e8f8e8;color:#1e8449;border:1px solid #27ae60;}
+.r4{background:#e8f0ff;color:#2471a3;border:1px solid #2980b9;}
+.r5{background:#f0f8f0;color:#117a65;border:1px solid #1abc9c;}
+
+.kl{font-size:.43rem;color:#9e7c55;margin-bottom:1px;line-height:1.3;}
+
+/* 月齢・節気行 */
+.moon-row{font-size:.55rem;font-weight:700;letter-spacing:.04em;margin-bottom:1px;line-height:1.3;}
+.moon-full{color:#1565c0;}   /* 🌝満月 */
+.moon-new{color:#4a148c;}    /* 🌚新月 */
+.moon-row-big{display:flex;align-items:center;gap:2px;margin-bottom:2px;line-height:1.2;}
+.moon-row-big .moon-emoji{font-size:1.45rem;line-height:1;}
+.moon-row-big .moon-txt{font-size:.58rem;font-weight:700;letter-spacing:.04em;}
+.moon-row-big.moon-full .moon-txt{color:#1565c0;}
+.moon-row-big.moon-new  .moon-txt{color:#4a148c;}
+.setki-badge{font-size:.42rem;padding:1px 4px;border-radius:3px;background:rgba(45,100,45,.1);color:#2d6a4f;border:1px solid rgba(45,100,45,.25);letter-spacing:.03em;display:inline-block;}
+
+/* ─── 土用バナー ─── */
+.doyou-bar{
+  position:absolute;top:0;left:0;right:0;
+  height:5px;background:linear-gradient(90deg,#e65100,#ffa000);
+  z-index:2;
+}
+.doyou-bar.start{border-radius:0;left:0;}
+.doyou-bar.end{border-radius:0;right:0;}
+.doyou-label{
+  font-size:.38rem;font-weight:700;color:#e65100;
+  letter-spacing:.04em;line-height:1;margin-bottom:1px;
+  padding-top:6px; /* バナー分の余白 */
+}
+
+/* ─── 惑星逆行バナー ─── */
+.retro-bar{
+  position:absolute;top:0;left:0;right:0;
+  height:5px;z-index:3;
+}
+/* 惑星ごとの色 */
+.rb-mercury{background:linear-gradient(90deg,#00b4d8,#48cae4,#90e0ef);height:9px !important;box-shadow:0 0 6px rgba(0,180,216,.6);}
+.rb-venus  {background:linear-gradient(90deg,#c97b5a,#f0c06a);}
+.rb-mars   {background:linear-gradient(90deg,#c0392b,#e74c3c);}
+.rb-jupiter{background:linear-gradient(90deg,#8e44ad,#bb8fce);}
+.rb-saturn {background:linear-gradient(90deg,#2e86c1,#5dade2);}
+.rb-uranus {background:linear-gradient(90deg,#1e8449,#58d68d);}
+.rb-neptune{background:linear-gradient(90deg,#1a5276,#2e86c1);}
+.rb-pluto  {background:linear-gradient(90deg,#4a235a,#7d3c98);}
+
+/* 複数惑星が重なるときはバナーを積み重ねる */
+/* 水星は9px、他は5px を考慮してJS側でtopを動的設定 */
+.retro-bar.layer2{top:9px;}
+.retro-bar.layer3{top:14px;}
+.retro-bar.layer4{top:19px;}
+
+.retro-label{
+  font-size:.38rem;font-weight:700;letter-spacing:.03em;line-height:1;
+  margin-bottom:1px;
+}
+
+/* 惑星逆行解説パネル */
+.retro-panel{
+  background:rgba(20,10,40,.96);
+  border:1px solid rgba(100,50,200,.4);
+  border-radius:12px;
+  padding:12px;
+  margin-top:12px;
+}
+.retro-panel-title{
+  color:#bb8fce;
+  font-size:.7rem;
+  letter-spacing:.15em;
+  text-align:center;
+  margin-bottom:10px;
+  font-family:'Kaisei Opti',serif;
+}
+.retro-planet-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+}
+.retro-planet-card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(150,100,220,.25);
+  border-radius:8px;
+  padding:7px 9px;
+}
+.retro-planet-hdr{
+  display:flex;align-items:center;gap:5px;margin-bottom:4px;
+}
+.retro-planet-dot{
+  width:8px;height:8px;border-radius:50%;flex-shrink:0;
+}
+.retro-planet-name{
+  font-size:.68rem;font-weight:700;letter-spacing:.06em;
+}
+.retro-planet-theme{
+  font-size:.56rem;color:rgba(200,170,255,.7);margin-bottom:4px;
+  line-height:1.35;
+}
+.retro-planet-period{
+  font-size:.56rem;color:rgba(200,200,255,.55);
+  border-top:1px dashed rgba(150,100,220,.2);
+  padding-top:4px;
+  line-height:1.5;
+}
+
+/* モーダル内の惑星逆行ブロック */
+.retro-modal-block{
+  background:rgba(20,10,40,.06);
+  border:1px solid rgba(100,50,200,.2);
+  border-radius:10px;
+  padding:10px 12px;
+  margin-bottom:10px;
+}
+.retro-modal-block h5{
+  font-size:.65rem;color:#6c3483;letter-spacing:.1em;
+  margin-bottom:7px;border-bottom:1px solid rgba(100,50,200,.15);
+  padding-bottom:4px;
+}
+.retro-modal-item{
+  display:flex;align-items:flex-start;gap:7px;
+  font-size:.68rem;margin-bottom:5px;
+}
+.retro-modal-dot{
+  width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:3px;
+}
+.retro-modal-txt strong{color:#4a235a;display:block;margin-bottom:1px;font-size:.7rem;}
+.retro-modal-txt span{color:#5d4037;line-height:1.4;}
+
+/* ─── アイコン ─── */
+.icons{display:flex;flex-wrap:wrap;gap:2px;margin-top:2px;align-items:center;}
+.ki{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:4px;font-size:.78rem;font-weight:900;cursor:help;position:relative;flex-shrink:0;border:1.5px solid;background:#fff;font-family:'Noto Serif JP',serif;}
+.ki-xl{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;font-size:1.05rem;font-weight:900;cursor:help;position:relative;flex-shrink:0;border:2px solid;background:#fff;}
+/* 最良日・最悪日ハイライト */
+.dc.best-day{box-shadow:inset 0 0 0 3px #f4c430,inset 0 0 0 1px #f4c430;background:#fffde7;}
+.dc.worst-day{box-shadow:inset 0 0 0 3px #9e9e9e,inset 0 0 0 1px #9e9e9e;background:#f5f5f5;}
+.dc.best-day .dn{color:#e65100;}
+.dc.worst-day .dn{color:#757575;}
+
+/* カラー */
+.c-tg{color:#1b5e20;border-color:#43a047;} .c-tb{color:#b71c1c;border-color:#e53935;}
+.c-cg{color:#0d47a1;border-color:#1e88e5;} .c-cb{color:#880e4f;border-color:#c2185b;}
+.c-gg{color:#33691e;border-color:#7cb342;} .c-gb{color:#e65100;border-color:#ffa000;}
+.c-mb{color:#7b1fa2;border-color:#ab47bc;} .c-bl{color:#6a1b9a;border-color:#8e24aa;}
+.c-sg{color:#00695c;border-color:#00acc1;} .c-lg{color:#1a237e;border-color:#3949ab;}
+.c-ca{color:#bf360c;border-color:#ff6d00;}
+/* 事業開始吉日 */
+.c-st-s {color:#1a1008;border-color:transparent;background:#ffe082;}   /* 吉 */
+.c-st-a {color:#1a1008;border-color:transparent;background:#ffca28;}   /* 大吉 */
+.c-st-ex{color:#7a4000;border-color:#c8860a;background:linear-gradient(135deg,#ffe259,#ffa751);
+  box-shadow:0 0 8px rgba(255,180,0,.9),0 0 2px rgba(255,140,0,.6);
+  animation:goldglow 2s ease-in-out infinite alternate;
+  font-weight:900;text-shadow:0 1px 2px rgba(255,255,255,.6);}
+@keyframes goldglow{
+  from{box-shadow:0 0 6px rgba(255,180,0,.8),0 0 2px rgba(255,140,0,.5);}
+  to  {box-shadow:0 0 18px rgba(255,200,0,1),0 0 8px rgba(255,160,0,.7),0 0 32px rgba(255,200,0,.3);}
+}
+/* 最吉日のセルハイライト */
+.dc.startup-ex{
+  background:linear-gradient(160deg,#fffde7 60%,#fff8c0) !important;
+  box-shadow:inset 0 0 0 2.5px #c8860a,0 0 10px rgba(200,134,10,.25) !important;
+}
+.dc.startup-ex .dn{color:#7a4000 !important;}
+.c-ki{color:#1a1008;border-color:transparent;background:#fff9c4;}
+.c-to{color:#1a1008;border-color:transparent;background:#fff59d;}
+.c-money{color:#1a1008;border-color:transparent;background:#fff176;}
+
+/* 自然農法カラー：薄グリーン塗りつぶし・黒文字・枠なし */
+.c-nm-sg  {color:#1a2e1a;border-color:transparent;background:#c8e6c9;}  /* 種まき◎ */
+.c-nm-sb  {color:#b71c1c;border-color:#c62828;}                          /* 種まき✕ */
+.c-nm-fg  {color:#1a2e1a;border-color:transparent;background:#dcedc8;}  /* 収穫◎ */
+.c-nm-fb  {color:#6d4c41;border-color:#8d6e63;}                          /* 収穫△ */
+.c-nm-wg  {color:#1a2e1a;border-color:transparent;background:#b2dfdb;}  /* 水やり◎ */
+.c-nm-wb  {color:#0277bd;border-color:#0288d1;}                          /* 水やり注意 */
+.c-nm-gg  {color:#1a2e1a;border-color:transparent;background:#ccff90;}  /* 草刈り◎ */
+.c-nm-rest{color:#1a2e1a;border-color:transparent;background:#dcedc8;}  /* 畑休息 */
+
+/* 特大3種 */
+.c-ts{color:#e65100;border-color:#ffc107;background:#fff;animation:glow 1.8s ease-in-out infinite alternate;}
+@keyframes glow{from{box-shadow:0 0 5px rgba(255,193,7,.7);}to{box-shadow:0 0 16px rgba(255,193,7,1),0 0 28px rgba(255,193,7,.35);}}
+.c-js{color:#111;border-color:transparent;background:transparent;box-shadow:none;}
+.c-fs{color:#c62828;border-color:transparent;background:transparent;box-shadow:none;}
+
+/* tooltip */
+.ki:hover::after,.ki-xl:hover::after{
+  content:attr(data-tip);position:absolute;bottom:calc(100% + 5px);left:50%;
+  transform:translateX(-50%);background:rgba(16,8,2,.97);color:#faf3e0;
+  font-size:.6rem;padding:6px 9px;border-radius:7px;white-space:pre-wrap;z-index:9999;
+  border:1px solid rgba(201,168,76,.5);font-family:'Noto Serif JP',serif;
+  min-width:120px;max-width:180px;text-align:center;pointer-events:none;line-height:1.55;}
+
+/* ─── 予定 ─── */
+.ev-list{margin-top:3px;display:flex;flex-direction:column;gap:1px;}
+.ev-chip{font-size:.44rem;line-height:1.3;padding:1px 3px;border-radius:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;max-width:100%;font-family:'Noto Serif JP',serif;}
+.ev-more{font-size:.42rem;color:#8d6e4f;padding-left:2px;}
+
+/* ─── 凡例 ─── */
+.leg{background:rgba(42,28,14,.9);border:1px solid rgba(201,168,76,.25);border-radius:12px;padding:12px;margin-top:12px;}
+.leg-title{color:var(--gold-l);font-size:.67rem;letter-spacing:.15em;text-align:center;margin-bottom:10px;}
+.leg-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;}
+.leg-sep{grid-column:1/-1;border-top:1px dashed rgba(201,168,76,.2);padding-top:5px;margin-top:2px;color:rgba(232,201,122,.55);font-size:.58rem;letter-spacing:.1em;}
+.leg-item{display:flex;align-items:center;gap:6px;color:rgba(232,201,122,.82);font-size:.6rem;}
+/* 起業吉日 日付一覧ブロック */
+.startup-dates-block{
+  grid-column:1/-1;
+  background:rgba(255,220,50,.06);
+  border:1px solid rgba(200,134,10,.2);
+  border-radius:8px;
+  padding:7px 10px;
+  margin-top:2px;
+}
+.startup-dates-title{
+  font-size:.58rem;font-weight:700;letter-spacing:.08em;margin-bottom:5px;
+}
+.startup-dates-list{
+  display:flex;flex-wrap:wrap;gap:3px;
+}
+.startup-date-chip{
+  font-size:.54rem;padding:2px 5px;border-radius:4px;
+  font-family:'Noto Serif JP',serif;white-space:nowrap;cursor:default;
+}
+.sd-ex{background:linear-gradient(135deg,#ffe259,#ffa751);color:#7a4000;font-weight:700;
+  box-shadow:0 0 5px rgba(255,180,0,.6);}
+.sd-a {background:#ffca28;color:#1a1008;}
+.sd-s {background:#ffe082;color:#1a1008;}
+.li{width:20px;height:20px;border-radius:4px;flex-shrink:0;background:#fff;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:900;border:1.5px solid transparent;}
+.li.xl{width:26px;height:26px;border-width:2px;border-radius:6px;font-size:1rem;}
+.li.moon{border-radius:50%;font-size:.95rem;}
+
+/* ─── モーダル ─── */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:200;align-items:flex-end;justify-content:center;}
+.modal-ov.open{display:flex;}
+.modal-sheet{background:var(--paper);border-radius:20px 20px 0 0;padding:18px;width:100%;max-width:600px;max-height:78vh;overflow-y:auto;border-top:3px solid var(--gold);}
+.modal-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.modal-date-txt{font-family:'Kaisei Opti',serif;font-size:1.15rem;color:var(--ink);}
+.modal-close{background:var(--warm);color:var(--gold-l);border:none;width:28px;height:28px;border-radius:50%;font-size:.95rem;cursor:pointer;flex-shrink:0;}
+
+/* 月齢・節気インフォ */
+.moon-info-bar{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:8px 10px;background:rgba(100,50,180,.07);border:1px solid rgba(100,50,180,.2);border-radius:9px;flex-wrap:wrap;}
+.moon-info-emoji{font-size:1.4rem;line-height:1;}
+.moon-info-text{font-size:.72rem;color:var(--ink);}
+.moon-info-text strong{font-size:.78rem;}
+.setki-info{font-size:.68rem;padding:3px 8px;border-radius:6px;background:rgba(45,100,45,.1);color:#2d6a4f;border:1px solid rgba(45,100,45,.3);}
+
+.mkg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;}
+.mki{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:8px;padding:6px 9px;}
+.mkl{font-size:.56rem;color:#8d6e4f;letter-spacing:.08em;margin-bottom:2px;}
+.mkv{font-size:.8rem;font-weight:500;color:var(--ink);}
+
+/* 自然農法アドバイスブロック */
+.nature-block{background:rgba(45,100,45,.06);border:1px solid rgba(45,100,45,.2);border-radius:10px;padding:10px 12px;margin-bottom:10px;}
+.nature-block h5{font-size:.65rem;color:#2d6a4f;letter-spacing:.1em;margin-bottom:7px;border-bottom:1px solid rgba(45,100,45,.15);padding-bottom:4px;}
+.nature-advice{display:flex;flex-direction:column;gap:5px;}
+.na-item{display:flex;gap:7px;align-items:flex-start;font-size:.68rem;}
+.na-icon{font-size:.85rem;flex-shrink:0;width:20px;text-align:center;}
+.na-text{color:#3e2723;line-height:1.45;}
+.na-text strong{color:#1b5e20;display:block;margin-bottom:1px;font-size:.7rem;}
+
+.luck-m{display:flex;gap:3px;margin-bottom:10px;padding:8px;background:rgba(201,168,76,.07);border-radius:8px;}
+.lm-it{flex:1;text-align:center;}
+.lm-lb{font-size:.52rem;color:#8d6e4f;margin-bottom:3px;}
+.lm-st{font-size:.62rem;color:var(--gold);}
+.mev h4{font-size:.7rem;color:#5d4037;letter-spacing:.08em;margin-bottom:7px;border-bottom:1px solid rgba(201,168,76,.3);padding-bottom:4px;}
+.mev-item{display:flex;gap:7px;align-items:flex-start;padding:5px 0;border-bottom:1px dashed rgba(201,168,76,.2);font-size:.68rem;}
+.mev-icon{width:26px;height:26px;border-radius:6px;flex-shrink:0;background:#fff;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:900;border:1.5px solid;}
+.mev-icon.xl{width:32px;height:32px;font-size:1rem;border-width:2px;}
+.mev-txt strong{display:block;color:var(--ink);margin-bottom:2px;font-size:.72rem;}
+.mev-txt span{color:#5d4037;line-height:1.4;}
+
+/* ─── 予定フォーム ─── */
+.sched-section{border-top:1px solid rgba(201,168,76,.25);margin-top:10px;padding-top:10px;}
+.sched-section h4{font-size:.7rem;color:#5d4037;margin-bottom:8px;letter-spacing:.08em;}
+.sched-list{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;}
+.sched-chip{display:flex;align-items:center;gap:6px;padding:6px 9px;border-radius:8px;font-size:.72rem;border:1px solid transparent;}
+.sched-del{margin-left:auto;background:none;border:none;color:rgba(150,100,80,.6);font-size:.8rem;cursor:pointer;padding:0 2px;flex-shrink:0;}
+.sched-del:hover{color:#c0392b;}
+.sched-form{display:flex;flex-direction:column;gap:7px;}
+.sched-input{font-family:'Noto Serif JP',serif;font-size:.75rem;border:1px solid rgba(201,168,76,.4);border-radius:8px;padding:7px 10px;background:rgba(255,250,235,.8);color:var(--ink);outline:none;width:100%;}
+.sched-input:focus{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,.2);}
+.sched-btn{font-family:'Noto Serif JP',serif;font-size:.7rem;padding:7px 0;border-radius:8px;cursor:pointer;border:none;background:linear-gradient(135deg,#2d1f0e,#1a1008);color:var(--gold-l);letter-spacing:.1em;transition:opacity .18s;}
+.sched-btn:hover{opacity:.85;}
+
+/* ─── タブ ─── */
+.tab-bar{display:flex;gap:0;background:rgba(26,16,8,.95);border-bottom:2px solid var(--gold);position:sticky;top:56px;z-index:99;}
+.tab-btn{flex:1;padding:9px 4px;font-family:'Noto Serif JP',serif;font-size:.7rem;letter-spacing:.08em;border:none;background:transparent;color:rgba(232,201,122,.45);cursor:pointer;transition:all .2s;border-bottom:3px solid transparent;margin-bottom:-2px;}
+.tab-btn.active{color:var(--gold-l);border-bottom-color:var(--gold-l);background:rgba(201,168,76,.08);}
+.tab-btn:hover:not(.active){color:rgba(232,201,122,.7);}
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+
+/* ─── 事業計画ページ ─── */
+.plan-wrap{max-width:900px;margin:0 auto;padding:12px 10px;}
+.plan-header{background:rgba(42,28,14,.92);border:1px solid rgba(201,168,76,.28);border-radius:12px;padding:12px 14px;margin-bottom:12px;}
+.plan-header-title{color:var(--gold-l);font-family:'Kaisei Opti',serif;font-size:.95rem;letter-spacing:.18em;margin-bottom:4px;}
+.plan-header-sub{color:rgba(232,201,122,.5);font-size:.6rem;letter-spacing:.1em;}
+.plan-title-row{display:flex;align-items:center;gap:8px;margin-top:10px;}
+.plan-title-input{font-family:'Noto Serif JP',serif;font-size:.8rem;border:1px solid rgba(201,168,76,.4);border-radius:8px;padding:7px 10px;background:rgba(255,250,235,.9);color:var(--ink);outline:none;flex:1;}
+.plan-title-input:focus{border-color:var(--gold);}
+
+/* 日付リスト */
+.plan-date-section{margin-bottom:16px;}
+.plan-date-section-title{display:flex;align-items:center;gap:7px;padding:8px 12px;border-radius:10px 10px 0 0;font-size:.72rem;font-weight:700;letter-spacing:.1em;}
+.pds-ex{background:linear-gradient(135deg,#ffe259,#ffa751);color:#7a4000;}
+.pds-a {background:#ffca28;color:#1a1008;}
+.plan-date-list{display:flex;flex-direction:column;gap:1px;background:rgba(201,168,76,.1);border-radius:0 0 10px 10px;overflow:hidden;}
+
+/* 各日行 */
+.plan-row{background:var(--paper);padding:0;}
+.plan-row-hdr{display:flex;align-items:center;gap:0;cursor:pointer;user-select:none;}
+.plan-row-date{
+  min-width:72px;padding:9px 10px;
+  font-family:'Kaisei Opti',serif;font-size:.88rem;font-weight:700;
+  color:var(--ink);border-right:3px solid rgba(201,168,76,.2);
+  flex-shrink:0;line-height:1.2;
+}
+.plan-row-date .prd-sub{font-size:.52rem;color:#8d6e4f;font-family:'Noto Serif JP',serif;font-weight:400;}
+.plan-row-rank{font-size:.7rem;padding:2px 6px;border-radius:4px;margin:0 8px;flex-shrink:0;}
+.prr-ex{background:linear-gradient(135deg,#ffe259,#ffa751);color:#7a4000;font-weight:700;}
+.prr-a {background:#ffca28;color:#1a1008;}
+.plan-row-preview{flex:1;font-size:.65rem;color:#8d6e4f;padding:0 6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.plan-row-toggle{padding:8px 10px;color:rgba(201,168,76,.5);font-size:.75rem;flex-shrink:0;transition:transform .2s;}
+.plan-row.open .plan-row-toggle{transform:rotate(180deg);}
+
+/* 展開エリア */
+.plan-row-body{display:none;padding:10px 12px 12px;border-top:1px dashed rgba(201,168,76,.2);background:rgba(255,250,235,.6);}
+.plan-row.open .plan-row-body{display:block;}
+.plan-koyomi-tags{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:8px;}
+.plan-koyomi-tag{font-size:.54rem;padding:2px 6px;border-radius:4px;background:rgba(201,168,76,.12);color:#5d4037;border:1px solid rgba(201,168,76,.25);}
+.plan-field-label{font-size:.6rem;color:#8d6e4f;letter-spacing:.08em;margin-bottom:3px;margin-top:8px;}
+.plan-textarea{font-family:'Noto Serif JP',serif;font-size:.73rem;border:1px solid rgba(201,168,76,.35);border-radius:8px;padding:8px 10px;background:rgba(255,250,235,.9);color:var(--ink);outline:none;width:100%;resize:vertical;min-height:60px;line-height:1.55;}
+.plan-textarea:focus{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,.15);}
+.plan-save-btn{margin-top:8px;font-family:'Noto Serif JP',serif;font-size:.68rem;padding:7px 18px;border-radius:8px;border:none;background:linear-gradient(135deg,#2d1f0e,#1a1008);color:var(--gold-l);cursor:pointer;letter-spacing:.1em;transition:opacity .18s;}
+.plan-save-btn:hover{opacity:.85;}
+/* 登録済みの内容表示 */
+.plan-saved-view{padding:4px 0 2px;}
+.plan-saved-text{
+  font-size:.72rem;color:var(--ink);line-height:1.6;
+  background:rgba(255,255,255,.5);border-radius:6px;
+  padding:7px 10px;white-space:pre-wrap;word-break:break-all;
+  border:1px solid rgba(201,168,76,.2);min-height:36px;
+}
+.plan-saved-text.empty{color:#bbb;font-style:italic;}
+.plan-edit-btn{
+  font-family:'Noto Serif JP',serif;font-size:.65rem;padding:5px 14px;
+  border-radius:7px;border:1px solid rgba(201,168,76,.5);
+  background:rgba(255,250,235,.9);color:#7a4000;cursor:pointer;
+  transition:background .15s;margin-top:8px;
+}
+.plan-edit-btn:hover{background:rgba(201,168,76,.2);}
+
+/* ランクバッジ：左側縦型 — 幅・高さを完全固定 */
+.plan-rank-left{
+  flex-shrink:0;
+  width:36px;
+  align-self:stretch;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2px;
+  box-sizing:border-box;
+}
+.plan-rank-left .rl-icon{
+  font-size:.95rem;line-height:1;
+  display:block;text-align:center;width:36px;
+}
+.plan-rank-left .rl-text{
+  font-size:.56rem;font-weight:700;line-height:1;
+  display:block;text-align:center;width:36px;
+  letter-spacing:.01em;
+}
+/* ✨最吉バッジ — グロウ＋アイコン大きめ */
+.prrl-ex .rl-icon{
+  font-size:1.15rem;
+  -webkit-text-stroke:2px #fff;
+  paint-order:stroke fill;
+  filter:drop-shadow(0 0 4px rgba(255,200,0,.9));
+}
+.prrl-ex .rl-text{font-size:.58rem;}
+.prrl-ex{
+  background:linear-gradient(160deg,#ffe259,#ffa751);
+  color:#7a4000;
+  animation:badgePulse 2.2s ease-in-out infinite alternate;
+}
+@keyframes badgePulse{
+  from{background:linear-gradient(160deg,#ffe259,#ffa751);}
+  to  {background:linear-gradient(160deg,#ffd700,#ff8c00);}
+}
+.prrl-a{background:#ffca28;color:#1a1008;}
+
+/* 最吉日行 — 全体を金色ベースで際立たせる */
+.plan-row.plan-row-ex{
+  background:linear-gradient(100deg,#fffde7 0%,#fff9c4 60%,#fffde7 100%) !important;
+  border-top:1px solid rgba(200,134,10,.3);
+  border-bottom:1px solid rgba(200,134,10,.3);
+}
+.plan-row.plan-row-ex>.plan-row-hdr{
+  box-shadow:inset 4px 0 0 #c8860a;
+}
+/* 最吉の日付数字を大きく・金色に */
+.plan-row.plan-row-ex .prd-main{
+  font-size:1.05rem;
+  color:#7a4000;
+  text-shadow:0 1px 3px rgba(200,134,10,.3);
+}
+/* 最吉行の塗り分け上書き（緑・黄よりも最吉感を優先しつつ色を混ぜる） */
+.plan-row.plan-row-ex.has-plan  {background:linear-gradient(100deg,#fffde7,#fff9c4) !important;}
+.plan-row.plan-row-ex.has-result{background:linear-gradient(100deg,#f1f8e9,#fffde7) !important;}
+
+.plan-row-date{
+  min-width:72px;max-width:72px;padding:9px 8px;
+  flex-shrink:0;line-height:1.25;
+  border-right:1px solid rgba(201,168,76,.15);
+}
+.prd-main{font-family:'Kaisei Opti',serif;font-size:.9rem;font-weight:700;color:var(--ink);}
+.prd-wk{font-size:.58rem;font-weight:400;}
+.prd-wk.sat{color:#2c5f8a;}
+.prd-wk.sun{color:#c0392b;}
+/* 入力状態による行の背景色 */
+.plan-row.has-plan   {background:#fffde7;}   /* 活動計画あり：薄黄 */
+.plan-row.has-result {background:#f1f8e9;}   /* 実施内容あり：薄緑 */
+.plan-row.has-result.has-plan{background:#f1f8e9;} /* 両方あれば緑優先 */
+.plan-row.has-plan   .plan-row-hdr{background:rgba(255,249,196,.6);}
+.plan-row.has-result .plan-row-hdr{background:rgba(200,230,201,.45);}
+.plan-progress-bar{height:4px;background:rgba(201,168,76,.15);border-radius:2px;margin-top:10px;overflow:hidden;}
+.plan-progress-fill{height:100%;background:linear-gradient(90deg,#c9a84c,#e8c97a);border-radius:2px;transition:width .4s;}
+.plan-progress-txt{font-size:.56rem;color:rgba(232,201,122,.6);text-align:right;margin-top:2px;}
+.plan-empty{text-align:center;padding:30px;color:rgba(232,201,122,.4);font-size:.75rem;}
+
+@media(min-width:600px){
+  .dc{min-height:122px;}
+  .ki{width:22px;height:22px;font-size:.82rem;}
+  .ki-xl{width:28px;height:28px;font-size:1.1rem;}
+  .dn{font-size:1.1rem;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌙 暦カレンダー 2026</h1>
+  <p>干支・六曜・十二直・二十八宿・月齢・二十四節気から生活の吉凶を確認</p>
+</header>
+
+<!-- タブバー -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('calendar')">🗓 暦カレンダー</button>
+  <button class="tab-btn" onclick="switchTab('plan')">🚀 事業計画</button>
+</div>
+
+<!-- カレンダータブ -->
+<div class="tab-pane active" id="tab-calendar">
+<div class="wrap">
+  <div class="filter-box">
+    <div class="filter-hdr">
+      <span class="filter-title">◆ 表示する暦注 ◆</span>
+      <button class="btn-clear" onclick="toggleAll()">全解除 / 全選択</button>
+    </div>
+    <div class="filter-grid" id="fGrid"></div>
+  </div>
+  <div class="mnav">
+    <button onclick="chMonth(-1)">◀</button>
+    <div class="mnav-center">
+      <h2 id="mTitle"></h2>
+      <button class="btn-today" onclick="goToday()">今月</button>
+    </div>
+    <button onclick="chMonth(1)">▶</button>
+  </div>
+  <div class="cal-wrap">
+    <div class="wk-hdr">
+      <div>日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+  </div>
+  <div class="leg">
+    <div class="leg-title">◆ アイコン凡例 ◆</div>
+    <div class="leg-grid" id="legGrid"></div>
+  </div>
+  <div class="retro-panel" id="retroPanel">
+    <div class="retro-panel-title">🪐 惑星逆行カレンダー 2026 ─ 解説</div>
+    <div class="retro-planet-grid" id="retroPlanetGrid"></div>
+  </div>
+</div>
+</div><!-- /tab-calendar -->
+
+<!-- 事業計画タブ -->
+<div class="tab-pane" id="tab-plan">
+<div class="plan-wrap">
+  <div class="plan-header">
+    <div class="plan-header-title">🚀 事業計画スケジューラー</div>
+    <div class="plan-header-sub">最吉日・大吉日をベースに活動計画・実施内容を記録</div>
+    <div class="plan-title-row">
+      <input class="plan-title-input" id="planTitleInput" type="text" placeholder="事業名・プロジェクト名を入力…" maxlength="40">
+    </div>
+  </div>
+  <div id="planProgressArea" style="background:rgba(42,28,14,.7);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:10px 14px;margin-bottom:12px;display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+      <span style="font-size:.65rem;color:rgba(232,201,122,.7)">📊 記入進捗</span>
+      <span id="planProgressPct" style="font-size:.7rem;color:var(--gold-l);font-weight:700"></span>
+    </div>
+    <div class="plan-progress-bar"><div class="plan-progress-fill" id="planProgressFill" style="width:0%"></div></div>
+  </div>
+  <div id="planDateList"></div>
+</div>
+</div><!-- /tab-plan -->
+
+<!-- モーダル -->
+<div class="modal-ov" id="detailOv" onclick="closeDetail(event)">
+  <div class="modal-sheet">
+    <div class="modal-hdr">
+      <span class="modal-date-txt" id="detailDate"></span>
+      <button class="modal-close" onclick="closeDetailDirect()">✕</button>
+    </div>
+    <div id="moonInfoBar"></div>
+    <div class="mkg" id="detailKg"></div>
+    <div class="retro-modal-block" id="retroModalBlock" style="display:none"></div>
+    <div class="nature-block" id="natureBlock"></div>
+    <div class="luck-m" id="detailLuck"></div>
+    <div class="mev" id="detailEv"></div>
+    <div class="sched-section">
+      <h4>📅 この日の予定</h4>
+      <div class="sched-list" id="schedList"></div>
+      <div class="sched-form">
+        <input class="sched-input" id="schedText" type="text" placeholder="予定を入力（例：母の病院、旅行出発…）" maxlength="40">
+        <button class="sched-btn" onclick="addSched()">＋ 予定を登録</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// =====================================================
+// 暦計算
+// =====================================================
+const ROKU_N=['先勝','友引','先負','仏滅','大安','赤口'];
+const JOKU_N=['建','除','満','平','定','執','破','危','成','納','開','閉'];
+const KAN_K=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+const KAN_S=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+const KYU_N=['一白','二黒','三碧','四緑','五黄','六白','七赤','八白','九紫'];
+const GOG_K=['木','木','火','火','土','土','金','金','水','水'];
+const NIJU_N=['角','亢','氐','房','心','尾','箕','斗','女','虚','危','室','壁','奎','婁','胃','昴','毕','觜','参','井','鬼','柳','星','張','翼','軫','角'];
+
+const BASE=new Date(2026,0,1);
+function ddf(y,m,d){return Math.round((new Date(y,m-1,d)-BASE)/86400000);}
+function kanIdx(y,m,d){return(11+ddf(y,m,d)+600)%60;}
+function getKanshi(y,m,d){const i=kanIdx(y,m,d);return KAN_K[i%10]+KAN_S[i%12];}
+function getGogyou(y,m,d){return GOG_K[kanIdx(y,m,d)%10];}
+function getRoku(y,m,d){return ROKU_N[(2+ddf(y,m,d))%6];}
+function getJoku(y,m,d){return JOKU_N[(8+ddf(y,m,d))%12];}
+function getNiju(y,m,d){return NIJU_N[(21+ddf(y,m,d))%28];}
+function getKyu(y,m,d){return KYU_N[(2+ddf(y,m,d))%9];}
+function kanName(y,m,d){return kanIdx(y,m,d)%10;}
+function shiName(y,m,d){return kanIdx(y,m,d)%12;}
+function isKimiDay(y,m,d){return kanName(y,m,d)===5&&shiName(y,m,d)===5;}
+function isTora(y,m,d){return shiName(y,m,d)===2;}
+function isKinoeNe(y,m,d){return kanName(y,m,d)===0&&shiName(y,m,d)===0;}
+
+// =====================================================
+// 月齢計算
+// 2026年の新月・満月データ（国立天文台暦要項より）
+// =====================================================
+// 新月(🌚) と 満月(🌝) の日付（JST）
+const MOON_PHASES_2026={
+  newmoon:[  // 新月
+    '0101','0131','0301','0330','0428',
+    '0528','0626','0726','0824','0923',
+    '1022','1121','1221'
+  ],
+  fullmoon:[ // 満月
+    '0114','0213','0314','0413','0513',
+    '0611','0711','0810','0908','1007',
+    '1106','1205'
+  ]
+};
+
+// 月齢取得（0〜29.5）
+// 基準: 2026/1/1 = 新月(月齢0) に近い
+// 2026/1/1 の月齢は約10.5（前回新月: 2025/12/20頃）
+// より正確に: 2026/1/31 = 新月(月齢0)
+// 1/1の月齢 = 29.5 - 30 = -0.5... → 2025/12/31新月から
+// 実際: 2026/1/1の月齢 ≒ 1.5（2025/12/30 新月）
+// 簡易: 1/31新月を基準に逆算 → 1/1は30日前 = 月齢 29.5-30≒月齢0.5
+// 基準点: 2026/1/31 = 新月 = 月齢0
+function getMoonAge(y,m,d){
+  const refNewMoon=new Date(2026,0,31); // 1/31新月
+  const target=new Date(y,m-1,d);
+  const diff=Math.round((target-refNewMoon)/86400000);
+  let age=((diff%29.5)+29.5)%29.5;
+  return Math.round(age*10)/10;
+}
+
+function isNewMoon(y,m,d){
+  const ds=String(m).padStart(2,'0')+String(d).padStart(2,'0');
+  return MOON_PHASES_2026.newmoon.includes(ds);
+}
+function isFullMoon(y,m,d){
+  const ds=String(m).padStart(2,'0')+String(d).padStart(2,'0');
+  return MOON_PHASES_2026.fullmoon.includes(ds);
+}
+
+// 月の状態（上弦期 / 満月期 / 下弦期 / 新月期）
+// 自然農法での判断に使用
+function getMoonPhaseType(y,m,d){
+  const age=getMoonAge(y,m,d);
+  if(age<2||age>=28) return 'new';        // 新月期（±2日）
+  if(age>=2&&age<7)  return 'waxing1';    // 上弦前（新月→上弦）
+  if(age>=7&&age<13) return 'waxing2';    // 上弦後（上弦→満月直前）
+  if(age>=13&&age<16) return 'full';      // 満月期（±1.5日）
+  if(age>=16&&age<22) return 'waning1';   // 下弦前（満月→下弦）
+  if(age>=22&&age<28) return 'waning2';   // 下弦後（下弦→新月直前）
+  return 'new';
+}
+
+// =====================================================
+// 二十四節気 2026年（国立天文台暦要項より）
+// =====================================================
+const SETKI_2026={
+  '0105':'小寒（しょうかん）',
+  '0120':'大寒（だいかん）',
+  '0204':'立春（りっしゅん）',
+  '0219':'雨水（うすい）',
+  '0306':'啓蟄（けいちつ）',
+  '0320':'春分（しゅんぶん）',
+  '0405':'清明（せいめい）',
+  '0420':'穀雨（こくう）',
+  '0505':'立夏（りっか）',
+  '0521':'小満（しょうまん）',
+  '0606':'芒種（ぼうしゅ）',
+  '0621':'夏至（げし）',
+  '0707':'小暑（しょうしょ）',
+  '0723':'大暑（たいしょ）',
+  '0807':'立秋（りっしゅう）',
+  '0823':'処暑（しょしょ）',
+  '0908':'白露（はくろ）',
+  '0923':'秋分（しゅうぶん）',
+  '1008':'寒露（かんろ）',
+  '1023':'霜降（そうこう）',
+  '1107':'立冬（りっとう）',
+  '1122':'小雪（しょうせつ）',
+  '1207':'大雪（たいせつ）',
+  '1222':'冬至（とうじ）',
+};
+
+function getSetki(y,m,d){
+  const ds=String(m).padStart(2,'0')+String(d).padStart(2,'0');
+  return SETKI_2026[ds]||null;
+}
+
+// 二十四節気の農作業アドバイス
+const SETKI_ADVICE={
+  '小寒（しょうかん）':'寒さが増す頃。土は休息期。春に備えた計画を立てる時期。',
+  '大寒（だいかん）':'一年で最も寒い頃。土壌の天地返しに適した時期。凍土が溶ける前に深耕を。',
+  '立春（りっしゅん）':'春の気配が始まる。土が緩み始める合図。種まきの準備を始める頃。',
+  '雨水（うすい）':'雪が雨に変わる頃。土の解凍が進む。発芽促進に適した時期。',
+  '啓蟄（けいちつ）':'虫が地から動き出す。微生物も活発になる。葉物野菜の種まき開始。',
+  '春分（しゅんぶん）':'昼夜の長さが等しくなる。根菜・豆類の植え付けに最適な時期。',
+  '清明（せいめい）':'万物が清らかに明るくなる。葉物野菜の種まきに最良の頃。',
+  '穀雨（こくう）':'雨が百穀を潤す。夏野菜の植え付け・種まきに最適な時期。',
+  '立夏（りっか）':'夏が始まる。草の勢いが増す。草刈り・草マルチの開始時期。',
+  '小満（しょうまん）':'草の勢いが最も増す時期。風通しの確保・土の保湿管理が重要。',
+  '芒種（ぼうしゅ）':'稲・麦などの種まき時期。梅雨前の管理が大切。',
+  '夏至（げし）':'一年で最も日が長い。植物の生長が最盛期。水管理に注意。',
+  '小暑（しょうしょ）':'本格的な暑さが始まる。草マルチで水分蒸発を防ぐ時期。',
+  '大暑（たいしょ）':'一年で最も暑い頃。水やりは早朝・夕方に。根の呼吸を守る。',
+  '立秋（りっしゅう）':'秋の気配が始まる。秋冬野菜の種まき準備を始める時期。',
+  '処暑（しょしょ）':'暑さが和らぐ頃。根菜類の播種に最適。土の整備を始める。',
+  '白露（はくろ）':'露が降り始める頃。根菜類の成長が活発になる時期。',
+  '秋分（しゅうぶん）':'昼夜が等しくなる。収穫の最盛期。来季の土づくり準備も。',
+  '寒露（かんろ）':'露が冷たくなる頃。根菜類の収穫・保存に最適な時期。',
+  '霜降（そうこう）':'霜が降り始める。冬野菜の管理・収穫。土の冬支度を始める。',
+  '立冬（りっとう）':'冬が始まる。土を休ませる大切な時期。緑肥の鋤き込みを。',
+  '小雪（しょうせつ）':'雪が降り始める頃。畑の冬支度を整える。堆肥の準備を。',
+  '大雪（たいせつ）':'雪が多くなる頃。土の休息期。翌年の計画を立てる。',
+  '冬至（とうじ）':'一年で最も夜が長い。土の力が蓄えられる時期。',
+};
+
+// =====================================================
+// 自然農法アドバイス（月齢フェーズ×節気）
+// =====================================================
+function getNatureAdvice(y,m,d){
+  const phase=getMoonPhaseType(y,m,d);
+  const setki=getSetki(y,m,d);
+  const ds=String(m).padStart(2,'0')+String(d).padStart(2,'0');
+  const isNM=isNewMoon(y,m,d);
+  const isFM=isFullMoon(y,m,d);
+  const advice=[];
+
+  // 月齢フェーズ別アドバイス
+  switch(phase){
+    case 'new':
+      advice.push({icon:'🌚',title:'新月期（エネルギーが地中へ）',
+        text:'根の生長が最も活発な時期。根菜類の収穫・保存に最適。\n地下に根を張る種まきにも良い日。\n土の整備・耕作を行うのに適した時期。'});
+      break;
+    case 'waxing1':
+      advice.push({icon:'🌒',title:'新月〜上弦（植物が芽吹く力）',
+        text:'地上部へエネルギーが上昇し始める時期。\n葉物野菜・葉茎類の種まきに最適。\n苗の定植にも良いタイミング。水やりを始めると発根しやすい。'});
+      break;
+    case 'waxing2':
+      advice.push({icon:'🌓',title:'上弦〜満月（栄養成長が最盛期）',
+        text:'葉・茎・地上部の生長が最も旺盛な時期。\n葉物野菜の収穫・果菜類の植え付けに最適。\n施肥（液肥）の吸収率が高い。剪定・芽かきは避ける。'});
+      break;
+    case 'full':
+      advice.push({icon:'🌝',title:'満月期（実の充実・水分最大）',
+        text:'果実・実に水分・栄養分が最も集まる時期。\n果実の収穫に最適（瑞々しく美味しくなる）。\n種採りは満月前後が最良。害虫の孵化に注意。'});
+      break;
+    case 'waning1':
+      advice.push({icon:'🌖',title:'満月〜下弦（生殖成長が活発）',
+        text:'花・実の成長が活発な時期。\n果菜類（トマト・キュウリ等）の収穫に最適。\n根元への施肥に適した時期。草刈り・剪定も可。'});
+      break;
+    case 'waning2':
+      advice.push({icon:'🌘',title:'下弦〜新月（休息と蓄え）',
+        text:'植物のエネルギーが根に戻っていく時期。\n根菜類の収穫・保存に最適。\n土の耕作・堆肥の鋤き込みに適した時期。\n木の伐採は新月前後が材木として長持ちする。'});
+      break;
+  }
+
+  // 新月・満月当日の特記
+  if(isNM){
+    advice.push({icon:'🌑',title:'新月当日',text:'潮の干満が最大になる大潮。\n根の活性が特に高まる日。\n新しい種まき・新規の農作業始めに縁起の良い日。'});
+  }
+  if(isFM){
+    advice.push({icon:'🌕',title:'満月当日',text:'潮の干満が最大になる大潮。\n害虫（ガ・アブラムシ等）が孵化・産卵しやすい日。\n収穫した果実は最も瑞々しく美味しい。\n草木灰を根元に撒くと害虫忌避に効果的。'});
+  }
+
+  // 節気当日の農作業アドバイス
+  if(setki&&SETKI_ADVICE[setki]){
+    advice.push({icon:'🌿',title:`二十四節気：${setki}`,text:SETKI_ADVICE[setki]});
+  }
+
+  // 月×季節の特別アドバイス
+  const mon=m;
+  if((phase==='waxing1'||phase==='waxing2')&&(mon>=3&&mon<=5)){
+    advice.push({icon:'🌱',title:'種まきのベストタイミング',text:'春の上弦期は一年で最も種まきに適した時期。\n発芽率・根付きが格段に良くなります。\nできるだけ種まきを優先しましょう。'});
+  }
+  if(phase==='full'&&(mon>=6&&mon<=9)){
+    advice.push({icon:'🍅',title:'夏の収穫適期',text:'夏の満月期は果実類の収穫に最高の時期。\nトマト・キュウリ・ナスなどが最も美味しくなります。\n朝の収穫が特におすすめ。'});
+  }
+  if((phase==='waning2'||phase==='new')&&(mon>=9&&mon<=11)){
+    advice.push({icon:'🥕',title:'秋の根菜収穫期',text:'秋の下弦〜新月期は根菜の収穫に最適。\n大根・人参・里芋などが充実している時期。\n保存性も高まります。'});
+  }
+
+  return advice;
+}
+
+// 月齢による種まきアドバイスアイコン
+function getMoonNatureEvents(y,m,d){
+  const ev=[];
+  const phase=getMoonPhaseType(y,m,d);
+  const isNM=isNewMoon(y,m,d);
+  const isFM=isFullMoon(y,m,d);
+
+  // 満月・新月はテキスト行で表示済みのためアイコン不要
+
+  // 月齢フェーズ別の農作業アイコン
+  if(phase==='waxing1'||phase==='waxing2'){
+    ev.push({cat:'nature',icon:'種',shape:'ki',cls:'c-nm-sg',
+      label:`種まき・植え付け◎（${phase==='waxing1'?'上弦前':'上弦後'}）`,
+      desc:'月が満ちていく時期。地上部への\nエネルギーが高まり種まき・苗の\n定植に最適な時期です。'});
+  }
+  if(phase==='new'||phase==='waning2'){
+    ev.push({cat:'nature',icon:'根',shape:'ki',cls:'c-nm-sg',
+      label:`根菜の種まき・収穫◎（${phase==='new'?'新月期':'下弦後'}）`,
+      desc:'月が欠けていく・新月の時期。\n根へエネルギーが集まり根菜類の\n種まき・収穫に最適な時期です。'});
+  }
+  if(phase==='full'||phase==='waning1'){
+    ev.push({cat:'nature',icon:'収',shape:'ki',cls:'c-nm-fg',
+      label:`果実・地上部の収穫◎（${phase==='full'?'満月期':'下弦前'}）`,
+      desc:'地上部に水分・栄養が最も\n集まる時期。果菜類・葉物の\n収穫に最適です。'});
+  }
+  if(phase==='waning2'||phase==='new'){
+    ev.push({cat:'nature',icon:'休',shape:'ki',cls:'c-nm-rest',
+      label:`畑の整備・土づくり（${phase==='new'?'新月期':'下弦後'}）`,
+      desc:'植物のエネルギーが根に戻る時期。\n耕作・堆肥の鋤き込み・\n土の整備に最適な時期です。'});
+  }
+  if(phase==='waxing1'||phase==='waxing2'||phase==='full'){
+    ev.push({cat:'nature',icon:'水',shape:'ki',cls:'c-nm-wg',
+      label:'水やり◎（満ち潮期）',
+      desc:'月が満ちていく時期は植物の\n水分吸収力が高まります。\n水やり・液肥の施用に最適。'});
+  }
+  if(phase==='waning2'){
+    ev.push({cat:'nature',icon:'草',shape:'ki',cls:'c-nm-gg',
+      label:'草刈り・剪定に良い時期',
+      desc:'月が欠けていく時期に刈った草は\n再生が遅くなります。\n草刈り・不要枝の剪定に最適。'});
+  }
+
+  return ev;
+}
+
+// =====================================================
+// 特別日データ
+// =====================================================
+const SP={
+  tensha:['0111','0302','0502','0616','0729','0909','1023','1206'],
+  ichiryu:{1:[2,7,14,19,26,31],2:[3,8,15,20,27],3:[1,6,13,18,25,30],4:[8,11,20,23],5:[5,8,17,20,29],6:[1,4,13,16,25,28],7:[3,10,15,22,27],8:[3,6,15,18,27,30],9:[2,11,14,23,26],10:[3,8,15,20,27],11:[1,4,13,16,25,28],12:[3,6,15,18,27,30]},
+  jushi:{1:[1,13,25],2:[6,18],3:[2,14,26],4:[7,19],5:[3,15,27],6:[8,20],7:[4,16,28],8:[9,21],9:[5,17,29],10:[4,16,28],11:[9,21],12:[5,17,29]},
+  fusei:{1:[1,9,13,21,25],2:[2,10,14,22,26],3:[3,11,15,23,27],4:[5,13,17,25],5:[1,9,21,29],6:[5,17,25],7:[1,9,21,29],8:[4,12,16,24,28],9:[2,6,14,22,26],10:[2,10,18,26,30],11:[3,11,19,27],12:[1,9,17,25]},
+  doyou:[{s:117,e:203},{s:419,e:505},{s:720,e:806},{s:1020,e:1106}],
+  holidays:{'0101':'元日','0112':'成人の日','0211':'建国記念日','0223':'天皇誕生日','0320':'春分の日','0429':'昭和の日','0503':'憲法記念日','0504':'みどりの日','0505':'こどもの日','0720':'海の日','0817':'山の日','0921':'敬老の日','0923':'秋分の日','1012':'スポーツの日','1103':'文化の日','1123':'勤労感謝の日'}
+};
+
+// =====================================================
+// カテゴリ
+// =====================================================
+const CATS=[
+  {id:'lucky',   label:'大吉日',   emoji:'⭐',dot:'#e65100'},
+  {id:'startup', label:'事業開始', emoji:'🚀',dot:'#f9a825'},
+  {id:'money',   label:'金運',     emoji:'💰',dot:'#8b6914'},
+  {id:'travel',  label:'旅行',     emoji:'✈️',dot:'#1b5e20'},
+  {id:'clothes', label:'衣類',     emoji:'👘',dot:'#0d47a1'},
+  {id:'garden',  label:'農作業(暦)',emoji:'🌾',dot:'#33691e'},
+  {id:'blood',   label:'血・鍼灸', emoji:'🩸',dot:'#6a1b9a'},
+  {id:'study',   label:'稽古',     emoji:'📚',dot:'#00695c'},
+  {id:'event',   label:'吉事全般', emoji:'🎊',dot:'#1a237e'},
+  {id:'nature',  label:'自然農法(月齢)',emoji:'🌿',dot:'#2e7d32'},
+  {id:'doyou',   label:'土用',     emoji:'🟠',dot:'#e65100'},
+  {id:'retrograde',label:'惑星逆行', emoji:'🪐',dot:'#7d3c98'},
+];
+
+// =====================================================
+// 暦注イベント（従来）
+// =====================================================
+function getKoyomiEvents(y,m,d){
+  const ev=[];
+  const joku=getJoku(y,m,d),niju=getNiju(y,m,d),roku=getRoku(y,m,d);
+  const ds=String(m).padStart(2,'0')+String(d).padStart(2,'0');
+  const td=m*100+d;
+
+  if(SP.tensha.includes(ds)){ev.push({cat:'lucky',icon:'⭐',shape:'ki-xl',cls:'c-ts',label:'天赦日',desc:'暦上 最高の吉日。\nすべての罪が赦される日。\n何を始めても大吉。'});}
+  if((SP.jushi[m]||[]).includes(d)){ev.push({cat:'event',icon:'⚫',shape:'ki-xl',cls:'c-js',label:'受死日',desc:'暦上 最大の凶日。\n旅行・結婚・引越し\n万事を避けること。'});}
+  if((SP.fusei[m]||[]).includes(d)){ev.push({cat:'event',icon:'❌',shape:'ki-xl',cls:'c-fs',label:'不成就日',desc:'何をしても成就しない日。\n新しいことを始めるのは避ける。'});}
+  if((SP.ichiryu[m]||[]).includes(d)){ev.push({cat:'lucky',icon:'粒',shape:'ki',cls:'c-money',label:'一粒万倍日',desc:'一粒が万倍に実る大吉日。\n開業・種まき・新しいことを始めるに最適。'});}
+  SP.doyou.forEach(p=>{if(td>=p.s&&td<=p.e){ev.push({cat:'doyou',icon:'土',shape:'ki',cls:'c-gb',label:'土用：農作業✕',desc:'土を犯す作業（耕作・穴掘り・\n土木工事）は凶。土の神が動く期間。'});}});
+  if(shiName(y,m,d)===1){ev.push({cat:'blood',icon:'血',shape:'ki',cls:'c-bl',label:'血忌日：血・鍼灸✕',desc:'血を見ること・鍼灸は凶。\n手術・外科的処置を避けるべき日。'});}
+  if(isKimiDay(y,m,d)){ev.push({cat:'money',icon:'己',shape:'ki',cls:'c-ki',label:'己巳の日（きみのひ）',desc:'弁財天の縁日。60日に一度の金運最強日。\n財布の新調・貯金始め・宝くじ購入に大吉。'});}
+  if(isTora(y,m,d)){ev.push({cat:'money',icon:'寅',shape:'ki',cls:'c-to',label:'寅の日（とらのひ）',desc:'金運・旅行に縁起の良い日。\n「出て行ったものが戻ってくる」。\n旅立ち・旅行の出発に最吉。'});}
+  if(isKinoeNe(y,m,d)){ev.push({cat:'money',icon:'甲',shape:'ki',cls:'c-ki',label:'甲子の日（きのえねのひ）',desc:'大黒天の縁日。60日に一度の吉日。\n新しい財布の使い始め・金運アップに◎。'});}
+
+  const jM={'執':[{cat:'event',icon:'執',cls:'c-mb',label:'執：金銭管理✕',desc:'金銭の出し入れ・財産管理は凶。（祝い事には吉）'}],'危':[{cat:'travel',icon:'危',cls:'c-tb',label:'危：旅行✕',desc:'旅行は特に大凶。高所・乗り物に要注意。'}],'破':[{cat:'travel',icon:'破',cls:'c-tb',label:'破：旅行・引越し✕',desc:'万事に破れる凶日。旅行・引越し・結婚は避ける。'}],'閉':[{cat:'event',icon:'閉',cls:'c-ca',label:'閉：新規・引越し✕',desc:'新規開業・引越しは凶。'}],'満':[{cat:'event',icon:'満',cls:'c-lg',label:'満：引越し・結婚◎',desc:'万事満たされる吉日。引越し・結婚・新規開始に最適。'}],'開':[{cat:'event',icon:'開',cls:'c-lg',label:'開：開業・引越し◎',desc:'何事も開く吉日。開店・開業・引越しに吉。'}],'成':[{cat:'event',icon:'成',cls:'c-lg',label:'成：結婚・開業◎',desc:'物事が成就する吉日。結婚・開業・引越しに最適。'}],'建':[{cat:'travel',icon:'建',cls:'c-tg',label:'建：旅行・開業◎',desc:'旅行・開業に吉の日。'}],'定':[{cat:'event',icon:'定',cls:'c-lg',label:'定：建築・旅行◎',desc:'建築・旅行・農作業に吉。'}],'平':[{cat:'travel',icon:'平',cls:'c-tg',label:'平：旅行◎',desc:'旅行・移動に吉の日。'}],'除':[{cat:'event',icon:'除',cls:'c-lg',label:'除：お祓い◎',desc:'不浄を取り除く日。神仏のお祓いに◎。'}],'納':[{cat:'garden',icon:'納',cls:'c-gg',label:'納：農作業・収穫◎',desc:'農作業・収穫・商売に吉。'}]};
+  (jM[joku]||[]).forEach(e=>ev.push({...e,shape:'ki'}));
+
+  if(['虚','昴','女'].includes(niju)){ev.push({cat:'clothes',icon:'衣',shape:'ki',cls:'c-cg',label:`${niju}宿：衣類◎`,desc:'衣類の着初め・仕立てに吉。'});}
+  if(niju==='觜'){ev.push({cat:'clothes',icon:'衣',shape:'ki',cls:'c-cb',label:'觜宿：衣類✕',desc:'衣類の着初めは凶。（稽古始めには吉）'});ev.push({cat:'study',icon:'稽',shape:'ki',cls:'c-sg',label:'觜宿：稽古始め◎',desc:'稽古始め・習い事の開始に吉。'});}
+  if(['胃','箕'].includes(niju)){ev.push({cat:'garden',icon:'畑',shape:'ki',cls:'c-gg',label:`${niju}宿：農作業◎`,desc:'農作業・種まきに吉。'});}
+  if(['房','角'].includes(niju)){ev.push({cat:'travel',icon:'旅',shape:'ki',cls:'c-tg',label:`${niju}宿：旅行◎`,desc:'旅行・遠出に吉の日。'});}
+  if(niju==='参'){ev.push({cat:'travel',icon:'旅',shape:'ki',cls:'c-tb',label:'参宿：旅行✕',desc:'旅行・外出は凶日。'});}
+  if(niju==='危'){ev.push({cat:'travel',icon:'旅',shape:'ki',cls:'c-tb',label:'危宿：旅行✕',desc:'旅行は大凶。乗り物・高所に要注意。'});}
+  if(niju==='鬼'){ev.push({cat:'blood',icon:'薬',shape:'ki',cls:'c-bl',label:'鬼宿：薬の飲み始め✕',desc:'薬の飲み始め・医師への相談は避けること。'});}
+  if(['氐','軫','室','張'].includes(niju)){const nm={氐:'結婚・引越し◎',軫:'棟上げ・祝い事◎',室:'建築・開業◎',張:'宴席・祝い事◎'};ev.push({cat:'event',icon:'吉',shape:'ki',cls:'c-lg',label:`${niju}宿：${nm[niju]}`,desc:`${niju}宿は吉の日。`});}
+
+  if(roku==='大安'){ev.push({cat:'lucky',icon:'安',shape:'ki',cls:'c-tg',label:'大安（六曜）',desc:'六曜最良の吉日。結婚・旅行・新規事業に最適。'});}
+  if(roku==='仏滅'){ev.push({cat:'event',icon:'滅',shape:'ki',cls:'c-tb',label:'仏滅（六曜）',desc:'六曜最大の凶日。お祝い事・新しいことは避けること。'});}
+  if(roku==='赤口'){ev.push({cat:'event',icon:'赤',shape:'ki',cls:'c-ca',label:'赤口（六曜）',desc:'正午のみ吉、朝晩は凶。祝い事は大凶。'});}
+
+  const tOK=['成','開','満','建','定','平'].includes(joku)&&['大安','先勝','友引'].includes(roku)&&!['参','危'].includes(niju)&&!(SP.jushi[m]||[]).includes(d)&&!(SP.fusei[m]||[]).includes(d);
+  if(tOK&&!ev.some(e=>e.cat==='travel'&&e.cls==='c-tb')){ev.push({cat:'travel',icon:'旅',shape:'ki',cls:'c-tg',label:'旅行 好適日◎',desc:'六曜・十二直・二十八宿の組み合わせが旅行に最適な日。'});}
+
+  // ─── 事業・新規開始の吉日判定 ───
+  // NG条件（即除外）
+  const stNG=(SP.jushi[m]||[]).includes(d)||(SP.fusei[m]||[]).includes(d)||
+             ['破','危','閉'].includes(joku)||['仏滅','赤口'].includes(roku)||
+             ['参','危'].includes(niju);
+  if(!stNG){
+    let stScore=0;
+    const stGoodJoku=['開','成','建','定','満'];
+    const stOkJoku=['除','平','納'];
+    if(stGoodJoku.includes(joku)) stScore+=3;
+    else if(stOkJoku.includes(joku)) stScore+=1;
+    if(roku==='大安') stScore+=3;
+    else if(roku==='先勝') stScore+=2;
+    else if(roku==='友引') stScore+=1;
+    if(['室','軫','氐','張','角','房'].includes(niju)) stScore+=2;
+    if(SP.tensha.includes(ds)) stScore+=4;
+    if((SP.ichiryu[m]||[]).includes(d)) stScore+=2;
+    if(isKimiDay(y,m,d)||isKinoeNe(y,m,d)) stScore+=1;
+    const mercRetro=typeof getRetrogradePlanets==='function'&&getRetrogradePlanets(y,m,d).some(p=>p.id==='mercury');
+    if(mercRetro) stScore-=2;
+
+    // 大吉日の追加必須条件：吉十二直＋（大安 or 先勝）の両立が必要
+    const stAOK=stGoodJoku.includes(joku)&&['大安','先勝'].includes(roku);
+
+    if(stScore>=8){
+      const mercNote=mercRetro?'\n⚠️水星逆行中：契約・書類に二重確認を':'';
+      ev.push({cat:'startup',icon:'起',shape:'ki-xl',cls:'c-st-ex',
+        label:'事業開始 最吉日✨',
+        desc:`天赦日・大安・十二直などが重なる最高の開業日。\n新規事業・開店・契約開始に大吉。${mercNote}`});
+    } else if(stScore>=7&&stAOK){
+      // 大吉：閾値7以上＋吉十二直×大安or先勝 の両立必須
+      const mercNote=mercRetro?'\n⚠️水星逆行中：慎重に':'';
+      ev.push({cat:'startup',icon:'起',shape:'ki',cls:'c-st-a',
+        label:'事業開始 大吉日◎',
+        desc:`六曜・十二直・二十八宿の組合せが事業開始に優れた日。\n開業・新規契約・プロジェクト始動に吉。${mercNote}`});
+    } else if(stScore>=3){
+      const mercNote=mercRetro?'（水星逆行中：書類注意）':'';
+      ev.push({cat:'startup',icon:'起',shape:'ki',cls:'c-st-s',
+        label:`事業開始 吉日○${mercNote}`,
+        desc:'事業・新規開始に適した日。\n大きな決断より、準備・仕込み開始に向いた日。'});
+    }
+  }
+
+  return ev;
+}
+
+// =====================================================
+// 惑星逆行データ 2026年（占星術）
+// =====================================================
+// 各惑星の逆行期間 {s:[月,日], e:[月,日]}
+const RETRO_PLANETS=[
+  {
+    id:'mercury', name:'水星', emoji:'☿',
+    color:'#00b4d8', barClass:'rb-mercury',
+    theme:'コミュニケーション・知性・移動・契約',
+    retroDesc:'情報の行き違い・勘違い・交通トラブルが増えやすい時期。\n新規契約・重要な決断は慎重に。\n過去の見直し・再計画に最適。',
+    periods:[
+      {s:[2,26],e:[3,21],note:'魚座'},
+      {s:[6,30],e:[7,24],note:'蟹座'},
+      {s:[10,24],e:[11,14],note:'蠍座'},
+    ]
+  },
+  {
+    id:'venus', name:'金星', emoji:'♀',
+    color:'#c97b5a', barClass:'rb-venus',
+    theme:'愛・美・調和・パートナーシップ・金運',
+    retroDesc:'恋愛・人間関係の見直し期間。\n新しい恋愛・大きな買い物・美容整形は慎重に。\n過去の関係が再浮上することも。',
+    periods:[
+      {s:[10,3],e:[11,14],note:'蠍座→天秤座'},
+    ]
+  },
+  {
+    id:'jupiter', name:'木星', emoji:'♃',
+    color:'#8e44ad', barClass:'rb-jupiter',
+    theme:'拡大・成長・幸運・学び・発展',
+    retroDesc:'急速な拡大が緩やかになる時期。\n外側の成功より内なる成長を優先する期間。\n本当に意味ある方向性を見極めるチャンス。',
+    periods:[
+      {s:[1,1],e:[3,11],note:'蟹座（前年11月～続き）'},
+      {s:[12,13],e:[12,31],note:'獅子座（→翌年4月まで続く）'},
+    ]
+  },
+  {
+    id:'saturn', name:'土星', emoji:'♄',
+    color:'#2e86c1', barClass:'rb-saturn',
+    theme:'責任・努力・制限・試練・構造',
+    retroDesc:'これまでの努力・構造の見直し期間。\n義務・責任から一時的に解放される感覚も。\n長期的な計画・基盤の再構築に適した時期。',
+    periods:[
+      {s:[7,27],e:[12,11],note:'牡羊座'},
+    ]
+  },
+  {
+    id:'uranus', name:'天王星', emoji:'♅',
+    color:'#1e8449', barClass:'rb-uranus',
+    theme:'革命・自由・改革・テクノロジー・変化',
+    retroDesc:'社会的な変革の流れが内向きになる時期。\n個人的な自由・独自性の見直し期間。\n突発的な変化が起きにくくなるが、内面の革新が進む。',
+    periods:[
+      {s:[1,1],e:[2,4],note:'双子座（前年9月～続き）'},
+      {s:[9,11],e:[12,31],note:'双子座（→翌年2月まで続く）'},
+    ]
+  },
+  {
+    id:'neptune', name:'海王星', emoji:'♆',
+    color:'#1a5276', barClass:'rb-neptune',
+    theme:'夢・幻想・霊感・芸術・無意識',
+    retroDesc:'幻想が薄れ現実が見えやすくなる時期。\n精神的・霊的な内省を深める好機。\n芸術的なインスピレーションが内側から湧く時期。',
+    periods:[
+      {s:[7,7],e:[12,13],note:'牡羊座'},
+    ]
+  },
+  {
+    id:'pluto', name:'冥王星', emoji:'♇',
+    color:'#4a235a', barClass:'rb-pluto',
+    theme:'変容・破壊と再生・権力・深層心理',
+    retroDesc:'社会的な変革エネルギーが内向きになる時期。\n深層心理・無意識の膿出しが進む期間。\n個人・社会レベルの根本的な見直しが促される。',
+    periods:[
+      {s:[5,7],e:[10,16],note:'水瓶座'},
+    ]
+  },
+];
+
+// 指定日に逆行中の惑星一覧を返す
+function getRetrogradePlanets(y,m,d){
+  if(y!==2026) return[];
+  const result=[];
+  for(const pl of RETRO_PLANETS){
+    for(const per of pl.periods){
+      const [sm,sd]=per.s, [em,ed]=per.e;
+      const startN=sm*100+sd, endN=em*100+ed, targetN=m*100+d;
+      if(targetN>=startN&&targetN<=endN){
+        result.push({...pl, periodNote:per.note, periodStart:per.s, periodEnd:per.e});
+        break;
+      }
+    }
+  }
+  return result;
+}
+
+// 逆行開始日かどうか
+function isRetrogradeStart(y,m,d){
+  if(y!==2026) return[];
+  const result=[];
+  for(const pl of RETRO_PLANETS){
+    for(const per of pl.periods){
+      if(per.s[0]===m&&per.s[1]===d) result.push({...pl,periodNote:per.note});
+    }
+  }
+  return result;
+}
+
+// 逆行終了日かどうか
+function isRetrogradeEnd(y,m,d){
+  if(y!==2026) return[];
+  const result=[];
+  for(const pl of RETRO_PLANETS){
+    for(const per of pl.periods){
+      if(per.e[0]===m&&per.e[1]===d) result.push({...pl,periodNote:per.note});
+    }
+  }
+  return result;
+}
+
+
+const SCHED_KEY='koyomi_schedules_2026';
+let schedules={};
+function loadSched(){try{schedules=JSON.parse(localStorage.getItem(SCHED_KEY)||'{}');}catch{schedules={};}}
+function saveSched(){try{localStorage.setItem(SCHED_KEY,JSON.stringify(schedules));}catch{}}
+function dkey(y,m,d){return`${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;}
+function getSchedFor(y,m,d){return schedules[dkey(y,m,d)]||[];}
+function addSchedFor(y,m,d,text,color){const k=dkey(y,m,d);if(!schedules[k])schedules[k]=[];schedules[k].push({text,color,id:Date.now()});saveSched();}
+function delSchedFor(y,m,d,id){const k=dkey(y,m,d);if(!schedules[k])return;schedules[k]=schedules[k].filter(s=>s.id!==id);if(!schedules[k].length)delete schedules[k];saveSched();}
+
+// =====================================================
+// 状態
+// =====================================================
+let year=2026,month=new Date().getMonth()+1;
+if(month<1||month>12)month=4;
+let filters=new Set(CATS.map(c=>c.id));
+let allOn=true;
+let detailY=year,detailM=month,detailD=1;
+loadSched();
+
+function chMonth(delta){month+=delta;if(month>12){month=1;year++;}if(month<1){month=12;year--;}render();}
+function goToday(){const t=new Date();year=t.getFullYear();month=t.getMonth()+1;render();}
+function toggleAll(){if(allOn){filters.clear();allOn=false;}else{CATS.forEach(c=>filters.add(c.id));allOn=true;}document.querySelectorAll('.fbtn').forEach(b=>b.classList.toggle('on',filters.has(b.dataset.cat)));updateRetroPanel();render();}
+function toggleFilter(id){filters.has(id)?filters.delete(id):filters.add(id);document.querySelectorAll('.fbtn').forEach(b=>b.classList.toggle('on',filters.has(b.dataset.cat)));updateRetroPanel();render();}
+function updateRetroPanel(){
+  const p=document.getElementById('retroPanel');
+  if(p) p.style.display=filters.has('retrograde')?'block':'none';
+}
+
+// =====================================================
+// 月の最良日・最悪日スコア計算
+// =====================================================
+function calcDayScore(y,m,d){
+  let score=0;
+  const joku=getJoku(y,m,d),roku=getRoku(y,m,d);
+  const ds=String(m).padStart(2,'0')+String(d).padStart(2,'0');
+  const phase=getMoonPhaseType(y,m,d);
+  const isFM=isFullMoon(y,m,d),isNM=isNewMoon(y,m,d);
+
+  // 六曜
+  if(roku==='大安') score+=4;
+  else if(roku==='先勝'||roku==='友引') score+=2;
+  else if(roku==='先負') score+=1;
+  else if(roku==='赤口') score-=2;
+  else if(roku==='仏滅') score-=3;
+
+  // 十二直
+  if(['開','成','満'].includes(joku)) score+=3;
+  else if(['建','定','除','納'].includes(joku)) score+=2;
+  else if(['閉','執'].includes(joku)) score-=1;
+  else if(['破','危'].includes(joku)) score-=3;
+
+  // 天赦日・一粒万倍日
+  if(SP.tensha.includes(ds)) score+=5;
+  if((SP.ichiryu[m]||[]).includes(d)) score+=3;
+
+  // 受死日・不成就日
+  if((SP.jushi[m]||[]).includes(d)) score-=5;
+  if((SP.fusei[m]||[]).includes(d)) score-=3;
+
+  // 己巳・寅・甲子
+  const ki=kanIdx(y,m,d);
+  if(ki%10===5&&ki%12===5) score+=2; // 己巳
+  if(ki%12===2) score+=1;             // 寅
+  if(ki%10===0&&ki%12===0) score+=2; // 甲子
+
+  // 満月・新月（吉）
+  if(isFM||isNM) score+=1;
+
+  // 月齢フェーズ（上弦前後は種まき最良）
+  if(phase==='waxing1'||phase==='waxing2') score+=1;
+
+  return score;
+}
+
+function getBestWorstDays(y,m){
+  const days=new Date(y,m,0).getDate();
+  let best={d:0,score:-999},worst={d:0,score:999};
+  for(let d=1;d<=days;d++){
+    const sc=calcDayScore(y,m,d);
+    if(sc>best.score){best={d,score:sc};}
+    if(sc<worst.score){worst={d,score:sc};}
+  }
+  return{best:best.d,worst:worst.d};
+}
+
+// =====================================================
+// アイコンHTML生成
+// =====================================================
+function iconHtml(e,forModal=false){
+  if(!forModal){
+    if(e.shape==='ki-xl') return`<span class="ki-xl ${e.cls}" data-tip="${e.label}\n${e.desc}">${e.icon}</span>`;
+    return`<span class="ki ${e.cls}" data-tip="${e.label}\n${e.desc}">${e.icon}</span>`;
+  } else {
+    const sc=e.shape==='ki-xl'?'mev-icon xl':'mev-icon';
+    return`<div class="${sc} ${e.cls||''}">${e.icon}</div>`;
+  }
+}
+
+// =====================================================
+// フィルター・凡例
+// =====================================================
+function renderFilters(){
+  document.getElementById('fGrid').innerHTML=CATS.map(c=>`
+    <button class="fbtn on" data-cat="${c.id}" onclick="toggleFilter('${c.id}')">
+      <span class="dot" style="background:${c.dot}"></span>${c.emoji} ${c.label}
+    </button>`).join('');
+}
+
+function renderLegend(){
+  const special=[
+    {icon:'⭐',cls:'c-ts',xl:true, label:'天赦日（暦最上の吉日・万事大吉）'},
+    {icon:'⚫',cls:'c-js',xl:true, label:'受死日（暦最大の凶日・万事を避ける）'},
+    {icon:'❌',cls:'c-fs',xl:true, label:'不成就日（何をしても成就しない）'},
+  ];
+  const money=[
+    {icon:'粒',cls:'c-money',xl:false,label:'一粒万倍日（万倍に実る・開業◎）'},
+    {icon:'己',cls:'c-ki',  xl:false,label:'己巳の日（弁財天縁日・金運最強）'},
+    {icon:'甲',cls:'c-ki',  xl:false,label:'甲子の日（大黒天縁日・金運◎）'},
+    {icon:'寅',cls:'c-to',  xl:false,label:'寅の日（金運・旅行の出発◎）'},
+  ];
+  const rokuyo=[
+    {icon:'安',cls:'c-tg',xl:false,label:'大安（六曜：万事吉）'},
+    {icon:'滅',cls:'c-tb',xl:false,label:'仏滅（六曜：凶・祝事避ける）'},
+    {icon:'赤',cls:'c-ca',xl:false,label:'赤口（六曜：正午のみ吉）'},
+  ];
+  const koyomi=[
+    {icon:'旅',cls:'c-tg',xl:false,label:'旅行に好適な日（六曜×十二直◎）'},
+    {icon:'土',cls:'c-gb',xl:false,label:'土用（農耕・土木✕ 期間中帯表示）'},
+    {icon:'血',cls:'c-bl',xl:false,label:'血忌日（血・鍼灸は凶）'},
+    {icon:'執',cls:'c-mb',xl:false,label:'執（十二直：金銭管理✕）'},
+    {icon:'衣',cls:'c-cg',xl:false,label:'衣類の着初め◎（虚・昴・女宿）'},
+    {icon:'稽',cls:'c-sg',xl:false,label:'稽古始め◎（觜宿）'},
+    {icon:'吉',cls:'c-lg',xl:false,label:'二十八宿：吉事◎（氐・軫・室・張）'},
+    {icon:'満',cls:'c-lg',xl:false,label:'十二直：満・開・成（引越し・開業◎）'},
+  ];
+  const nature=[
+    {icon:'🌝',moon:true,full:true,  label:'満月（果実収穫・種採りに最適）'},
+    {icon:'🌚',moon:true,full:false, label:'新月（根菜収穫・種まき始めに吉）'},
+    {icon:'種',cls:'c-nm-sg',  xl:false,label:'種まき・植え付け◎（新月〜上弦期）'},
+    {icon:'根',cls:'c-nm-sg',  xl:false,label:'根菜の種まき・収穫◎（新月期）'},
+    {icon:'収',cls:'c-nm-fg',  xl:false,label:'果実・地上部の収穫◎（満月期）'},
+    {icon:'水',cls:'c-nm-wg',  xl:false,label:'水やり◎（満ち潮・上弦〜満月期）'},
+    {icon:'草',cls:'c-nm-gg',  xl:false,label:'草刈り・剪定◎（下弦後）'},
+    {icon:'休',cls:'c-nm-rest',xl:false,label:'土づくり・堆肥鋤き込み◎（下弦〜新月）'},
+  ];
+  const mkLi=(it)=>`<div class="leg-item"><div class="li${it.xl?' xl':''} ${it.cls||''}">${it.icon}</div><span>${it.label}</span></div>`;
+  const mkNLi=(it)=>{
+    if(it.moon) return`<div class="leg-item"><div class="li moon" style="border-color:${it.full?'#1565c0':'#4a148c'}">${it.icon}</div><span>${it.label}</span></div>`;
+    return mkLi(it);
+  };
+  const stDays=getStartupDaysCache();
+  const mkChips=(arr,cls)=>arr.map(d=>`<span class="startup-date-chip ${cls}">${d}</span>`).join('');
+
+  document.getElementById('legGrid').innerHTML=
+    `<div class="leg-sep">◆ 特別吉凶日</div>`+
+    special.map(mkLi).join('')+
+    `<div class="leg-sep">🚀 事業・新規開始の吉日</div>`+
+    [
+      {icon:'起',cls:'c-st-ex',xl:true, label:'事業開始 最吉日✨（天赦×大安×十二直 等の重なり）'},
+      {icon:'起',cls:'c-st-a', xl:false,label:'事業開始 大吉日◎（六曜×十二直×二十八宿 好配合）'},
+      {icon:'起',cls:'c-st-s', xl:false,label:'事業開始 吉日○（準備・仕込み開始に適した日）'},
+    ].map(mkLi).join('')+
+    `<div class="startup-dates-block">
+      <div class="startup-dates-title" style="color:#c8860a">✨ 最吉日（${stDays.ex.length}日）</div>
+      <div class="startup-dates-list">${mkChips(stDays.ex,'sd-ex')}</div>
+    </div>`+
+    `<div class="startup-dates-block" style="margin-top:5px">
+      <div class="startup-dates-title" style="color:#f9a825">◎ 大吉日（${stDays.a.length}日）</div>
+      <div class="startup-dates-list">${mkChips(stDays.a,'sd-a')}</div>
+    </div>`+
+    `<div style="font-size:.54rem;color:rgba(232,201,122,.45);grid-column:1/-1;padding:4px 2px 0;line-height:1.6">
+      ※判定：六曜（大安/先勝/友引）＋十二直（開/成/建/定/満）＋二十八宿（室/軫/氐/張等）の複合。
+      天赦日・一粒万倍日との重複で最吉に昇格。受死日・不成就日・破・閉・仏滅の日は除外。
+      水星逆行中は⚠️付き。
+    </div>`+
+    `<div class="leg-sep">💰 金運・開運日</div>`+
+    money.map(mkLi).join('')+
+    `<div class="leg-sep">⛩ 六曜</div>`+
+    rokuyo.map(mkLi).join('')+
+    `<div class="leg-sep">📅 十二直・二十八宿・その他暦注</div>`+
+    koyomi.map(mkLi).join('')+
+    `<div class="leg-sep">🌿 自然農法カレンダー（月齢×節気）</div>`+
+    nature.map(mkNLi).join('')+
+    `<div class="leg-sep">◆ 土用・惑星逆行（期間中は上部に帯）</div>`+
+    `<div class="leg-item"><div style="width:40px;height:5px;background:linear-gradient(90deg,#e65100,#ffa000);border-radius:2px;flex-shrink:0"></div><span style="color:rgba(232,201,122,.82)">土用期間（橙色帯）</span></div>`+
+    `<div class="leg-item"><div style="width:40px;height:9px;background:linear-gradient(90deg,#00b4d8,#90e0ef);border-radius:2px;flex-shrink:0;box-shadow:0 0 4px rgba(0,180,216,.5)"></div><span style="color:rgba(232,201,122,.82)">☿水星逆行（シアン太帯）</span></div>`+
+    RETRO_PLANETS.filter(pl=>pl.id!=='mercury').map(pl=>`<div class="leg-item"><div style="width:40px;height:5px;background:${pl.color};border-radius:2px;flex-shrink:0"></div><span style="color:rgba(232,201,122,.82)">${pl.emoji}${pl.name}逆行</span></div>`).join('')+
+    `<div class="leg-sep">◆ 月の最良日・最悪日（月ごと）</div>`+
+    `<div class="leg-item"><div style="width:20px;height:20px;border-radius:4px;border:3px solid #f4c430;background:#fffde7;flex-shrink:0"></div><span>その月の最も良い日（黄色枠）</span></div>`+
+    `<div class="leg-item"><div style="width:20px;height:20px;border-radius:4px;border:3px solid #9e9e9e;background:#f5f5f5;flex-shrink:0"></div><span>その月の最も避けるべき日（グレー枠）</span></div>`;
+
+  // 惑星逆行パネル描画
+  document.getElementById('retroPlanetGrid').innerHTML=RETRO_PLANETS.map(pl=>{
+    const periodsHtml=pl.periods.map(per=>{
+      const [sm,sd]=per.s,[em,ed]=per.e;
+      return `${sm}/${sd}〜${em}/${ed}（${per.note}）`;
+    }).join('<br>');
+    return`<div class="retro-planet-card">
+      <div class="retro-planet-hdr">
+        <div class="retro-planet-dot" style="background:${pl.color}"></div>
+        <span class="retro-planet-name" style="color:${pl.color}">${pl.emoji} ${pl.name}逆行</span>
+      </div>
+      <div class="retro-planet-theme">【${pl.theme}】</div>
+      <div class="retro-planet-period" style="color:rgba(180,160,220,.7)">${periodsHtml}</div>
+    </div>`;
+  }).join('');
+}
+
+// 年内の事業開始吉日を全スキャンして返す
+function getAllStartupDays(y){
+  const ex=[],a=[],s=[];
+  const mDays=[31,28,31,30,31,30,31,31,30,31,30,31]; // 2026年
+  for(let m=1;m<=12;m++){
+    for(let d=1;d<=mDays[m-1];d++){
+      const ev=getKoyomiEvents(y,m,d);
+      const st=ev.find(e=>e.cat==='startup');
+      if(!st) continue;
+      const label=`${m}/${d}`;
+      if(st.cls==='c-st-ex') ex.push(label);
+      else if(st.cls==='c-st-a') a.push(label);
+      else s.push(label);
+    }
+  }
+  return{ex,a,s};
+}
+// 起動時に一度だけ計算してキャッシュ
+let _startupDays=null;
+function getStartupDaysCache(){
+  if(!_startupDays) _startupDays=getAllStartupDays(2026);
+  return _startupDays;
+}
+
+
+// 土用期間判定ヘルパー
+function getDoyouInfo(y,m,d){
+  const td=m*100+d;
+  for(const p of SP.doyou){
+    if(td>=p.s&&td<=p.e){
+      const isStart=(td===p.s);
+      const isEnd  =(td===p.e);
+      // 土用名（季節）
+      const s=p.s;
+      const name=s<300?'冬土用':s<600?'春土用':s<900?'夏土用':'秋土用';
+      return{active:true,isStart,isEnd,name};
+    }
+  }
+  return{active:false};
+}
+
+function render(){
+  const mN=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  document.getElementById('mTitle').textContent=`${year}年 ${mN[month-1]}`;
+  const days=new Date(year,month,0).getDate();
+  const first=new Date(year,month-1,1).getDay();
+  const today=new Date();
+
+  // 最良日・最悪日を事前計算
+  const{best:bestDay,worst:worstDay}=getBestWorstDays(year,month);
+
+  let html='';
+  for(let i=0;i<first;i++) html+='<div class="dc emp"></div>';
+
+  for(let d=1;d<=days;d++){
+    const dow=new Date(year,month-1,d).getDay();
+    const isToday=today.getFullYear()===year&&today.getMonth()+1===month&&today.getDate()===d;
+    const ds=String(month).padStart(2,'0')+String(d).padStart(2,'0');
+    const hol=SP.holidays[ds]||null;
+    const joku=getJoku(year,month,d),niju=getNiju(year,month,d);
+    const roku=getRoku(year,month,d),kyu=getKyu(year,month,d),kan=getKanshi(year,month,d);
+    const isFM=isFullMoon(year,month,d);
+    const isNM=isNewMoon(year,month,d);
+    const setki=getSetki(year,month,d);
+    const moonAge=getMoonAge(year,month,d);
+    const ryC={'大安':'r0','仏滅':'r1','赤口':'r2','先勝':'r3','友引':'r4','先負':'r5'}[roku]||'';
+    const doyouInfo=getDoyouInfo(year,month,d);
+    const retroPlanets=getRetrogradePlanets(year,month,d);
+    const retroStarts=isRetrogradeStart(year,month,d);
+    const retroEnds=isRetrogradeEnd(year,month,d);
+
+    const koyomiEv=getKoyomiEvents(year,month,d);
+    const moonEv=getMoonNatureEvents(year,month,d);
+    const allEv=[...koyomiEv,...moonEv];
+    const fil=allEv.filter(e=>filters.has(e.cat));
+    const xlEv=fil.filter(e=>e.shape==='ki-xl');
+    const smEv=fil.filter(e=>e.shape==='ki').slice(0,6);
+
+    let cc='dc';
+    if(dow===0||hol) cc+=' sun'; else if(dow===6) cc+=' sat';
+    if(hol) cc+=' hol';
+    if(isToday) cc+=' tod';
+    if(d===bestDay&&!isToday) cc+=' best-day';
+    if(d===worstDay&&!isToday) cc+=' worst-day';
+    // 最吉日セルハイライト（事業開始フィルターON時）
+    if(filters.has('startup')&&koyomiEv.some(e=>e.cls==='c-st-ex')&&!isToday) cc+=' startup-ex';
+
+    // 土用バナー（フィルターON時のみ）
+    let doyouBanner='';
+    if(doyouInfo.active && filters.has('doyou')){
+      doyouBanner=`<div class="doyou-bar"></div>`;
+      // 初日はラベル表示
+      if(doyouInfo.isStart){
+        doyouBanner+=`<div class="doyou-label">🟠${doyouInfo.name}入り</div>`;
+      }
+    }
+
+    // 惑星逆行バナー（フィルターON時のみ）
+    let retroBanners='';
+    let retroLabelHtml='';
+    const showRetro=filters.has('retrograde')&&retroPlanets.length>0;
+    if(showRetro){
+      let topPx=0;
+      retroPlanets.forEach((pl)=>{
+        const barH=pl.id==='mercury'?9:5;
+        retroBanners+=`<div class="retro-bar ${pl.barClass}" style="top:${topPx}px;height:${barH}px"></div>`;
+        topPx+=barH;
+      });
+      const labelTop=(doyouInfo.active&&filters.has('doyou')?5:0)+topPx;
+      // 逆行開始日ラベル
+      retroStarts.forEach(pl=>{
+        retroLabelHtml+=`<div class="retro-label" style="color:${pl.id==='mercury'?'#00b4d8':pl.color};padding-top:${labelTop+2}px">${pl.emoji}${pl.name}逆行IN</div>`;
+      });
+      // 逆行終了日ラベル
+      retroEnds.forEach(pl=>{
+        retroLabelHtml+=`<div class="retro-label" style="color:${pl.id==='mercury'?'#00b4d8':pl.color};padding-top:${labelTop+2}px">${pl.emoji}${pl.name}順行→</div>`;
+      });
+    }
+
+    // 土用期間中はセルにpadding-topを追加（バナー分）
+    const doyouH=doyouInfo.active&&filters.has('doyou')?5:0;
+    const retroH=showRetro?retroPlanets.reduce((s,pl)=>s+(pl.id==='mercury'?9:5),0):0;
+    const totalBannerH=doyouH+retroH;
+    const cellStyle=totalBannerH>0?`style="padding-top:${totalBannerH+4}px"`:'';
+
+    // セルに逆行中クラスを追加
+    if(showRetro) cc+=' retro-active';
+
+    // 月齢表示
+    let moonRow='';
+    if(isFM) moonRow=`<div class="moon-row-big moon-full"><span class="moon-emoji">🌝</span><span class="moon-txt">満月</span></div>`;
+    else if(isNM) moonRow=`<div class="moon-row-big moon-new"><span class="moon-emoji">🌚</span><span class="moon-txt">新月</span></div>`;
+    else moonRow=`<div class="kl">月齢${moonAge}</div>`;
+
+    let setkiRow='';
+    if(setki) setkiRow=`<div class="kl"><span class="setki-badge">🌿${setki.split('（')[0]}</span></div>`;
+
+    const icons=[
+      ...xlEv.map(e=>iconHtml(e)),
+      ...smEv.map(e=>iconHtml(e)),
+    ].join('');
+
+    const scList=getSchedFor(year,month,d);
+    let scHtml='';
+    if(scList.length>0){
+      scHtml='<div class="ev-list">';
+      scList.slice(0,2).forEach(sc=>{
+        scHtml+=`<div class="ev-chip" style="font-weight:700;color:#1a1008;border:1px solid rgba(44,24,16,.25);background:rgba(44,24,16,.04)">${sc.text}</div>`;
+      });
+      if(scList.length>2) scHtml+=`<div class="ev-more">+${scList.length-2}件</div>`;
+      scHtml+='</div>';
+    }
+
+    // 最良・最悪バッジ
+    let rankBadge='';
+    if(d===bestDay) rankBadge=`<div style="font-size:.4rem;color:#e65100;font-weight:700;letter-spacing:.05em;margin-bottom:1px">★今月最良日</div>`;
+    if(d===worstDay) rankBadge=`<div style="font-size:.4rem;color:#757575;font-weight:700;letter-spacing:.05em;margin-bottom:1px">▲今月注意日</div>`;
+
+    html+=`
+      <div class="${cc}" onclick="openDetail(${year},${month},${d})">
+        ${doyouBanner}
+        ${retroBanners}
+        ${retroLabelHtml}
+        ${rankBadge}
+        <div class="dn-row" ${cellStyle}>
+          <span class="dn">${d}</span>
+          <span class="ry ${ryC}">${roku}</span>
+        </div>
+        <div class="kl">${kan} ${kyu}星</div>
+        <div class="kl">${joku}・${niju}</div>
+        ${moonRow}
+        ${setkiRow}
+        <div class="icons">${icons}</div>
+        ${scHtml}
+      </div>`;
+  }
+  document.getElementById('calGrid').innerHTML=html;
+}
+
+// =====================================================
+// モーダル
+// =====================================================
+function openDetail(y,m,d){
+  detailY=y;detailM=m;detailD=d;
+  const joku=getJoku(y,m,d),niju=getNiju(y,m,d),roku=getRoku(y,m,d);
+  const kyu=getKyu(y,m,d),kan=getKanshi(y,m,d),gog=getGogyou(y,m,d);
+  const ds=String(m).padStart(2,'0')+String(d).padStart(2,'0');
+  const hol=SP.holidays[ds]||null;
+  const wk=['日','月','火','水','木','金','土'][new Date(y,m-1,d).getDay()];
+  const isFM=isFullMoon(y,m,d),isNM=isNewMoon(y,m,d);
+  const moonAge=getMoonAge(y,m,d);
+  const setki=getSetki(y,m,d);
+  const phase=getMoonPhaseType(y,m,d);
+  const phaseNames={new:'新月期',waxing1:'上弦前（新月→上弦）',waxing2:'上弦後（上弦→満月）',full:'満月期',waning1:'下弦前（満月→下弦）',waning2:'下弦後（下弦→新月）'};
+
+  document.getElementById('detailDate').textContent=`${y}年${m}月${d}日（${wk}）${hol?' 🎌'+hol:''}`;
+
+  // 月齢・節気バー
+  const moonEmoji=isFM?'🌝':isNM?'🌚':moonAge<7?'🌒':moonAge<14?'🌓':moonAge<22?'🌖':'🌘';
+  document.getElementById('moonInfoBar').innerHTML=`
+    <div class="moon-info-bar">
+      <span class="moon-info-emoji">${moonEmoji}</span>
+      <div class="moon-info-text">
+        <strong>${isFM?'満月（望）':isNM?'新月（朔）':`月齢 ${moonAge}`}</strong>
+        　${phaseNames[phase]||''}
+      </div>
+      ${setki?`<span class="setki-info">🌿 ${setki}</span>`:''}
+    </div>`;
+
+  document.getElementById('detailKg').innerHTML=`
+    <div class="mki"><div class="mkl">干支・五行</div><div class="mkv">${kan}（${gog}）</div></div>
+    <div class="mki"><div class="mkl">九星</div><div class="mkv">${kyu}</div></div>
+    <div class="mki"><div class="mkl">六曜</div><div class="mkv">${roku}</div></div>
+    <div class="mki"><div class="mkl">十二直</div><div class="mkv">${joku}</div></div>
+    <div class="mki"><div class="mkl">二十八宿</div><div class="mkv">${niju}</div></div>`;
+
+  // 自然農法アドバイス
+  const natAdv=getNatureAdvice(y,m,d);
+  document.getElementById('natureBlock').innerHTML=`
+    <h5>🌿 自然農法カレンダー（月齢×二十四節気）</h5>
+    <div class="nature-advice">
+      ${natAdv.map(a=>`
+        <div class="na-item">
+          <span class="na-icon">${a.icon}</span>
+          <div class="na-text"><strong>${a.title}</strong>${a.text.replace(/\n/g,'<br>')}</div>
+        </div>`).join('')}
+    </div>`;
+
+  const koyomiEv=getKoyomiEvents(y,m,d);
+  const moonEv=getMoonNatureEvents(y,m,d);
+  const allEv=[...koyomiEv,...moonEv];
+
+  // 惑星逆行ブロック
+  const retroPl=getRetrogradePlanets(y,m,d);
+  const retroBlock=document.getElementById('retroModalBlock');
+  if(retroPl.length>0){
+    retroBlock.style.display='block';
+    retroBlock.innerHTML=`
+      <h5>🪐 本日逆行中の惑星</h5>
+      ${retroPl.map(pl=>{
+        // この惑星の該当期間を特定
+        let curPeriod=null;
+        for(const per of pl.periods){
+          const [sm,sd]=per.s,[em,ed]=per.e;
+          const sN=sm*100+sd,eN=em*100+ed,tN=m*100+d;
+          if(tN>=sN&&tN<=eN){curPeriod=per;break;}
+        }
+        const isStart=curPeriod&&curPeriod.s[0]===m&&curPeriod.s[1]===d;
+        const isEnd=curPeriod&&curPeriod.e[0]===m&&curPeriod.e[1]===d;
+        const startLabel=curPeriod?`${curPeriod.s[0]}/${curPeriod.s[1]}（逆行開始）`:'';
+        const endLabel=curPeriod?`${curPeriod.e[0]}/${curPeriod.e[1]}（順行戻り）`:'';
+        const isMercury=pl.id==='mercury';
+        const nameColor=isMercury?'#00b4d8':pl.color;
+        const borderStyle=isMercury?`border-left:3px solid #00b4d8;padding-left:8px;`:'';
+        const statusBadge=isStart
+          ?`<span style="font-size:.55rem;background:#00b4d8;color:#fff;padding:1px 5px;border-radius:6px;margin-left:4px">逆行スタート</span>`
+          :isEnd
+          ?`<span style="font-size:.55rem;background:#58d68d;color:#1a3a1a;padding:1px 5px;border-radius:6px;margin-left:4px">本日で順行へ</span>`
+          :'';
+        // 全期間リスト
+        const allPeriodsHtml=pl.periods.map(per=>{
+          const [sm,sd]=per.s,[em,ed]=per.e;
+          const isThis=curPeriod&&per===curPeriod;
+          return `<span style="display:inline-block;font-size:.56rem;padding:1px 5px;border-radius:4px;margin:1px;${isThis?`background:${nameColor}22;border:1px solid ${nameColor}66;font-weight:700;`:'color:rgba(80,50,100,.6);'}">${sm}/${sd}〜${em}/${ed}（${per.note}）</span>`;
+        }).join('');
+        return`<div class="retro-modal-item" style="${borderStyle}">
+          <div class="retro-modal-dot" style="background:${nameColor}"></div>
+          <div class="retro-modal-txt" style="flex:1">
+            <strong style="color:${nameColor}">${pl.emoji} ${pl.name}逆行中${statusBadge}</strong>
+            <div style="font-size:.6rem;color:#5a3a6a;margin:2px 0 3px">
+              📅 ${startLabel}　→　${endLabel}
+            </div>
+            <div style="margin-bottom:4px">${allPeriodsHtml}</div>
+            <span>【司るテーマ】${pl.theme}<br>
+            ${pl.retroDesc.replace(/\n/g,'<br>')}</span>
+          </div>
+        </div>`;
+      }).join('')}
+    `;
+  } else {
+    retroBlock.style.display='none';
+  }
+
+  const s=(n,x=5)=>'★'.repeat(Math.max(0,Math.min(n,x)))+'☆'.repeat(Math.max(0,x-n));
+  const has=l=>allEv.some(e=>e.label.includes(l));
+  const tSc=has('天赦')?5:has('受死')?1:has('大安')?4:has('仏滅')?1:3;
+  const lSc=has('天赦')?5:(has('一粒')&&has('大安'))?5:has('一粒')?4:has('大安')?4:has('仏滅')?1:has('受死')?1:2;
+  const seedSc=phase==='waxing1'||phase==='waxing2'?5:phase==='new'?4:phase==='full'?2:3;
+  const harvestSc=isFM?5:phase==='full'?5:phase==='waning1'?4:phase==='new'?3:2;
+
+  const stEv=allEv.find(e=>e.cat==='startup');
+  const stSc=stEv?(stEv.cls==='c-st-ex'?5:stEv.cls==='c-st-a'?4:3):
+             (allEv.some(e=>e.label.includes('受死')||e.label.includes('不成就'))?1:2);
+
+  document.getElementById('detailLuck').innerHTML=`
+    <div class="lm-it"><div class="lm-lb">✈️旅行</div><div class="lm-st">${s(tSc)}</div></div>
+    <div class="lm-it"><div class="lm-lb">⭐全体運</div><div class="lm-st">${s(lSc)}</div></div>
+    <div class="lm-it"><div class="lm-lb">🚀事業開始</div><div class="lm-st">${s(stSc)}</div></div>
+    <div class="lm-it"><div class="lm-lb">🌱種まき</div><div class="lm-st">${s(seedSc)}</div></div>
+    <div class="lm-it"><div class="lm-lb">🍎収穫</div><div class="lm-st">${s(harvestSc)}</div></div>`;
+
+  document.getElementById('detailEv').innerHTML=`<h4>▪ 本日の暦注</h4>`+
+    (koyomiEv.length?koyomiEv.map(e=>`
+      <div class="mev-item">
+        ${iconHtml(e,true)}
+        <div class="mev-txt"><strong>${e.label}</strong><span>${e.desc.replace(/\n/g,'<br>')}</span></div>
+      </div>`).join('')
+    :'<div style="color:#8d6e4f;font-size:.7rem;padding:5px">特記事項なし</div>');
+
+  document.getElementById('schedText').value='';
+  renderSchedList();
+  document.getElementById('detailOv').classList.add('open');
+}
+
+function renderSchedList(){
+  const list=getSchedFor(detailY,detailM,detailD);
+  const el=document.getElementById('schedList');
+  if(!list.length){el.innerHTML='<div style="font-size:.68rem;color:#8d6e4f;padding:2px 0 6px">まだ予定はありません</div>';return;}
+  el.innerHTML=list.map(sc=>`
+    <div class="sched-chip" style="background:rgba(44,24,16,.04);border-color:rgba(44,24,16,.2)">
+      <span style="flex:1;color:#1a1008;font-weight:700">${sc.text}</span>
+      <button class="sched-del" onclick="event.stopPropagation();deleteSched(${sc.id})">✕</button>
+    </div>`).join('');
+}
+function addSched(){
+  const txt=document.getElementById('schedText').value.trim();
+  if(!txt)return;
+  addSchedFor(detailY,detailM,detailD,txt,'#1a1008');
+  document.getElementById('schedText').value='';
+  render();
+  closeDetailDirect();
+}
+function deleteSched(id){delSchedFor(detailY,detailM,detailD,id);renderSchedList();render();}
+document.addEventListener('DOMContentLoaded',()=>{document.getElementById('schedText').addEventListener('keydown',e=>{if(e.key==='Enter')addSched();});});
+function closeDetail(e){if(e.target===document.getElementById('detailOv'))closeDetailDirect();}
+function closeModalDirect(){document.getElementById('detailOv').classList.remove('open');}
+function closeDetailDirect(){document.getElementById('detailOv').classList.remove('open');}
+
+// =====================================================
+// タブ切り替え
+// =====================================================
+function switchTab(tab){
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>{
+    b.classList.toggle('active',b.getAttribute('onclick').includes(tab));
+  });
+  document.querySelectorAll('.tab-pane').forEach(p=>{
+    p.classList.toggle('active',p.id==='tab-'+tab);
+  });
+  if(tab==='plan') renderPlanPage();
+}
+
+// =====================================================
+// 事業計画ページ
+// =====================================================
+const PLAN_KEY='koyomi_plan_2026';
+
+function loadPlanData(){
+  try{return JSON.parse(localStorage.getItem(PLAN_KEY)||'{}');}catch{return{};}
+}
+function savePlanData(data){
+  try{localStorage.setItem(PLAN_KEY,JSON.stringify(data));}catch{}
+}
+
+function getPlanDays(){
+  const days=getStartupDaysCache();
+  const WK=['日','月','火','水','木','金','土'];
+  const today=new Date();
+  today.setHours(0,0,0,0);
+  const parse=str=>{const[m,d]=str.split('/').map(Number);return{m,d,str};};
+  const enrich=({m,d,str})=>{
+    const dt=new Date(2026,m-1,d);
+    const wk=WK[dt.getDay()];
+    const roku=getRoku(2026,m,d);
+    const joku=getJoku(2026,m,d);
+    const niju=getNiju(2026,m,d);
+    const isHol=SP.holidays[String(m).padStart(2,'0')+String(d).padStart(2,'0')];
+    const mercRetro=getRetrogradePlanets(2026,m,d).some(p=>p.id==='mercury');
+    return{m,d,str,wk,roku,joku,niju,isHol,mercRetro,dt};
+  };
+  const exDays=days.ex.map(parse).map(enrich).map(o=>({...o,rank:'ex'}));
+  const aDays =days.a.map(parse).map(enrich).map(o=>({...o,rank:'a'}));
+  // 合算・日付順ソート・過去日を除外
+  return[...exDays,...aDays]
+    .sort((a,b)=>a.m*100+a.d-(b.m*100+b.d))
+    .filter(d=>d.dt>=today);
+}
+
+function renderPlanPage(){
+  const data=loadPlanData();
+  document.getElementById('planTitleInput').value=data.title||'';
+  document.getElementById('planTitleInput').oninput=()=>{
+    const d=loadPlanData();d.title=document.getElementById('planTitleInput').value;savePlanData(d);
+  };
+
+  const planDays=getPlanDays();
+  if(planDays.length===0){
+    document.getElementById('planDateList').innerHTML='<div class="plan-empty">残りの事業開始吉日はありません</div>';
+    document.getElementById('planProgressArea').style.display='none';
+    return;
+  }
+
+  const entries=data.entries||{};
+  const filled=planDays.filter(d=>{const e=entries[d.str];return e&&(e.plan||e.result);}).length;
+  const pct=Math.round(filled/planDays.length*100);
+  document.getElementById('planProgressArea').style.display='block';
+  document.getElementById('planProgressPct').textContent=`${filled}/${planDays.length}日 記入済み（${pct}%）`;
+  document.getElementById('planProgressFill').style.width=pct+'%';
+
+  const exCount=planDays.filter(d=>d.rank==='ex').length;
+  const aCount =planDays.filter(d=>d.rank==='a').length;
+
+  document.getElementById('planDateList').innerHTML=`
+    <div style="background:rgba(42,28,14,.85);border:1px solid rgba(201,168,76,.25);border-radius:10px;overflow:hidden;">
+      <div style="padding:8px 12px;background:rgba(201,168,76,.08);border-bottom:1px solid rgba(201,168,76,.2);font-size:.65rem;color:rgba(232,201,122,.7);display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <span>🚀 事業開始吉日 全${planDays.length}日（今日以降・日付順）</span>
+        <span style="display:inline-flex;align-items:center;gap:4px">
+          <span style="background:linear-gradient(135deg,#ffe259,#ffa751);color:#7a4000;font-size:.55rem;padding:1px 6px;border-radius:3px;font-weight:700">✨最吉</span>
+          <span style="color:rgba(232,201,122,.6);font-size:.6rem">${exCount}日</span>
+        </span>
+        <span style="display:inline-flex;align-items:center;gap:4px">
+          <span style="background:#ffca28;color:#1a1008;font-size:.55rem;padding:1px 6px;border-radius:3px;font-weight:700">◎大吉</span>
+          <span style="color:rgba(232,201,122,.6);font-size:.6rem">${aCount}日</span>
+        </span>
+      </div>
+      <div class="plan-date-list">${planDays.map(d=>renderPlanRow(d,entries)).join('')}</div>
+    </div>`;
+}
+
+function renderPlanRow(day,entries){
+  const key=day.str;
+  const e=(entries&&entries[key])||{plan:'',result:''};
+  const hasPlan  =!!(e.plan&&e.plan.trim());
+  const hasResult=!!(e.result&&e.result.trim());
+  // プレビュー：実施内容優先、なければ活動計画を表示
+  const previewSrc=hasResult?e.result:hasPlan?e.plan:'';
+  const previewPrefix=hasResult?'✅ ':'📋 ';
+  const preview=previewSrc
+    ?(previewPrefix+previewSrc.replace(/\n/g,' ')).slice(0,32)+((previewPrefix+previewSrc).length>32?'…':'')
+    :'';
+  const mercWarn=day.mercRetro?'<span style="font-size:.5rem;color:#00b4d8;margin-left:4px">☿逆行</span>':'';
+  const holStr=day.isHol?`<span style="font-size:.48rem;color:#c0392b;margin-left:3px">🎌</span>`:'';
+
+  // 曜日色クラス（土=青、日=赤）
+  const dow=day.dt.getDay();
+  const wkCls=dow===6?'sat':dow===0?'sun':'';
+
+  // ランクバッジ（アイコン・テキストを完全同一構造で揃える）
+  const rankBadge=day.rank==='ex'
+    ?`<div class="plan-rank-left prrl-ex"><span class="rl-icon">✨</span><span class="rl-text">最吉</span></div>`
+    :`<div class="plan-rank-left prrl-a"><span class="rl-icon">◎</span><span class="rl-text">大吉</span></div>`;
+
+  // 行の塗り分けクラス
+  let rowCls='plan-row';
+  if(day.rank==='ex') rowCls+=' plan-row-ex';
+  if(hasResult) rowCls+=' has-result';
+  else if(hasPlan) rowCls+=' has-plan';
+
+  const doneMark=hasPlan||hasResult?'<span style="font-size:.6rem;color:#2d6a4f;margin-right:3px">✓</span>':'';
+
+  return`<div class="${rowCls}" id="pr-${key}">
+    <div class="plan-row-hdr" onclick="togglePlanRow('${key}')">
+      ${rankBadge}
+      <div class="plan-row-date">
+        <span class="prd-main">${day.m}/${day.d}<span class="prd-wk ${wkCls}">（${day.wk}）</span></span>
+        <div class="prd-sub">${day.roku}・${day.joku}${holStr}${mercWarn}</div>
+      </div>
+      <div class="plan-row-preview">${doneMark}${preview||'<span style="color:#bbb">未記入</span>'}</div>
+      <div class="plan-row-toggle">▼</div>
+    </div>
+    <div class="plan-row-body" id="prb-${key}">
+      <div class="plan-koyomi-tags">
+        <span class="plan-koyomi-tag">六曜：${day.roku}</span>
+        <span class="plan-koyomi-tag">十二直：${day.joku}</span>
+        <span class="plan-koyomi-tag">二十八宿：${day.niju}</span>
+        ${day.isHol?`<span class="plan-koyomi-tag" style="color:#c0392b">祝日：${day.isHol}</span>`:''}
+        ${day.mercRetro?`<span class="plan-koyomi-tag" style="color:#00b4d8">☿水星逆行中</span>`:''}
+      </div>
+      ${hasPlan||hasResult ? `
+        <!-- 登録済み：表示モード -->
+        <div id="pview-${key}">
+          <div class="plan-field-label">📋 活動計画・やること</div>
+          <div class="plan-saved-text${hasPlan?'':' empty'}">${hasPlan?e.plan.replace(/\n/g,'<br>'):'未記入'}</div>
+          <div class="plan-field-label" style="margin-top:8px">✅ 実施内容・結果・メモ</div>
+          <div class="plan-saved-text${hasResult?'':' empty'}">${hasResult?e.result.replace(/\n/g,'<br>'):'未記入'}</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <button class="plan-edit-btn" onclick="enterEditMode('${key}')">✏️ 編集する</button>
+          </div>
+        </div>
+        <!-- 編集モード（初期非表示） -->
+        <div id="pedit-${key}" style="display:none">
+          <div class="plan-field-label">📋 活動計画・やること</div>
+          <textarea class="plan-textarea" id="plan-p-${key}" placeholder="この日に行う活動・タスク・目標を記入…" rows="3">${e.plan||''}</textarea>
+          <div class="plan-field-label">✅ 実施内容・結果・メモ</div>
+          <textarea class="plan-textarea" id="plan-r-${key}" placeholder="実施した内容・結果・気づきを記入…" rows="3">${e.result||''}</textarea>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <button class="plan-save-btn" onclick="savePlanRow('${key}')">保存して閉じる</button>
+            <button class="plan-edit-btn" onclick="cancelEditMode('${key}')">キャンセル</button>
+          </div>
+        </div>
+      ` : `
+        <!-- 未登録：入力モード -->
+        <div id="pedit-${key}">
+          <div class="plan-field-label">📋 活動計画・やること</div>
+          <textarea class="plan-textarea" id="plan-p-${key}" placeholder="この日に行う活動・タスク・目標を記入…" rows="3"></textarea>
+          <div class="plan-field-label">✅ 実施内容・結果・メモ</div>
+          <textarea class="plan-textarea" id="plan-r-${key}" placeholder="実施した内容・結果・気づきを記入…" rows="3"></textarea>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <button class="plan-save-btn" onclick="savePlanRow('${key}')">保存して閉じる</button>
+          </div>
+        </div>
+      `}
+    </div>
+  </div>`;
+}
+
+function togglePlanRow(key){
+  const row=document.getElementById('pr-'+key);
+  row.classList.toggle('open');
+}
+
+function enterEditMode(key){
+  document.getElementById('pview-'+key).style.display='none';
+  const edit=document.getElementById('pedit-'+key);
+  edit.style.display='block';
+  // テキストエリアにフォーカス
+  const ta=document.getElementById('plan-p-'+key);
+  if(ta) setTimeout(()=>ta.focus(),50);
+}
+
+function cancelEditMode(key){
+  document.getElementById('pedit-'+key).style.display='none';
+  document.getElementById('pview-'+key).style.display='block';
+}
+
+function savePlanRow(key){
+  const data=loadPlanData();
+  if(!data.entries) data.entries={};
+  data.entries[key]={
+    plan:document.getElementById('plan-p-'+key).value,
+    result:document.getElementById('plan-r-'+key).value,
+    savedAt:new Date().toISOString()
+  };
+  savePlanData(data);
+  // ページ再描画（保存内容を表示モードで反映）
+  renderPlanPage();
+  // 保存後は行を閉じる
+  const row=document.getElementById('pr-'+key);
+  if(row) row.classList.remove('open');
+}
+
+
+renderFilters();
+renderLegend();
+updateRetroPanel();
+render();
+</script>
+</body>
+</html>
