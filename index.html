@@ -295,6 +295,129 @@ header p{color:rgba(232,201,122,.5);font-size:.58rem;letter-spacing:.14em;margin
 .li.xl{width:26px;height:26px;border-width:2px;border-radius:6px;font-size:1rem;}
 .li.moon{border-radius:50%;font-size:.95rem;}
 
+/* ─── 新月スピリチュアルブロック ─── */
+.newmoon-block{
+  background:linear-gradient(135deg,rgba(74,20,140,.07) 0%,rgba(100,50,180,.04) 100%);
+  border:1px solid rgba(100,50,200,.25);
+  border-radius:12px;
+  padding:12px 14px;
+  margin-bottom:10px;
+}
+.newmoon-block-title{
+  display:flex;align-items:center;gap:7px;
+  font-size:.72rem;font-weight:700;letter-spacing:.12em;color:#4a148c;
+  border-bottom:1px solid rgba(100,50,200,.18);
+  padding-bottom:6px;margin-bottom:10px;
+  font-family:'Kaisei Opti',serif;
+}
+.nm-section{margin-bottom:10px;}
+.nm-section:last-child{margin-bottom:0;}
+.nm-section-title{
+  font-size:.63rem;font-weight:700;color:#6a1b9a;
+  letter-spacing:.08em;margin-bottom:5px;
+  display:flex;align-items:center;gap:4px;
+}
+.nm-section-title::before{
+  content:'';display:inline-block;width:3px;height:10px;
+  background:linear-gradient(180deg,#9c27b0,#4a148c);border-radius:2px;
+}
+.nm-rows{display:flex;flex-direction:column;gap:5px;}
+.nm-row{
+  display:flex;align-items:flex-start;gap:8px;
+  background:rgba(255,255,255,.55);border:1px solid rgba(150,80,220,.15);
+  border-radius:8px;padding:7px 9px;font-size:.67rem;color:#3e2723;line-height:1.5;
+}
+.nm-row-icon{font-size:1rem;flex-shrink:0;width:22px;text-align:center;margin-top:1px;}
+.nm-row-body strong{display:block;font-size:.68rem;color:#4a148c;margin-bottom:1px;}
+.nm-wish-rules{display:flex;flex-direction:column;gap:4px;}
+.nm-rule{
+  display:flex;align-items:center;gap:6px;font-size:.65rem;color:#4a148c;
+  background:rgba(156,39,176,.06);border-radius:6px;padding:5px 8px;
+}
+.nm-rule-dot{
+  width:6px;height:6px;border-radius:50%;background:#9c27b0;flex-shrink:0;
+}
+.nm-avoid-grid{display:flex;flex-direction:column;gap:4px;}
+.nm-avoid-item{
+  display:flex;align-items:flex-start;gap:6px;font-size:.65rem;color:#6d1b7b;
+  background:rgba(100,0,100,.05);border-radius:6px;padding:5px 8px;
+  border-left:3px solid rgba(156,39,176,.3);
+}
+.nm-avoid-icon{font-size:.85rem;flex-shrink:0;}
+.nm-timing-badge{
+  display:inline-block;background:linear-gradient(135deg,#4a148c,#6a1b9a);
+  color:#fff;font-size:.65rem;padding:4px 10px;border-radius:20px;
+  letter-spacing:.08em;margin-bottom:8px;font-family:'Kaisei Opti',serif;
+}
+.nm-wish-count{
+  font-size:.63rem;color:#6a1b9a;background:rgba(156,39,176,.08);
+  border:1px dashed rgba(156,39,176,.3);border-radius:6px;
+  padding:5px 9px;margin-top:6px;line-height:1.5;
+}
+
+/* ─── 満月ビューティ＆ヘルスブロック ─── */
+.fullmoon-block{
+  background:linear-gradient(135deg,rgba(21,101,192,.07) 0%,rgba(255,215,0,.06) 100%);
+  border:1px solid rgba(21,101,192,.25);
+  border-radius:12px;
+  padding:12px 14px;
+  margin-bottom:10px;
+}
+.fullmoon-block-title{
+  display:flex;align-items:center;gap:7px;
+  font-size:.72rem;font-weight:700;letter-spacing:.12em;color:#0d47a1;
+  border-bottom:1px solid rgba(21,101,192,.18);
+  padding-bottom:6px;margin-bottom:10px;
+  font-family:'Kaisei Opti',serif;
+}
+.fm-section{margin-bottom:10px;}
+.fm-section:last-child{margin-bottom:0;}
+.fm-section-title{
+  font-size:.63rem;font-weight:700;color:#1565c0;
+  letter-spacing:.08em;margin-bottom:5px;
+  display:flex;align-items:center;gap:4px;
+}
+.fm-section-title::before{
+  content:'';display:inline-block;width:3px;height:10px;
+  background:linear-gradient(180deg,#1e88e5,#0d47a1);border-radius:2px;
+}
+.fm-rows{display:flex;flex-direction:column;gap:5px;}
+.fm-row{
+  display:flex;align-items:flex-start;gap:8px;
+  background:rgba(255,255,255,.6);border:1px solid rgba(21,101,192,.15);
+  border-radius:8px;padding:7px 9px;font-size:.67rem;color:#1a2a3a;line-height:1.5;
+}
+.fm-row-icon{font-size:1rem;flex-shrink:0;width:22px;text-align:center;margin-top:1px;}
+.fm-row-body strong{display:block;font-size:.68rem;color:#0d47a1;margin-bottom:1px;}
+.fm-care-grid{display:flex;flex-direction:column;gap:4px;}
+.fm-care-item{
+  display:flex;align-items:flex-start;gap:6px;font-size:.65rem;
+  background:rgba(21,101,192,.06);border-radius:6px;padding:5px 8px;
+  border-left:3px solid rgba(21,101,192,.3);color:#1a2a4a;line-height:1.4;
+}
+.fm-care-icon{font-size:.85rem;flex-shrink:0;}
+.fm-badge{
+  display:inline-block;
+  background:linear-gradient(135deg,#1565c0,#1e88e5);
+  color:#fff;font-size:.65rem;padding:4px 10px;border-radius:20px;
+  letter-spacing:.08em;margin-bottom:8px;font-family:'Kaisei Opti',serif;
+}
+.fm-alert{
+  font-size:.63rem;color:#1565c0;background:rgba(21,101,192,.07);
+  border:1px dashed rgba(21,101,192,.3);border-radius:6px;
+  padding:5px 9px;margin-top:6px;line-height:1.5;
+}
+.fm-2col{
+  display:grid;grid-template-columns:1fr 1fr;gap:5px;
+}
+.fm-2col-item{
+  background:rgba(255,255,255,.6);border:1px solid rgba(21,101,192,.15);
+  border-radius:8px;padding:7px 8px;font-size:.63rem;color:#1a2a3a;line-height:1.45;
+  text-align:center;
+}
+.fm-2col-item .fm-2col-icon{font-size:1.2rem;display:block;margin-bottom:3px;}
+.fm-2col-item strong{display:block;font-size:.65rem;color:#0d47a1;margin-bottom:2px;}
+
 /* ─── モーダル ─── */
 .modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:200;align-items:flex-end;justify-content:center;}
 .modal-ov.open{display:flex;}
@@ -498,6 +621,310 @@ header p{color:rgba(232,201,122,.5);font-size:.58rem;letter-spacing:.14em;margin
   .ki-xl{width:28px;height:28px;font-size:1.1rem;}
   .dn{font-size:1.1rem;}
 }
+
+/* ─── ツカサブロック（モーダル内） ─── */
+.tsukasa-block{
+  background:linear-gradient(135deg,rgba(139,105,20,.1) 0%,rgba(201,168,76,.06) 100%);
+  border:1px solid rgba(201,168,76,.4);
+  border-radius:12px;
+  padding:11px 13px;
+  margin-bottom:10px;
+}
+.tsukasa-block-title{
+  display:flex;align-items:center;gap:7px;
+  font-size:.68rem;font-weight:700;letter-spacing:.12em;
+  color:#7a4000;
+  border-bottom:1px solid rgba(201,168,76,.25);
+  padding-bottom:5px;margin-bottom:9px;
+  font-family:'Kaisei Opti',serif;
+}
+.tsukasa-tag{
+  display:inline-block;font-size:.5rem;padding:1px 6px;border-radius:10px;
+  background:linear-gradient(135deg,#c9a84c,#e8c97a);color:#1a1008;
+  font-weight:700;letter-spacing:.05em;margin-right:4px;vertical-align:middle;
+}
+.tsukasa-essence{
+  font-size:.66rem;color:#5a3a00;background:rgba(201,168,76,.1);
+  border-radius:7px;padding:5px 9px;margin-bottom:8px;line-height:1.6;
+  border-left:3px solid rgba(201,168,76,.5);font-style:italic;
+}
+.tsukasa-items{display:flex;flex-direction:column;gap:5px;}
+.tsukasa-item{
+  display:flex;align-items:flex-start;gap:8px;
+  background:rgba(255,255,255,.55);border:1px solid rgba(201,168,76,.2);
+  border-radius:8px;padding:6px 9px;font-size:.65rem;color:#2c1810;line-height:1.5;
+}
+.tsukasa-item-num{
+  flex-shrink:0;width:18px;height:18px;border-radius:50%;
+  background:linear-gradient(135deg,#c9a84c,#e8c97a);
+  color:#1a1008;font-size:.58rem;font-weight:900;
+  display:flex;align-items:center;justify-content:center;margin-top:1px;
+}
+.tsukasa-item-body strong{display:block;font-size:.66rem;color:#7a4000;margin-bottom:1px;}
+.tsukasa-note{
+  font-size:.58rem;color:rgba(122,64,0,.6);margin-top:7px;
+  background:rgba(201,168,76,.07);border-radius:6px;padding:4px 8px;line-height:1.5;
+}
+
+/* ─── 吉日辞書タブ ─── */
+.jitsu-wrap{max-width:900px;margin:0 auto;padding:12px 10px;}
+.jitsu-header{
+  background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.08));
+  border:1px solid rgba(201,168,76,.3);border-radius:12px;
+  padding:12px 14px;margin-bottom:12px;text-align:center;
+}
+.jitsu-header-title{
+  font-family:'Kaisei Opti',serif;color:var(--gold-l);
+  font-size:1rem;letter-spacing:.2em;margin-bottom:4px;
+}
+.jitsu-header-sub{font-size:.6rem;color:rgba(232,201,122,.6);letter-spacing:.1em;}
+.jitsu-card{
+  background:rgba(250,243,224,.97);border-radius:12px;
+  margin-bottom:10px;overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,.15),0 0 0 1px rgba(201,168,76,.2);
+}
+.jitsu-card-hdr{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;cursor:pointer;
+  border-bottom:1px solid rgba(201,168,76,.15);
+  background:rgba(201,168,76,.06);
+  transition:background .15s;
+}
+.jitsu-card-hdr:hover{background:rgba(201,168,76,.12);}
+.jitsu-card-icon{
+  width:36px;height:36px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;font-weight:900;flex-shrink:0;
+  border:2px solid;background:#fff;font-family:'Noto Serif JP',serif;
+}
+.jitsu-card-meta{flex:1;}
+.jitsu-card-name{font-family:'Kaisei Opti',serif;font-size:.85rem;font-weight:700;color:var(--ink);}
+.jitsu-card-yomi{font-size:.58rem;color:#8d6e4f;letter-spacing:.05em;}
+.jitsu-card-freq{font-size:.55rem;color:rgba(201,168,76,.8);background:rgba(201,168,76,.1);padding:2px 7px;border-radius:10px;white-space:nowrap;}
+.jitsu-card-toggle{font-size:.65rem;color:#8d6e4f;transition:transform .2s;}
+.jitsu-card.open .jitsu-card-toggle{transform:rotate(180deg);}
+.jitsu-card-body{display:none;padding:12px 14px;}
+.jitsu-card.open .jitsu-card-body{display:block;}
+.jitsu-essence-box{
+  background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.05));
+  border:1px solid rgba(201,168,76,.25);border-radius:8px;
+  padding:8px 11px;margin-bottom:10px;
+  font-size:.68rem;color:#5a3a00;line-height:1.65;
+  border-left:4px solid rgba(201,168,76,.5);font-style:italic;
+}
+.jitsu-section-ttl{
+  font-size:.62rem;font-weight:700;color:#8d6e4f;
+  letter-spacing:.1em;margin-bottom:6px;
+  display:flex;align-items:center;gap:4px;
+}
+.jitsu-section-ttl::before{
+  content:'';width:3px;height:10px;border-radius:2px;
+  background:linear-gradient(180deg,#c9a84c,#e8c97a);display:inline-block;
+}
+.jitsu-do-list{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;}
+.jitsu-do-item{
+  display:flex;align-items:flex-start;gap:8px;
+  background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);
+  border-radius:7px;padding:6px 9px;font-size:.65rem;color:#2c1810;line-height:1.5;
+}
+.jitsu-do-num{
+  flex-shrink:0;width:18px;height:18px;border-radius:50%;
+  background:linear-gradient(135deg,#c9a84c,#e8c97a);
+  color:#1a1008;font-size:.56rem;font-weight:900;
+  display:flex;align-items:center;justify-content:center;margin-top:1px;
+}
+.jitsu-do-body strong{display:block;color:#7a4000;font-size:.66rem;margin-bottom:1px;}
+.jitsu-avoid-list{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;}
+.jitsu-avoid-item{
+  font-size:.63rem;color:#8d4a00;
+  background:rgba(255,80,0,.05);border:1px solid rgba(255,80,0,.12);
+  border-radius:6px;padding:4px 9px;line-height:1.45;
+}
+.jitsu-dates-box{
+  background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);
+  border-radius:7px;padding:7px 10px;
+}
+.jitsu-dates-ttl{font-size:.58rem;color:#8d6e4f;margin-bottom:5px;letter-spacing:.08em;}
+.jitsu-dates-chips{display:flex;flex-wrap:wrap;gap:3px;}
+.jitsu-date-chip{
+  font-size:.56rem;padding:2px 7px;border-radius:10px;
+  background:rgba(201,168,76,.15);color:#5a3a00;border:1px solid rgba(201,168,76,.3);
+  font-family:'Noto Serif JP',serif;
+}
+.jitsu-date-chip.today{
+  background:linear-gradient(135deg,#c9a84c,#e8c97a);color:#1a1008;
+  font-weight:700;border-color:#c9a84c;
+}
+.jitsu-date-chip.saikyo{
+  background:linear-gradient(135deg,#e65100,#ff8f00);color:#fff;
+  font-weight:700;border-color:#e65100;font-size:.52rem;
+}
+.jitsu-year-block{margin-bottom:8px;}
+.jitsu-year-ttl{
+  font-size:.58rem;font-weight:700;color:#8d6e4f;
+  letter-spacing:.12em;margin-bottom:4px;
+  padding-left:2px;border-left:3px solid rgba(201,168,76,.5);
+}
+
+/* ─── 暦ガイドタブ ─── */
+.guide-wrap{max-width:900px;margin:0 auto;padding:10px 10px 40px;}
+.guide-header{
+  background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.06));
+  border:1px solid rgba(201,168,76,.3);border-radius:12px;
+  padding:10px 14px;margin-bottom:10px;
+}
+.guide-header-title{
+  font-family:'Kaisei Opti',serif;color:var(--gold-l);
+  font-size:1rem;letter-spacing:.18em;margin-bottom:2px;
+}
+.guide-header-sub{font-size:.58rem;color:rgba(232,201,122,.6);letter-spacing:.08em;}
+
+/* カテゴリ選択ボタン */
+.guide-cat-bar{
+  display:flex;gap:6px;margin-bottom:12px;
+  background:rgba(42,28,14,.7);border:1px solid rgba(201,168,76,.2);
+  border-radius:14px;padding:6px;
+}
+.gcat-btn{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;
+  padding:8px 4px;border-radius:10px;border:1px solid transparent;
+  cursor:pointer;font-family:'Noto Serif JP',serif;
+  background:rgba(255,255,255,.04);color:rgba(255,255,255,.45);
+  transition:all .2s;
+}
+.gcat-btn:hover{background:rgba(201,168,76,.12);color:rgba(232,201,122,.8);}
+.gcat-btn.active{
+  background:rgba(201,168,76,.18);
+  border-color:rgba(201,168,76,.5);
+  color:var(--gold-l);
+}
+.gcat-btn .gb-emoji{font-size:1.25rem;line-height:1;}
+.gcat-btn .gb-label{font-size:.54rem;font-weight:700;letter-spacing:.04em;white-space:nowrap;}
+
+/* 月ナビ */
+.guide-mnav{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;
+}
+.guide-mnav button{
+  background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);
+  color:var(--gold-l);width:32px;height:32px;border-radius:50%;
+  font-size:.9rem;cursor:pointer;transition:background .2s;
+}
+.guide-mnav button:hover{background:rgba(201,168,76,.3);}
+.guide-mnav-center{display:flex;align-items:center;gap:8px;}
+.guide-mnav h2{
+  color:var(--gold-l);font-family:'Kaisei Opti',serif;
+  font-size:.95rem;letter-spacing:.1em;
+}
+
+/* メインコンテンツ：2ヶ月横並び */
+.guide-months{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:540px){.guide-months{grid-template-columns:1fr;}}
+
+/* 1ヶ月分カード */
+.guide-month-card{
+  background:rgba(250,243,224,.97);border-radius:12px;overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,.15),0 0 0 1px rgba(201,168,76,.2);
+}
+.guide-month-hdr{
+  padding:7px 10px;text-align:center;
+  font-family:'Kaisei Opti',serif;font-size:.78rem;font-weight:700;
+  border-bottom:1px solid rgba(201,168,76,.15);
+}
+
+/* カレンダーグリッド */
+.gcal-wrap{padding:6px 6px 0;}
+.gcal-wk{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:2px;}
+.gcal-wk div{text-align:center;font-size:.52rem;color:rgba(44,24,16,.5);padding:2px 0;}
+.gcal-wk div:first-child{color:#c0392b;}
+.gcal-wk div:last-child{color:#2c5f8a;}
+.gcal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
+
+/* カレンダーセル — 少し大きめ */
+.gcell{
+  aspect-ratio:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  font-size:.6rem;border-radius:5px;cursor:default;
+  font-family:'Noto Serif JP',serif;font-weight:500;
+  position:relative;transition:transform .1s;
+  line-height:1.1;
+}
+.gcell:hover{transform:scale(1.15);z-index:2;}
+.gcell.emp{opacity:0;pointer-events:none;}
+.gcell.today-cell{outline:2.5px solid var(--gold);outline-offset:-1px;font-weight:900;}
+
+/* 良い日グラデーション（濃→薄） */
+.gcell.g-best {background:#1b5e20;color:#fff;font-weight:900;box-shadow:0 0 8px rgba(27,94,32,.6);}
+.gcell.g-good {background:#388e3c;color:#fff;font-weight:700;}
+.gcell.g-ok   {background:#c8e6c9;color:#1b5e20;}
+
+/* 悪い日グラデーション */
+.gcell.b-worst{background:#b71c1c;color:#fff;font-weight:900;box-shadow:0 0 8px rgba(183,28,28,.6);}
+.gcell.b-bad  {background:#e53935;color:#fff;font-weight:700;}
+.gcell.b-ng   {background:#ffcdd2;color:#c62828;}
+
+/* 平常 */
+.gcell.neutral{background:rgba(201,168,76,.05);color:rgba(44,24,16,.4);}
+.gcell.sun-cell.neutral{color:#c0392b;}
+.gcell.sat-cell.neutral{color:#2c5f8a;}
+
+/* セル内バッジ */
+.gcell-badge{font-size:.45rem;line-height:1;margin-top:1px;}
+
+/* 凡例 */
+.gcal-legend{
+  display:flex;flex-wrap:wrap;gap:4px 8px;
+  padding:6px 6px 7px;border-top:1px solid rgba(201,168,76,.1);
+}
+.gcal-legend-item{display:flex;align-items:center;gap:3px;font-size:.5rem;color:rgba(44,24,16,.6);}
+.gcal-legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+
+/* 日付リスト */
+.glist-wrap{padding:6px 8px 10px;border-top:1px solid rgba(201,168,76,.12);}
+.glist-section{margin-bottom:8px;}
+.glist-section:last-child{margin-bottom:0;}
+.glist-section-ttl{
+  font-size:.58rem;font-weight:700;letter-spacing:.06em;
+  padding:3px 8px;border-radius:6px;margin-bottom:5px;
+  display:flex;align-items:center;gap:5px;
+}
+.glist-ttl-good{background:rgba(27,94,32,.1);color:#1b5e20;}
+.glist-ttl-bad {background:rgba(183,28,28,.1);color:#b71c1c;}
+.glist-chips{display:flex;flex-wrap:wrap;gap:3px;}
+.glist-chip{
+  font-size:.57rem;padding:3px 7px;border-radius:6px;
+  font-family:'Noto Serif JP',serif;white-space:nowrap;
+  display:inline-flex;align-items:center;gap:2px;cursor:default;
+}
+.glist-chip.best {background:#1b5e20;color:#fff;font-weight:700;box-shadow:0 1px 4px rgba(27,94,32,.4);}
+.glist-chip.good {background:#c8e6c9;color:#1b5e20;border:1px solid #a5d6a7;}
+.glist-chip.ok   {background:#f1f8e9;color:#2e7d32;border:1px solid #c8e6c9;}
+.glist-chip.worst{background:#b71c1c;color:#fff;font-weight:700;box-shadow:0 1px 4px rgba(183,28,28,.4);}
+.glist-chip.bad  {background:#ffcdd2;color:#b71c1c;border:1px solid #ef9a9a;}
+.glist-chip.ng   {background:#fce4ec;color:#c62828;border:1px solid #ffcdd2;}
+
+/* 理由パネル */
+.guide-reason-box{
+  background:rgba(42,28,14,.85);border:1px solid rgba(201,168,76,.25);
+  border-radius:10px;padding:10px 13px;margin-top:10px;
+}
+.guide-reason-title{
+  font-family:'Kaisei Opti',serif;font-size:.7rem;color:var(--gold-l);
+  letter-spacing:.1em;margin-bottom:8px;
+}
+.guide-reason-cols{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+@media(max-width:540px){.guide-reason-cols{grid-template-columns:1fr;}}
+.guide-reason-col h5{
+  font-size:.6rem;font-weight:700;letter-spacing:.08em;margin-bottom:5px;padding:3px 7px;border-radius:5px;
+}
+.guide-reason-col.good h5{background:rgba(27,94,32,.15);color:#1b5e20;}
+.guide-reason-col.bad  h5{background:rgba(183,28,28,.1);color:#b71c1c;}
+.guide-reason-item{
+  font-size:.6rem;color:rgba(232,201,122,.75);padding:2px 5px;
+  border-left:2px solid rgba(201,168,76,.3);margin-bottom:3px;line-height:1.45;
+}
+/* 月切り替え */
+.guide-month-pair{margin-bottom:0;}
 </style>
 </head>
 <body>
@@ -511,6 +938,8 @@ header p{color:rgba(232,201,122,.5);font-size:.58rem;letter-spacing:.14em;margin
 <div class="tab-bar">
   <button class="tab-btn active" onclick="switchTab('calendar')">🗓 暦カレンダー</button>
   <button class="tab-btn" onclick="switchTab('plan')">🚀 事業計画</button>
+  <button class="tab-btn" onclick="switchTab('jitsu')">📖 吉日辞書</button>
+  <button class="tab-btn" onclick="switchTab('guide')">✂️ 暦ガイド</button>
 </div>
 
 <!-- カレンダータブ -->
@@ -569,6 +998,41 @@ header p{color:rgba(232,201,122,.5);font-size:.58rem;letter-spacing:.14em;margin
 </div>
 </div><!-- /tab-plan -->
 
+<!-- 吉日辞書タブ -->
+<div class="tab-pane" id="tab-jitsu">
+<div class="jitsu-wrap">
+  <div class="jitsu-header">
+    <div class="jitsu-header-title">📖 吉日辞書</div>
+    <div class="jitsu-header-sub">各吉日の本質・やるべきこと・避けること・2026年の日付一覧</div>
+  </div>
+  <div id="jitsuGrid"></div>
+</div>
+</div><!-- /tab-jitsu -->
+
+<!-- 暦ガイドタブ -->
+<div class="tab-pane" id="tab-guide">
+<div class="guide-wrap">
+  <div class="guide-header">
+    <div class="guide-header-title">✂️ 暦ガイド</div>
+    <div class="guide-header-sub">行動を選ぶと月齢・暦注から最良日・避ける日を判定します</div>
+  </div>
+  <!-- カテゴリ選択 -->
+  <div class="guide-cat-bar" id="guideCatBar"></div>
+  <!-- 月ナビ -->
+  <div class="guide-mnav">
+    <button onclick="guideChMonth(-1)">◀</button>
+    <div class="guide-mnav-center">
+      <h2 id="guideMTitle"></h2>
+    </div>
+    <button onclick="guideChMonth(1)">▶</button>
+  </div>
+  <!-- 2ヶ月分カレンダー -->
+  <div class="guide-months" id="guideMonths"></div>
+  <!-- 判定理由パネル -->
+  <div class="guide-reason-box" id="guideReasonBox"></div>
+</div>
+</div><!-- /tab-guide -->
+
 <!-- モーダル -->
 <div class="modal-ov" id="detailOv" onclick="closeDetail(event)">
   <div class="modal-sheet">
@@ -577,10 +1041,13 @@ header p{color:rgba(232,201,122,.5);font-size:.58rem;letter-spacing:.14em;margin
       <button class="modal-close" onclick="closeDetailDirect()">✕</button>
     </div>
     <div id="moonInfoBar"></div>
+    <div id="fullmoonBlock"></div>
+    <div id="newmoonBlock"></div>
     <div class="mkg" id="detailKg"></div>
     <div class="retro-modal-block" id="retroModalBlock" style="display:none"></div>
     <div class="nature-block" id="natureBlock"></div>
     <div class="luck-m" id="detailLuck"></div>
+    <div id="tsukasaBlock"></div>
     <div class="mev" id="detailEv"></div>
     <div class="sched-section">
       <h4>📅 この日の予定</h4>
@@ -626,28 +1093,24 @@ function isKinoeNe(y,m,d){return kanName(y,m,d)===0&&shiName(y,m,d)===0;}
 // =====================================================
 // 新月(🌚) と 満月(🌝) の日付（JST）
 const MOON_PHASES_2026={
-  newmoon:[  // 新月
-    '0101','0131','0301','0330','0428',
-    '0528','0626','0726','0824','0923',
-    '1022','1121','1221'
+  newmoon:[  // 新月（e-moon.net / cooria.jp より）
+    '0119','0217','0319','0417','0517',
+    '0615','0714','0813','0911','1011',
+    '1109','1209'
   ],
-  fullmoon:[ // 満月
-    '0114','0213','0314','0413','0513',
-    '0611','0711','0810','0908','1007',
-    '1106','1205'
+  fullmoon:[ // 満月（e-moon.net / cooria.jp より）
+    '0103','0202','0303','0402','0502',
+    '0531','0630','0729','0828','0927',
+    '1026','1124','1224'
   ]
 };
 
 // 月齢取得（0〜29.5）
-// 基準: 2026/1/1 = 新月(月齢0) に近い
-// 2026/1/1 の月齢は約10.5（前回新月: 2025/12/20頃）
-// より正確に: 2026/1/31 = 新月(月齢0)
-// 1/1の月齢 = 29.5 - 30 = -0.5... → 2025/12/31新月から
-// 実際: 2026/1/1の月齢 ≒ 1.5（2025/12/30 新月）
-// 簡易: 1/31新月を基準に逆算 → 1/1は30日前 = 月齢 29.5-30≒月齢0.5
-// 基準点: 2026/1/31 = 新月 = 月齢0
+// 基準: 2026/1/19 = 新月(月齢0)
+// 正確なデータは e-moon.net/calendar_list/calendar_moon_2026/ より
+// 基準点: 2026/1/19 = 新月 = 月齢0
 function getMoonAge(y,m,d){
-  const refNewMoon=new Date(2026,0,31); // 1/31新月
+  const refNewMoon=new Date(2026,0,19); // 1/19新月
   const target=new Date(y,m-1,d);
   const diff=Math.round((target-refNewMoon)/86400000);
   let age=((diff%29.5)+29.5)%29.5;
@@ -1156,13 +1619,23 @@ function calcDayScore(y,m,d){
 
 function getBestWorstDays(y,m){
   const days=new Date(y,m,0).getDate();
-  let best={d:0,score:-999},worst={d:0,score:999};
+  let bestScore=-999,worstScore=999;
+  // まずスコアの最大・最小を確定
   for(let d=1;d<=days;d++){
     const sc=calcDayScore(y,m,d);
-    if(sc>best.score){best={d,score:sc};}
-    if(sc<worst.score){worst={d,score:sc};}
+    if(sc>bestScore) bestScore=sc;
+    if(sc<worstScore) worstScore=sc;
   }
-  return{best:best.d,worst:worst.d};
+  // 同率の場合は六曜優先度でタイブレーク（大安>友引>先勝>先負>赤口>仏滅）
+  const rokuPrio={'大安':6,'友引':5,'先勝':4,'先負':3,'赤口':2,'仏滅':1};
+  let best={d:0,score:-999,rprio:0},worst={d:0,score:999,rprio:99};
+  for(let d=1;d<=days;d++){
+    const sc=calcDayScore(y,m,d);
+    const rp=rokuPrio[getRoku(y,m,d)]||0;
+    if(sc>best.score||(sc===best.score&&rp>best.rprio)){best={d,score:sc,rprio:rp};}
+    if(sc<worst.score||(sc===worst.score&&rp<worst.rprio)){worst={d,score:sc,rprio:rp};}
+  }
+  return{best:best.d,worst:worst.d,bestScore,worstScore};
 }
 
 // =====================================================
@@ -1336,8 +1809,8 @@ function render(){
   const first=new Date(year,month-1,1).getDay();
   const today=new Date();
 
-  // 最良日・最悪日を事前計算
-  const{best:bestDay,worst:worstDay}=getBestWorstDays(year,month);
+  // 最良日・最悪日を事前計算（同率対応）
+  const{best:bestDay,worst:worstDay,bestScore,worstScore}=getBestWorstDays(year,month);
 
   let html='';
   for(let i=0;i<first;i++) html+='<div class="dc emp"></div>';
@@ -1370,8 +1843,10 @@ function render(){
     if(dow===0||hol) cc+=' sun'; else if(dow===6) cc+=' sat';
     if(hol) cc+=' hol';
     if(isToday) cc+=' tod';
-    if(d===bestDay&&!isToday) cc+=' best-day';
-    if(d===worstDay&&!isToday) cc+=' worst-day';
+    // 同率最良日は全てハイライト（タイブレーク後の代表日を筆頭に）
+    const dayScore=calcDayScore(year,month,d);
+    if(dayScore===bestScore&&!isToday) cc+=' best-day';
+    if(dayScore===worstScore&&!isToday) cc+=' worst-day';
     // 最吉日セルハイライト（事業開始フィルターON時）
     if(filters.has('startup')&&koyomiEv.some(e=>e.cls==='c-st-ex')&&!isToday) cc+=' startup-ex';
 
@@ -1441,10 +1916,16 @@ function render(){
       scHtml+='</div>';
     }
 
-    // 最良・最悪バッジ
+    // 最良・最悪バッジ（代表日にのみ表示、同率の場合は「並」を付記）
     let rankBadge='';
-    if(d===bestDay) rankBadge=`<div style="font-size:.4rem;color:#e65100;font-weight:700;letter-spacing:.05em;margin-bottom:1px">★今月最良日</div>`;
-    if(d===worstDay) rankBadge=`<div style="font-size:.4rem;color:#757575;font-weight:700;letter-spacing:.05em;margin-bottom:1px">▲今月注意日</div>`;
+    if(d===bestDay){
+      const tieCount=Array.from({length:days},(_,i)=>calcDayScore(year,month,i+1)).filter(s=>s===bestScore).length;
+      rankBadge=`<div style="font-size:.4rem;color:#e65100;font-weight:700;letter-spacing:.05em;margin-bottom:1px">★今月最良日${tieCount>1?'（同率'+tieCount+'日）':''}</div>`;
+    }
+    if(d===worstDay){
+      const tieCount=Array.from({length:days},(_,i)=>calcDayScore(year,month,i+1)).filter(s=>s===worstScore).length;
+      rankBadge=`<div style="font-size:.4rem;color:#757575;font-weight:700;letter-spacing:.05em;margin-bottom:1px">▲今月注意日${tieCount>1?'（同率'+tieCount+'日）':''}</div>`;
+    }
 
     html+=`
       <div class="${cc}" onclick="openDetail(${year},${month},${d})">
@@ -1515,6 +1996,272 @@ function openDetail(y,m,d){
           <div class="na-text"><strong>${a.title}</strong>${a.text.replace(/\n/g,'<br>')}</div>
         </div>`).join('')}
     </div>`;
+
+  // 満月ビューティ＆ヘルスブロック（満月の日のみ表示）
+  const fmBlock=document.getElementById('fullmoonBlock');
+  if(isFM){
+    fmBlock.innerHTML=`
+    <div class="fullmoon-block">
+      <div class="fullmoon-block-title">
+        🌝 満月（望）スピリチュアル＆ビューティガイド
+      </div>
+
+      <!-- スピリチュアルな3つの意味 -->
+      <div class="fm-section">
+        <div class="fm-section-title">満月が持つスピリチュアルな意味</div>
+        <div class="fm-rows">
+          <div class="fm-row">
+            <span class="fm-row-icon">⚡</span>
+            <div class="fm-row-body">
+              <strong>エネルギーの高まり</strong>
+              月が完全に満ちたこの日は、宇宙のエネルギーが最大に高まるタイミング。私たちの気力・活力も引き上げられ、やってきたことの成果が表れやすい日です。
+            </div>
+          </div>
+          <div class="fm-row">
+            <span class="fm-row-icon">🌬️</span>
+            <div class="fm-row-body">
+              <strong>解放と浄化</strong>
+              満月を境に月は欠けていきます。高まったエネルギーが外へ解放され、心身に溜め込んだ不要なものを吐き出す「浄化」の力が強まる時期です。
+            </div>
+          </div>
+          <div class="fm-row">
+            <span class="fm-row-icon">🏆</span>
+            <div class="fm-row-body">
+              <strong>目標達成・完成のサイン</strong>
+              新月に蒔いた種が実を結ぶ収穫の日。仕事で評価されたり、取り組んできたことが形になりやすいタイミング。今月の自分の成果を振り返って。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 今日起こりやすい変化と影響 -->
+      <div class="fm-section">
+        <div class="fm-section-title">今日起こりやすい変化・心身への影響</div>
+        <div class="fm-rows">
+          <div class="fm-row">
+            <span class="fm-row-icon">🌊</span>
+            <div class="fm-row-body">
+              <strong>吸収力・感受性が最高潮に</strong>
+              月の引力が最大になり、スキンケアや栄養の吸収力が格段に高まります。同時に心のアンテナも敏感になり、ちょっとした言葉や出来事で感情が揺さぶられやすい日でもあります。
+            </div>
+          </div>
+          <div class="fm-row">
+            <span class="fm-row-icon">💧</span>
+            <div class="fm-row-body">
+              <strong>むくみ・だるさ・眠りの浅さ</strong>
+              体内の水分も引力の影響を受け、むくみやだるさを感じやすい時期。特に女性はホルモンバランスが揺らぎやすく、眠りが浅くなる人も。無理をせず体を労わることが大切。
+            </div>
+          </div>
+          <div class="fm-row">
+            <span class="fm-row-icon">💫</span>
+            <div class="fm-row-body">
+              <strong>感情の揺れ・エネルギーの高ぶり</strong>
+              些細なことにイライラしたり、気分が沈んだりしやすい日。特に最近落ち込んでいたり、感受性が豊かな人はより強く影響を受けます。自分を責めず静かな時間を大切にして。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- スペシャルビューティケア -->
+      <div class="fm-section">
+        <div class="fm-section-title">今日おすすめのスペシャルビューティケア</div>
+        <div class="fm-badge">✨ 吸収力が最大の今日こそ「満たす・与える」ケアを</div>
+        <div class="fm-care-grid">
+          <div class="fm-care-item"><span class="fm-care-icon">🧴</span><div><strong>リッチな保湿ケア</strong>吸収力が最大の日はいつもより贅沢なボディローションやフェイスオイルが効果的。全身を潤いで満たすスペシャルケアの日。</div></div>
+          <div class="fm-care-item"><span class="fm-care-icon">🌸</span><div><strong>フェイスパック・高濃度美容液</strong>美容成分の浸透が格段に高まります。フェイスマスクやエステ・高濃度美容液を投入する最高のタイミング。</div></div>
+          <div class="fm-care-item"><span class="fm-care-icon">💆</span><div><strong>リンパマッサージ</strong>引力が高まる今日はマッサージ効果も格別。リンパの流れを促すボディマッサージでむくみをケア。エッセンシャルオイルとの組み合わせが◎。</div></div>
+          <div class="fm-care-item"><span class="fm-care-icon">💎</span><div><strong>パワーストーンの浄化</strong>満月は浄化のエネルギーが高まる日。水晶などのパワーストーンを月光に当てて清めましょう。石を月の光が届く窓辺に置くだけでOK。</div></div>
+          <div class="fm-care-item"><span class="fm-care-icon">🌿</span><div><strong>アロマで心身を整える</strong>お気に入りのアロマを漂わせてゆっくり休息を。エッセンシャルオイルの香りも吸収されやすい日。感情の揺れをやわらげる香りで心を整えて。</div></div>
+        </div>
+      </div>
+
+      <!-- 月光浴・デジタルデトックス -->
+      <div class="fm-section">
+        <div class="fm-section-title">今日ぜひ試したいこと</div>
+        <div class="fm-rows">
+          <div class="fm-row">
+            <span class="fm-row-icon">🌕</span>
+            <div class="fm-row-body">
+              <strong>月光浴でエネルギーチャージ</strong>
+              ベランダや窓辺など身近な場所でOK。満月の光を全身で浴びると気力がみなぎってくるとされています。短時間でも満月の強力なエネルギーを受け取れます。
+            </div>
+          </div>
+          <div class="fm-row">
+            <span class="fm-row-icon">📵</span>
+            <div class="fm-row-body">
+              <strong>スマホ・PCとデジタルデトックス</strong>
+              感受性が高まる満月の夜は、外部からの刺激を減らすのがおすすめ。SNSや情報の海から離れ、自分の内側に意識を向ける静かな時間を。
+            </div>
+          </div>
+          <div class="fm-row">
+            <span class="fm-row-icon">🛁</span>
+            <div class="fm-row-body">
+              <strong>バスソルト入浴でデトックス</strong>
+              天然塩やエプソムソルトを入れたお風呂で心身をリセット。吸収力が高まる日はバスオイルや入浴剤の効果も格別。全身を満たすスペシャルバスタイムを。
+            </div>
+          </div>
+          <div class="fm-row">
+            <span class="fm-row-icon">🙏</span>
+            <div class="fm-row-body">
+              <strong>感謝を伝える・成果を振り返る</strong>
+              新月に立てた目標が形になるタイミング。叶ったことへの感謝を伝え、今月取り組んだことを振り返りましょう。次のサイクルへの手放しも大切に。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 食と栄養 -->
+      <div class="fm-section">
+        <div class="fm-section-title">食・栄養のとり方</div>
+        <div class="fm-2col">
+          <div class="fm-2col-item">
+            <span class="fm-2col-icon">🥦</span>
+            <strong>ビタミン・ミネラル補給</strong>
+            吸収力が高い今日は野菜・果物でビタミン・ミネラルをたっぷりと。体が栄養を最大限に吸収してくれます
+          </div>
+          <div class="fm-2col-item">
+            <span class="fm-2col-icon">💧</span>
+            <strong>水分補給を意識</strong>
+            むくみやすい時期こそこまめな水分補給でリンパの流れをサポート。ハーブウォーターも◎
+          </div>
+          <div class="fm-2col-item">
+            <span class="fm-2col-icon">🍵</span>
+            <strong>ハーブティーで鎮静</strong>
+            カモミール・ラベンダーのハーブティーで感情の高ぶりをやわらげて。心身を落ち着かせる香りの効果も高まる日
+          </div>
+          <div class="fm-2col-item">
+            <span class="fm-2col-icon">⚠️</span>
+            <strong>暴飲暴食に注意</strong>
+            吸収力が高くお腹も空きやすい日。食べ過ぎると体への影響が通常より大きくなります。腹八分目を心がけて
+          </div>
+        </div>
+      </div>
+
+      <!-- 避けること -->
+      <div class="fm-section">
+        <div class="fm-section-title">今日避けるべき行動</div>
+        <div class="fm-care-grid">
+          <div class="fm-care-item"><span class="fm-care-icon">😤</span><div><strong>ネガティブな発言・けんか</strong>感情の高ぶりが増幅されやすい日。ちょっとした言葉が衝突に発展しやすいので穏やかな言葉を意識して。ネガティブ思考も増幅されやすいので注意。</div></div>
+          <div class="fm-care-item"><span class="fm-care-icon">🌙</span><div><strong>夜更かし</strong>満月の夜は眠りが浅くなりやすい傾向が。無理に夜更かしせず、いつもより少し早めに休むことで翌日のコンディションが整います。</div></div>
+          <div class="fm-care-item"><span class="fm-care-icon">📝</span><div><strong>大事な決断・重要な契約</strong>感情が揺れやすいこの時期に大きな決断をすると、冷静な判断ができないことも。重要な決定は気持ちが落ち着いてから行いましょう。</div></div>
+          <div class="fm-care-item"><span class="fm-care-icon">🍺</span><div><strong>暴飲暴食・深夜の過食</strong>吸収力が格段に高まる日。食べ過ぎ・飲み過ぎは通常以上に体に影響が出やすいです。腹八分目・お酒は控えめに。</div></div>
+        </div>
+      </div>
+
+      <div style="font-size:.56rem;color:rgba(13,71,161,.4);text-align:right;margin-top:6px;line-height:1.8">
+        参考：
+        <a href="https://thedayspa.shop-pro.jp/?mode=f148" target="_blank" rel="noopener" style="color:rgba(13,71,161,.4)">The Day Spa｜月の満ち欠けが及ぼす体調変化と過ごし方</a>
+        　/　
+        <a href="https://woman.mynavi.jp/article/220729-7/" target="_blank" rel="noopener" style="color:rgba(13,71,161,.4)">マイナビウーマン｜満月のスピリチュアルな意味と過ごし方</a>
+      </div>
+    </div>`;
+  } else {
+    fmBlock.innerHTML='';
+  }
+
+  // 新月スピリチュアルブロック（新月の日のみ表示）
+  const nmBlock=document.getElementById('newmoonBlock');
+  if(isNM){
+    const starSign=MOON_PHASES_2026._signs?MOON_PHASES_2026._signs[ds]:'';
+    nmBlock.innerHTML=`
+    <div class="newmoon-block">
+      <div class="newmoon-block-title">
+        🌚 新月（朔）のスピリチュアルガイド
+      </div>
+
+      <!-- 新月の意味 -->
+      <div class="nm-section">
+        <div class="nm-section-title">新月の意味とエネルギー</div>
+        <div class="nm-rows">
+          <div class="nm-row">
+            <span class="nm-row-icon">🔄</span>
+            <div class="nm-row-body">
+              <strong>「始まり」と「リセット」</strong>
+              月のサイクルがゼロに戻る地点。過去をリセットし、新しいことをスタートさせる強力なエネルギーに満ちています。
+            </div>
+          </div>
+          <div class="nm-row">
+            <span class="nm-row-icon">🧠</span>
+            <div class="nm-row-body">
+              <strong>潜在意識とつながる</strong>
+              太陽と月が同じ方向に位置する静けさの中で、心が内側へ向かい潜在意識と深くつながりやすくなります。本当の望みに気づく日。
+            </div>
+          </div>
+          <div class="nm-row">
+            <span class="nm-row-icon">🌱</span>
+            <div class="nm-row-body">
+              <strong>目標達成への「種まき」</strong>
+              今日蒔いた願いの種は月のサイクルとともに育ち、約2週間後の満月に「収穫」として実を結びます。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 願い事のやり方 -->
+      <div class="nm-section">
+        <div class="nm-section-title">願い事の書き方ルール</div>
+        <div class="nm-timing-badge">⏰ 新月から8時間以内が最も効果的（遅くとも48時間以内）</div>
+        <div class="nm-wish-rules">
+          <div class="nm-rule"><span class="nm-rule-dot"></span>肯定文・完了形で書く（「〇〇になりました」）</div>
+          <div class="nm-rule"><span class="nm-rule-dot"></span>主語は「私」にする</div>
+          <div class="nm-rule"><span class="nm-rule-dot"></span>手書きで紙に書く（エネルギーが乗りやすい）</div>
+          <div class="nm-rule"><span class="nm-rule-dot"></span>最後に「ありがとうございます」と感謝を添える</div>
+          <div class="nm-rule"><span class="nm-rule-dot"></span>書いた紙は誰にも見せず大切に保管する</div>
+        </div>
+        <div class="nm-wish-count">📝 願い事の数は <strong>2〜10個以内</strong> が理想。絞って集中するほど効果的。</div>
+      </div>
+
+      <!-- 今日おすすめの過ごし方 -->
+      <div class="nm-section">
+        <div class="nm-section-title">今日おすすめの過ごし方</div>
+        <div class="nm-rows">
+          <div class="nm-row"><span class="nm-row-icon">🎯</span><div class="nm-row-body"><strong>新しいことを始める</strong>習い事・勉強・貯金・ダイエットなど、やりたかったことのスタートに絶好の日</div></div>
+          <div class="nm-row"><span class="nm-row-icon">📋</span><div class="nm-row-body"><strong>目標設定・計画を立てる</strong>1ヶ月・半年・1年の目標を具体的に立て、達成するための計画を練る</div></div>
+          <div class="nm-row"><span class="nm-row-icon">🧹</span><div class="nm-row-body"><strong>断捨離・浄化</strong>不要な物・人間関係・ネガティブな思考を手放し、新しいエネルギーが入るスペースを作る</div></div>
+          <div class="nm-row"><span class="nm-row-icon">🛁</span><div class="nm-row-body"><strong>塩風呂で心身の浄化</strong>天然塩やエプソムソルトを入れたお風呂でネガティブエネルギーをデトックス</div></div>
+          <div class="nm-row"><span class="nm-row-icon">🧘</span><div class="nm-row-body"><strong>瞑想・内省</strong>静かな時間を作り、自分の本当の気持ちと向き合う。潜在意識からのメッセージを受け取りやすい日</div></div>
+        </div>
+      </div>
+
+      <!-- 避けるべきこと -->
+      <div class="nm-section">
+        <div class="nm-section-title">今日避けるべき行動</div>
+        <div class="nm-avoid-grid">
+          <div class="nm-avoid-item"><span class="nm-avoid-icon">😔</span><div>ネガティブな感情に浸る（スタートのエネルギーが強い日のため増幅されやすい）</div></div>
+          <div class="nm-avoid-item"><span class="nm-avoid-icon">🍺</span><div>暴飲暴食・夜更かし（エネルギーをチャージする時期、心身を休ませることを優先）</div></div>
+          <div class="nm-avoid-item"><span class="nm-avoid-icon">📝</span><div>大きな契約・重要な決断（まだ形が見えない「始まり」の段階。計画を練ることに専念）</div></div>
+          <div class="nm-avoid-item"><span class="nm-avoid-icon">😤</span><div>喧嘩・対立（感情が内向きになりやすい時期。穏やかに過ごすことを心がけて）</div></div>
+        </div>
+      </div>
+
+      <!-- 新月と満月の違い -->
+      <div class="nm-section">
+        <div class="nm-section-title">新月 vs 満月</div>
+        <div class="nm-rows">
+          <div class="nm-row">
+            <span class="nm-row-icon">🌚</span>
+            <div class="nm-row-body">
+              <strong>新月（今日）→ 願い事・目標設定・種まき</strong>
+              「吸収・開始・成長」のエネルギー。夢を宇宙に宣言し、新サイクルをスタートする日。
+            </div>
+          </div>
+          <div class="nm-row">
+            <span class="nm-row-icon">🌝</span>
+            <div class="nm-row-body">
+              <strong>満月（約2週間後）→ 感謝と手放し・収穫</strong>
+              「放出・達成・感謝」のエネルギー。願いが叶ったことへの感謝と、不要なものを手放す日。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="font-size:.56rem;color:rgba(100,50,150,.5);text-align:right;margin-top:4px;line-height:1.5">
+        参考：<a href="https://somosomon.me/新月のスピリチュアルな意味とは？願い事のやり方と過ごし方/" target="_blank" rel="noopener" style="color:rgba(100,50,150,.5)">そもそも.ん</a>
+      </div>
+    </div>`;
+  } else {
+    nmBlock.innerHTML='';
+  }
 
   const koyomiEv=getKoyomiEvents(y,m,d);
   const moonEv=getMoonNatureEvents(y,m,d);
@@ -1598,6 +2345,7 @@ function openDetail(y,m,d){
     :'<div style="color:#8d6e4f;font-size:.7rem;padding:5px">特記事項なし</div>');
 
   document.getElementById('schedText').value='';
+  renderTsukasaBlock(y,m,d);
   renderSchedList();
   document.getElementById('detailOv').classList.add('open');
 }
@@ -1627,6 +2375,404 @@ function closeModalDirect(){document.getElementById('detailOv').classList.remove
 function closeDetailDirect(){document.getElementById('detailOv').classList.remove('open');}
 
 // =====================================================
+// ツカサ：月別吉日アドバイスデータ
+// =====================================================
+// 各月・各吉日の「今月ならでは」のアドバイス
+// キー形式: `${月}-${吉日種別}` 例: "4-tora"
+const TSUKASA_DATA={
+  // ── 4月 ──
+  '4-tora':{
+    title:'寅の日（4月）',
+    tag:'使ったお金が戻ってくる日',
+    essence:'贅沢品ではなく「今がんばっていることを加速させるもの」にお金を使う日',
+    items:[
+      {title:'今がんばっていることに関連する買い物',
+       detail:'読んでいるジャンルの本を1冊買う／勉強道具を新調する／体のケア（整体・サプリ等）に投資'},
+      {title:'財布の中身を整える',
+       detail:'お札の向きを揃え、不要なレシートを抜く。お金の「通り道」をきれいにすると寅の日のリターンが大きくなる'},
+      {title:'親しい人に何か1つおごる（缶コーヒー1本でOK）',
+       detail:'寅の日に「人のためにお金を使う」と、その何倍もの豊かさとなって自分に返ってくる'},
+    ]
+  },
+  '4-mi':{
+    title:'巳の日（4月）',
+    tag:'弁財天様のご縁日',
+    essence:'恵みの雨（穀雨）が降る4月は弁財天様の力が特に強い月。「金運の流れを整える日」として使う',
+    items:[
+      {title:'使っていないサブスクや自動引き落としを1つ見直す',
+       detail:'3回の巳の日で3つ見直せたら完璧。巳の日ごとに1つずつ解約して4月末に金運をスッキリ整える'},
+      {title:'水回りをひとつだけ掃除する',
+       detail:'キッチンのシンク・洗面台・トイレ・お風呂のどれか1か所でOK。弁財天様は「水の流れがきれいな場所」に金運を届けてくれる'},
+      {title:'コップ1杯の水を「ありがとうございます」と唱えてから飲む',
+       detail:'弁財天様は水の神様。感謝して飲むだけで弁財天様とのご縁が深まる'},
+    ]
+  },
+  '4-kinoeNe':{
+    title:'甲子の日（4月20日）',
+    tag:'4月最強の開運日・大黒天様のご縁日',
+    essence:'一粒万倍日と穀雨も重なる4月最大の吉日。六曜は赤口のため行動は11時〜13時の2時間に集中',
+    items:[
+      {title:'11時〜13時に「これからの目標」を手帳に1つだけ書く',
+       detail:'甲子は「新しいサイクルの始まり」の日。この日に書いた目標はものすごい勢いで動き出す'},
+      {title:'大黒天様を祀る神社にお参りする',
+       detail:'11時〜13時の間に参拝。難しければ自宅で手を合わせて「よろしくお願いします」と伝えるだけでOK'},
+      {title:'昼食をいつもより少しだけ豪華にする',
+       detail:'外食でも好きなおかずを1品追加するだけでOK。「豊かさを味わう」行為そのものが大黒天様への感謝になる'},
+    ],
+    note:'⚠️ 六曜が赤口のため、吉の時間帯（11時〜13時）に行動を集中させること'
+  },
+};
+
+// ツカサデータ判定：指定日にツカサ情報があるか返す
+function getTsukasaData(y,m,d){
+  const ki=kanIdx(y,m,d);
+  const results=[];
+  // 寅の日
+  if(ki%12===2){
+    const key=`${m}-tora`;
+    if(TSUKASA_DATA[key]) results.push(TSUKASA_DATA[key]);
+  }
+  // 己巳の日（ki%10===5 && ki%12===5）
+  if(ki%10===5&&ki%12===5){
+    const key=`${m}-mi`;
+    if(TSUKASA_DATA[key]) results.push(TSUKASA_DATA[key]);
+  }
+  // 甲子の日（ki%10===0 && ki%12===0）
+  if(ki%10===0&&ki%12===0){
+    const key=`${m}-kinoeNe`;
+    if(TSUKASA_DATA[key]) results.push(TSUKASA_DATA[key]);
+  }
+  return results;
+}
+
+// ツカサブロック描画
+function renderTsukasaBlock(y,m,d){
+  const el=document.getElementById('tsukasaBlock');
+  const data=getTsukasaData(y,m,d);
+  if(!data.length){el.innerHTML='';return;}
+  el.innerHTML=data.map(t=>`
+    <div class="tsukasa-block">
+      <div class="tsukasa-block-title">
+        <span class="tsukasa-tag">ツカサ</span>${t.title}
+      </div>
+      <div class="tsukasa-essence">「${t.tag}」<br>${t.essence}</div>
+      <div class="tsukasa-items">
+        ${t.items.map((it,i)=>`
+          <div class="tsukasa-item">
+            <div class="tsukasa-item-num">${i+1}</div>
+            <div class="tsukasa-item-body">
+              <strong>${it.title}</strong>${it.detail}
+            </div>
+          </div>`).join('')}
+      </div>
+      ${t.note?`<div class="tsukasa-note">${t.note}</div>`:''}
+    </div>`).join('');
+}
+
+// =====================================================
+// 吉日辞書データ（ツカサのメールから蓄積）
+// =====================================================
+const JITSU_DICT=[
+  {
+    id:'tensha',
+    icon:'⭐',iconCls:'c-ts',xl:true,
+    name:'天赦日',yomi:'てんしゃにち',
+    freq:'年6回（2026年）',
+    color:'#e65100',
+    essence:'暦の上で最高の大吉日。すべての罪・過ちが赦される日とされ、何を始めても大吉。開業・結婚・新しいことのスタートに最強の後押しを得られる日。',
+    doItems:[
+      {title:'新しいことを始める',detail:'開業・入籍・引越し・新プロジェクト始動など、スタートに関わることを行うと大きな後押しを得られる'},
+      {title:'願い事・誓いを立てる',detail:'紙に書いて宣言するだけでも効果的。天が赦してくれる日なので過去を引きずらず前に進む宣言を'},
+      {title:'重要な契約・申請を行う',detail:'天赦日に行う契約・申請は特に良い結果につながりやすいとされる'},
+    ],
+    avoidItems:[],
+    note:'仏滅・不成就日と重なっても天赦日の吉がそれを打ち消すとされる',
+    dates_list:{
+      '2026年':['3/5（木）天赦日+一粒万倍日+寅の日+大安 ★最強','5/4（月祝）','5/20（水）','7/19（日）天赦日+一粒万倍日+大安 ★最強','10/1（木）天赦日+一粒万倍日','12/16（水）天赦日+一粒万倍日'],
+      '2027年':['2/28（日）天赦日+寅の日','4/29（木祝）','5/15（土）','7/14（水）天赦日+一粒万倍日 ★最強','9/26（日）天赦日+一粒万倍日 ★最強','12/11（土）天赦日+甲子の日'],
+    },
+    is_list_format: true,
+  },
+  {
+    id:'ichiryu',
+    icon:'粒',iconCls:'c-money',xl:false,
+    name:'一粒万倍日',yomi:'いちりゅうまんばいにち',
+    freq:'月4〜6回',
+    color:'#c9a84c',
+    essence:'一粒の種が万倍に実る大吉日。小さな行動・投資・種まきが大きな実りとなって返ってくる。「始める」ことに特化した吉日で、開業・貯金始め・新しい習慣スタートに最適。',
+    doItems:[
+      {title:'新しいことを始める',detail:'開業・副業スタート・貯金・習い事など「始まり」に関わることを起こすと万倍の恩恵を受けやすい'},
+      {title:'種まき・農業の開始',detail:'文字通り種まきに最適な日。農作業の開始や新しい計画の第一歩を踏み出すのに最良'},
+      {title:'財布の新調・お金を動かす',detail:'お金を「入れる」行為（貯金、財布購入、口座開設など）が特に効果的'},
+    ],
+    avoidItems:['借金・ローンの申請（借りたものも万倍になるとされる）'],
+    note:'天赦日・己巳の日・大安と重なると最強の金運日になる',
+    dates2026:{1:[2,7,14,19,26,31],2:[3,8,15,20,27],3:[1,6,13,18,25,30],4:[8,11,20,23],5:[5,8,17,20,29],6:[1,4,13,16,25,28],7:[3,10,15,22,27],8:[3,6,15,18,27,30],9:[2,11,14,23,26],10:[3,8,15,20,27],11:[1,4,13,16,25,28],12:[3,6,15,18,27,30]},
+  },
+  {
+    id:'tora',
+    icon:'寅',iconCls:'c-to',xl:false,
+    name:'寅の日',yomi:'とらのひ',
+    freq:'12日に1回（月2〜3回）',
+    color:'#ff8f00',
+    essence:'「出て行ったものが戻ってくる」日。使ったお金が返ってくる・旅立ちが吉とされる。贅沢より「自分の成長に投資する」お金の使い方が最も効果を発揮する。',
+    doItems:[
+      {title:'自己投資・今がんばっていることを加速させるものに使う',detail:'本・文房具・体のケア（整体・サプリ）など。贅沢品より「成長の種」となるものへの支出が吉'},
+      {title:'財布の中身を整える',detail:'お札の向きを揃え、不要なレシートを抜く。お金の「通り道」を整えることで寅の日効果が増幅する'},
+      {title:'旅行・外出の出発',detail:'旅立ちに縁起がよい日。旅行の出発・引越しの初日・新しい場所への訪問に吉'},
+      {title:'人のためにお金を使う',detail:'おごりやプレゼントなど「人のために出す」お金は何倍にもなって返ってくるとされる'},
+    ],
+    avoidItems:['葬儀（虎は何でも食べてしまうため、服喪との相性が悪いとされる）'],
+    note:'「出ていったものが戻る」ため借金・ローンの返済開始にも良い日',
+    dates2026:{
+      '2026年1月':[4,16,28],'2026年2月':[9,21],'2026年3月':[5,17,29],
+      '2026年4月':[10,22],'2026年5月':[4,16,28],'2026年6月':[9,21],
+      '2026年7月':[3,15,27],'2026年8月':[8,20],'2026年9月':[1,13,25],
+      '2026年10月':[7,19,31],'2026年11月':[12,24],'2026年12月':[6,18,30],
+      '2027年1月':[11,23],'2027年2月':[4,16,28],'2027年3月':[12,24],
+    },
+  },
+  {
+    id:'mi',
+    icon:'己',iconCls:'c-ki',xl:false,
+    name:'己巳の日',yomi:'きみのひ・つちのとみのひ',
+    freq:'60日に1回（年6回程度）',
+    color:'#7b1fa2',
+    essence:'弁財天様のご縁日。60日に1度の金運最強日。水と金運の神様・弁財天様との縁が最も深まる日。水回りを整え、流れをきれいにすることで金運が動き出す。',
+    doItems:[
+      {title:'財布の新調・貯金始め',detail:'弁財天様に新しい財布を奉納するつもりで購入するのが最吉。お金を入れてからしまうと効果UP'},
+      {title:'水回りを掃除する',detail:'キッチン・洗面台・トイレ・お風呂のいずれか1か所。弁財天様は水の流れがきれいな場所に金運を届けてくれる'},
+      {title:'感謝の水を飲む',detail:'コップ1杯の水に「ありがとうございます」と唱えてから飲む。弁財天様との縁を深める最もシンプルな行為'},
+      {title:'不要なお金の流出を止める',detail:'使っていないサブスクの解約・自動引き落としの見直し。お金の「出口」を整えると金運の流れが変わる'},
+    ],
+    avoidItems:[],
+    note:'節気の穀雨・梅雨の時期は弁財天様の力が特に強まるとされる',
+    dates2026:{
+      '2026年2月':[24],'2026年4月':[25],'2026年6月':[24],
+      '2026年8月':[23],'2026年10月':[22],'2026年12月':[21],
+      '2027年2月':[19],
+    },
+  },
+  {
+    id:'kinoeNe',
+    icon:'甲',iconCls:'c-ki',xl:false,
+    name:'甲子の日',yomi:'きのえねのひ・こうしのひ',
+    freq:'60日に1回（年6回程度）',
+    color:'#1b5e20',
+    essence:'大黒天様のご縁日。60日に1度の大吉日。新しい60日サイクルの始まり。目標を書いて宣言し、大黒天様に新サイクルの方向性を伝える日。六曜が赤口の場合は11〜13時に行動集中。',
+    doItems:[
+      {title:'目標・やることを紙に書いて宣言する',detail:'「これをやる」と書いた目標はものすごい勢いで動き出すとされる。手帳・ノートに1つだけ書く'},
+      {title:'大黒天様を祀る神社に参拝する',detail:'近くの大黒天様の神社へ。難しければ自宅で手を合わせて「よろしくお願いします」と伝えるだけでもOK'},
+      {title:'新しい財布を使い始める',detail:'甲子の日に新しい財布を使い始めると金運が上がるとされている'},
+      {title:'豊かさを味わう食事をする',detail:'いつもより少しだけ豪華な昼食を。「豊かさを受け取る」体験が大黒天様への感謝になる'},
+    ],
+    avoidItems:[],
+    note:'赤口の日と重なった場合：吉の時間帯（11時〜13時）に行動を集中させること',
+    dates2026:'干支計算で自動判定（60日周期）',
+  },
+  {
+    id:'jushi',
+    icon:'⚫',iconCls:'c-js',xl:true,
+    name:'受死日',yomi:'じゅしにち',
+    freq:'月2〜3回',
+    color:'#424242',
+    essence:'暦上で最大の凶日。万事を避けるべきとされる日。新しいことの開始・重要な決断は特に避けること。ただし「通夜・葬儀」はこの日が吉とも言われる。',
+    doItems:[
+      {title:'安静・休息を優先する',detail:'無理に行動せず、静かに過ごすのが最善。体を休める・読書・内省に充てる'},
+    ],
+    avoidItems:[
+      '新規開業・契約・重要な書類提出',
+      '旅行・引越し・大きな移動',
+      '結婚式・お祝い事',
+      '新しいプロジェクトの開始',
+    ],
+    note:'通夜・葬儀はこの日が良いとされる場合もある（地域によって異なる）',
+    dates2026:{
+      '2026年1月':[1,13,25],'2026年2月':[6,18],'2026年3月':[2,14,26],
+      '2026年4月':[7,19],'2026年5月':[3,15,27],'2026年6月':[8,20],
+      '2026年7月':[4,16,28],'2026年8月':[9,21],'2026年9月':[5,17,29],
+      '2026年10月':[4,16,28],'2026年11月':[9,21],'2026年12月':[5,17,29],
+      '2027年1月':[1,13,25],'2027年2月':[6,18],'2027年3月':[2,14,26],
+    },
+  },
+  {
+    id:'fusei',
+    icon:'❌',iconCls:'c-fs',xl:true,
+    name:'不成就日',yomi:'ふじょうじゅにち',
+    freq:'月4〜5回',
+    color:'#b71c1c',
+    essence:'何をしても成就しない日。始めたことが実を結びにくいとされる。開始より「準備・見直し・振り返り」に使う日として活用するのが賢い使い方。',
+    doItems:[
+      {title:'準備・計画の見直し',detail:'新しいスタートではなく、既に動いていることの見直し・改善に充てると良い'},
+      {title:'断捨離・片付け',detail:'不要なものを手放す日として使う。「終わらせる」ことには向いている'},
+    ],
+    avoidItems:[
+      '新規開業・新プロジェクト開始',
+      '結婚・入籍・お見合い',
+      '契約・重要な申請',
+      '願い事・祈願（叶いにくいとされる）',
+    ],
+    note:'',
+    dates2026:{
+      '2026年1月':[1,9,13,21,25],'2026年2月':[2,10,14,22,26],'2026年3月':[3,11,15,23,27],
+      '2026年4月':[5,13,17,25],'2026年5月':[1,9,21,29],'2026年6月':[5,17,25],
+      '2026年7月':[1,9,21,29],'2026年8月':[4,12,16,24,28],'2026年9月':[2,6,14,22,26],
+      '2026年10月':[2,10,18,26,30],'2026年11月':[3,11,19,27],'2026年12月':[1,9,17,25],
+      '2027年1月':[1,9,13,21,25],'2027年2月':[2,10,14,22,26],'2027年3月':[3,11,15,23,27],
+    },
+  },
+  {
+    id:'taian',
+    icon:'安',iconCls:'c-tg',xl:false,
+    name:'大安',yomi:'たいあん',
+    freq:'6日に1回',
+    color:'#1b5e20',
+    essence:'六曜で最高の吉日。万事において良い結果が出やすい日。結婚式・入籍・開業・契約・引越しなど、重要なことはすべて大安を選ぶのが古来からの知恵。',
+    doItems:[
+      {title:'重要なイベントを行う',detail:'結婚式・入籍・開業・引越し・契約締結など、人生の節目となる行動を起こすのに最適'},
+      {title:'新しいことを始める',detail:'大安＋一粒万倍日・天赦日との組み合わせが最強。何を始めても良い結果につながりやすい'},
+    ],
+    avoidItems:[],
+    note:'一粒万倍日・天赦日・甲子の日などと重なると「最強開運日」になる',
+    dates2026:{
+      '2026年1月':[3,9,15,21,27],'2026年2月':[2,8,14,20,26],'2026年3月':[4,10,16,22,28],
+      '2026年4月':[3,9,15,21,27],'2026年5月':[3,9,15,21,27],'2026年6月':[2,8,14,20,26],
+      '2026年7月':[2,8,14,20,26],'2026年8月':[1,7,13,19,25,31],'2026年9月':[6,12,18,24,30],
+      '2026年10月':[6,12,18,24,30],'2026年11月':[5,11,17,23,29],'2026年12月':[5,11,17,23,29],
+      '2027年1月':[4,10,16,22,28],'2027年2月':[3,9,15,21,27],'2027年3月':[5,11,17,23,29],
+    },
+  },
+  {
+    id:'butsumetsu',
+    icon:'滅',iconCls:'c-tb',xl:false,
+    name:'仏滅',yomi:'ぶつめつ',
+    freq:'6日に1回',
+    color:'#b71c1c',
+    essence:'六曜で最大の凶日。祝い事・新しいことの開始は避けるべきとされる。一方で「物が滅する＝古いものが終わり新しくなる」ととらえ、リセット・大掃除・手放しに適した日という考え方もある。',
+    doItems:[
+      {title:'大掃除・断捨離',detail:'「滅する」エネルギーを生かし、不要なものを手放す。部屋の大掃除・書類整理に最適'},
+      {title:'リセット・見直し',detail:'習慣や関係性を振り返り、不要なものを手放す日として使う'},
+    ],
+    avoidItems:[
+      '結婚式・入籍・お見合い',
+      '開業・新プロジェクト開始',
+      '契約・重要な申請',
+    ],
+    note:'結婚式は避けられるが、通夜・葬儀は仏滅に行うことが多い地域もある',
+    dates2026:'六曜計算で自動判定（6日周期）',
+  },
+];
+
+// 吉日辞書ページ描画
+function renderJitsuPage(){
+  const today=new Date();
+  const todayY=today.getFullYear();
+  const todayM=today.getMonth()+1;
+  const todayD=today.getDate();
+
+  // 月別オブジェクト形式（'2026年1月':[3,9,...] ）をチップに変換
+  function renderMonthlyDates(obj){
+    if(!obj||typeof obj==='string') return`<span class="jitsu-dates-ttl">${obj||'計算で自動判定'}</span>`;
+    // is_list_format（天赦日の特別形式）は別処理
+    const chips=[];
+    let curYear='';
+    Object.entries(obj).forEach(([label,days])=>{
+      // ラベル例: '2026年1月'
+      const ymatch=label.match(/(\d{4})年(\d+)月/);
+      if(!ymatch) return;
+      const y=Number(ymatch[1]), m=Number(ymatch[2]);
+      if(String(y)!==curYear){
+        if(curYear) chips.push(`</div></div>`);
+        chips.push(`<div class="jitsu-year-block"><div class="jitsu-year-ttl">${y}年</div><div class="jitsu-dates-chips">`);
+        curYear=String(y);
+      }
+      days.forEach(d=>{
+        const isToday=(y===todayY&&m===todayM&&d===todayD);
+        chips.push(`<span class="jitsu-date-chip${isToday?' today':''}" title="${y}/${m}/${d}">${m}/${d}${isToday?' ◀今日':''}</span>`);
+      });
+    });
+    if(curYear) chips.push(`</div></div>`);
+    return chips.join('');
+  }
+
+  // 天赦日の特別リスト形式（年→文字列配列）
+  function renderTenshaList(dates_list){
+    let html='';
+    Object.entries(dates_list).forEach(([year,items])=>{
+      html+=`<div class="jitsu-year-block"><div class="jitsu-year-ttl">${year}</div><div class="jitsu-dates-chips">`;
+      items.forEach(item=>{
+        // 今日かどうか判定: item先頭 "3/5（..." から月日を取得
+        const dmatch=item.match(/^(\d+)\/(\d+)/);
+        let isToday=false;
+        if(dmatch){
+          const [,m,d]=dmatch.map(Number);
+          const y=Number(year.replace('年',''));
+          isToday=(y===todayY&&m===todayM&&d===todayD);
+        }
+        // 最強フラグ
+        const isSaikyou=item.includes('★最強');
+        const chipCls='jitsu-date-chip'+(isSaikyou?' saikyo':'')+(isToday?' today':'');
+        html+=`<span class="${chipCls}">${item.replace(' ★最強','')}${isSaikyou?' ★':''}</span>`;
+      });
+      html+=`</div></div>`;
+    });
+    return html;
+  }
+
+  function buildDatesSection(j){
+    if(j.is_list_format&&j.dates_list){
+      return`<div class="jitsu-dates-box">
+        <div class="jitsu-dates-ttl">📅 2026年〜2027年3月の天赦日</div>
+        ${renderTenshaList(j.dates_list)}
+      </div>`;
+    }
+    if(j.dates2026){
+      return`<div class="jitsu-dates-box">
+        <div class="jitsu-dates-ttl">📅 2026年〜2027年3月の日付一覧</div>
+        ${renderMonthlyDates(j.dates2026)}
+      </div>`;
+    }
+    return'';
+  }
+
+  document.getElementById('jitsuGrid').innerHTML=JITSU_DICT.map(j=>`
+    <div class="jitsu-card" id="jc-${j.id}">
+      <div class="jitsu-card-hdr" onclick="toggleJitsu('${j.id}')">
+        <div class="jitsu-card-icon ${j.iconCls}${j.xl?' xl':''}" style="border-color:${j.color}">${j.icon}</div>
+        <div class="jitsu-card-meta">
+          <div class="jitsu-card-name" style="color:${j.color}">${j.name}</div>
+          <div class="jitsu-card-yomi">${j.yomi}</div>
+        </div>
+        <span class="jitsu-card-freq">${j.freq}</span>
+        <span class="jitsu-card-toggle">▼</span>
+      </div>
+      <div class="jitsu-card-body">
+        <div class="jitsu-essence-box">「${j.essence}」</div>
+        ${j.doItems.length?`
+        <div class="jitsu-section-ttl">✅ やるべきこと</div>
+        <div class="jitsu-do-list">
+          ${j.doItems.map((it,i)=>`
+            <div class="jitsu-do-item">
+              <div class="jitsu-do-num">${i+1}</div>
+              <div class="jitsu-do-body"><strong>${it.title}</strong>${it.detail}</div>
+            </div>`).join('')}
+        </div>`:''}
+        ${j.avoidItems.length?`
+        <div class="jitsu-section-ttl">⚠️ 避けること</div>
+        <div class="jitsu-avoid-list">
+          ${j.avoidItems.map(a=>`<div class="jitsu-avoid-item">✕ ${a}</div>`).join('')}
+        </div>`:''}
+        ${j.note?`<div class="tsukasa-note" style="margin-bottom:8px">💡 ${j.note}</div>`:''}
+        ${buildDatesSection(j)}
+      </div>
+    </div>`).join('');
+}
+
+function toggleJitsu(id){
+  document.getElementById('jc-'+id).classList.toggle('open');
+}
+
+// =====================================================
 // タブ切り替え
 // =====================================================
 function switchTab(tab){
@@ -1637,6 +2783,438 @@ function switchTab(tab){
     p.classList.toggle('active',p.id==='tab-'+tab);
   });
   if(tab==='plan') renderPlanPage();
+  if(tab==='jitsu') renderJitsuPage();
+  if(tab==='guide') renderGuidePage();
+}
+
+// =====================================================
+// 暦ガイド：行動別スコアリング
+// =====================================================
+let guideYear=2026, guideMonth=new Date().getMonth()+1;
+if(guideMonth<1||guideMonth>12) guideMonth=4;
+
+function guideChMonth(d){
+  guideMonth+=d;
+  if(guideMonth>12){guideMonth=1;guideYear++;}
+  if(guideMonth<1){guideMonth=12;guideYear--;}
+  renderGuidePage();
+}
+
+// ---- 各カテゴリのスコア計算 ----
+// 戻り値: {score: number, reasons: string[]}
+// score: 正=良い, 負=悪い
+
+function scoreHairCut(y,m,d){
+  // 髪を切る
+  let sc=0; const reasons=[];
+  const phase=getMoonPhaseType(y,m,d);
+  const roku=getRoku(y,m,d);
+  const joku=getJoku(y,m,d);
+  const niju=getNiju(y,m,d);
+  const ds=String(m).padStart(2,'0')+String(d).padStart(2,'0');
+
+  // 月齢（最重要）
+  if(phase==='full'||phase==='waxing2'){sc+=4;reasons.push('満月〜上弦後（伸びが早くコシが出る）');}
+  else if(phase==='waxing1'){sc+=3;reasons.push('新月→上弦（育ちが良い時期）');}
+  else if(phase==='new'||phase==='waning2'){sc-=3;reasons.push('新月前後（エネルギーが根に向かう時期）');}
+  else if(phase==='waning1'){sc+=1;reasons.push('満月→下弦（普通）');}
+
+  // 六曜
+  if(roku==='大安'){sc+=3;reasons.push('大安');}
+  else if(roku==='友引'){sc+=2;reasons.push('友引');}
+  else if(roku==='先勝'){sc+=1;reasons.push('先勝');}
+  else if(roku==='仏滅'){sc-=2;reasons.push('仏滅');}
+
+  // 十二直
+  if(['開','成'].includes(joku)){sc+=2;reasons.push(`十二直：${joku}（変化を開く）`);}
+  else if(joku==='除'){sc+=2;reasons.push('十二直：除（取り除く）');}
+  else if(['破','危'].includes(joku)){sc-=3;reasons.push(`十二直：${joku}（変化に凶）`);}
+
+  // 凶日
+  if((SP.jushi[m]||[]).includes(d)){sc-=4;reasons.push('受死日（万事凶）');}
+  if((SP.fusei[m]||[]).includes(d)){sc-=2;reasons.push('不成就日');}
+
+  // 吉日ボーナス
+  if(SP.tensha.includes(ds)){sc+=3;reasons.push('天赦日');}
+  if((SP.ichiryu[m]||[]).includes(d)){sc+=1;reasons.push('一粒万倍日（新スタイル◎）');}
+
+  return{sc,reasons};
+}
+
+function scoreHairColor(y,m,d){
+  // カラーリング（吸収力重視）
+  let sc=0; const reasons=[];
+  const phase=getMoonPhaseType(y,m,d);
+  const roku=getRoku(y,m,d);
+  const joku=getJoku(y,m,d);
+  const niju=getNiju(y,m,d);
+  const ds=String(m).padStart(2,'0')+String(d).padStart(2,'0');
+  const td=m*100+d;
+
+  // 月齢（最重要：吸収力）
+  if(phase==='full'){sc+=5;reasons.push('満月（吸収力最高潮・色素が最も定着する）');}
+  else if(phase==='waxing2'){sc+=4;reasons.push('上弦後〜満月（吸収力が高い）');}
+  else if(phase==='waxing1'){sc+=2;reasons.push('新月→上弦（吸収力が上がっていく時期）');}
+  else if(phase==='waning1'){sc+=1;reasons.push('満月→下弦（まだ吸収力あり）');}
+  else if(phase==='new'||phase==='waning2'){sc-=2;reasons.push('新月・下弦後（排出期・色落ちしやすい）');}
+
+  // 六曜
+  if(roku==='大安'){sc+=3;reasons.push('大安');}
+  else if(roku==='友引'){sc+=2;reasons.push('友引');}
+  else if(roku==='先勝'){sc+=1;reasons.push('先勝');}
+  else if(roku==='仏滅'){sc-=2;reasons.push('仏滅');}
+
+  // 二十八宿（衣類・外見のケア）
+  if(['虚','昴','女'].includes(niju)){sc+=2;reasons.push(`${niju}宿（外見ケアに◎）`);}
+  if(niju==='觜'){sc-=2;reasons.push('觜宿（衣類・外見ケアに✕）');}
+
+  // 土用は大きな変化を避ける
+  SP.doyou.forEach(p=>{if(td>=p.s&&td<=p.e){sc-=2;reasons.push('土用中（大きな変化は控えめに）');}});
+
+  // 凶日
+  if((SP.jushi[m]||[]).includes(d)){sc-=4;reasons.push('受死日（万事凶）');}
+  if((SP.fusei[m]||[]).includes(d)){sc-=3;reasons.push('不成就日（仕上がりが思い通りにならない）');}
+
+  // 吉日
+  if(SP.tensha.includes(ds)){sc+=3;reasons.push('天赦日');}
+
+  return{sc,reasons};
+}
+
+function scoreHospital(y,m,d){
+  // 病院（内科・検査・一般）
+  let sc=0; const reasons=[];
+  const phase=getMoonPhaseType(y,m,d);
+  const roku=getRoku(y,m,d);
+  const joku=getJoku(y,m,d);
+  const niju=getNiju(y,m,d);
+  const ds=String(m).padStart(2,'0')+String(d).padStart(2,'0');
+  const ki=kanIdx(y,m,d);
+
+  // 月齢：新月〜下弦がデトックス・治療に良い
+  if(phase==='new'||phase==='waning2'){sc+=4;reasons.push('新月〜下弦後（デトックス・排出が活発）');}
+  else if(phase==='waning1'){sc+=2;reasons.push('満月→下弦（デトックス期に入る）');}
+  else if(phase==='full'){sc-=2;reasons.push('満月（出血処置は要注意）');}
+  else if(phase==='waxing2'){sc+=1;reasons.push('上弦後（やや吸収が高まる）');}
+
+  // 六曜
+  if(roku==='大安'){sc+=3;reasons.push('大安');}
+  else if(roku==='先勝'){sc+=2;reasons.push('先勝（午前が特に吉）');}
+  else if(roku==='友引'){sc+=1;reasons.push('友引');}
+  else if(roku==='仏滅'){sc-=2;reasons.push('仏滅');}
+
+  // 十二直（治療向き）
+  if(['除','開','成'].includes(joku)){sc+=2;reasons.push(`十二直：${joku}（病を取り除く・快復の道が開く）`);}
+  else if(['破','危'].includes(joku)){sc-=2;reasons.push(`十二直：${joku}（状態が不安定になりやすい）`);}
+
+  // 血忌日（丑の日）：出血を伴う処置に凶
+  if(ki%12===1){sc-=3;reasons.push('血忌日・丑の日（出血を伴う処置に凶）');}
+
+  // 鬼宿：薬の飲み始めに✕
+  if(niju==='鬼'){sc-=2;reasons.push('鬼宿（薬の飲み始め・処置に✕）');}
+
+  // 凶日
+  if((SP.jushi[m]||[]).includes(d)){sc-=5;reasons.push('受死日（重要な処置は避けるべき）');}
+  if((SP.fusei[m]||[]).includes(d)){sc-=2;reasons.push('不成就日');}
+
+  // 天赦日
+  if(SP.tensha.includes(ds)){sc+=2;reasons.push('天赦日');}
+
+  return{sc,reasons};
+}
+
+function scoreDentist(y,m,d){
+  // 歯科（特に抜歯・出血処置）
+  let sc=0; const reasons=[];
+  const phase=getMoonPhaseType(y,m,d);
+  const roku=getRoku(y,m,d);
+  const joku=getJoku(y,m,d);
+  const niju=getNiju(y,m,d);
+  const ds=String(m).padStart(2,'0')+String(d).padStart(2,'0');
+  const ki=kanIdx(y,m,d);
+
+  // 月齢：歯科は新月〜下弦が特に◎（出血少）
+  if(phase==='new'){sc+=5;reasons.push('新月（体液が根方向・出血量が最も少ない）');}
+  else if(phase==='waning2'){sc+=4;reasons.push('下弦後（出血が少なく回復が早い）');}
+  else if(phase==='waning1'){sc+=2;reasons.push('満月→下弦（出血が落ち着いてくる）');}
+  else if(phase==='waxing1'){sc+=1;reasons.push('新月→上弦（まだ出血は少なめ）');}
+  else if(phase==='full'){sc-=4;reasons.push('満月（体液が上昇・出血しやすく腫れやすい）');}
+  else if(phase==='waxing2'){sc-=2;reasons.push('上弦後〜満月前（出血が増えていく時期）');}
+
+  // 六曜
+  if(roku==='大安'){sc+=3;reasons.push('大安');}
+  else if(roku==='先勝'){sc+=2;reasons.push('先勝（午前が吉）');}
+  else if(roku==='友引'){sc+=1;reasons.push('友引');}
+  else if(roku==='仏滅'){sc-=2;reasons.push('仏滅');}
+
+  // 十二直
+  if(joku==='除'){sc+=3;reasons.push('十二直：除（取り除くに最適）');}
+  else if(['開','成'].includes(joku)){sc+=1;reasons.push(`十二直：${joku}`);}
+  else if(['破','危'].includes(joku)){sc-=2;reasons.push(`十二直：${joku}（処置に不安定）`);}
+
+  // 血忌日：最大の✕
+  if(ki%12===1){sc-=4;reasons.push('血忌日・丑の日（出血処置に最大の凶）');}
+
+  // 鬼宿
+  if(niju==='鬼'){sc-=2;reasons.push('鬼宿（薬・処置に✕）');}
+
+  // 凶日
+  if((SP.jushi[m]||[]).includes(d)){sc-=5;reasons.push('受死日');}
+  if((SP.fusei[m]||[]).includes(d)){sc-=2;reasons.push('不成就日');}
+
+  // 天赦日
+  if(SP.tensha.includes(ds)){sc+=2;reasons.push('天赦日');}
+
+  return{sc,reasons};
+}
+
+// 4カテゴリ定義
+const GUIDE_CATS=[
+  {
+    id:'haircut', emoji:'✂️', title:'髪を切る', sub:'ヘアカット', fn:scoreHairCut,
+    color:'#2e7d32',
+    goodReasons:{
+      moon:['満月〜上弦後（月が満ちる時期）：毛根への血流が活発、切り口から再生エネルギーが入りやすい','新月→上弦：育ちの良い時期でコシが出る'],
+      roku:['大安・友引・先勝'],
+      other:['十二直：開（変化を開く）・成（成就する）・除（取り除く）','天赦日・一粒万倍日（新スタイルのスタートに◎）'],
+    },
+    badReasons:{
+      moon:['新月前後・下弦後：エネルギーが根に向かう時期、伸びにくい・カットの影響が長続きしにくい'],
+      roku:['仏滅：新しいスタートに凶','受死日・不成就日'],
+      other:['十二直：破（破れる）・危（危うい）：変化を起こすのに凶'],
+    },
+  },
+  {
+    id:'haircolor', emoji:'🎨', title:'カラーリング', sub:'ヘアカラー・染色', fn:scoreHairColor,
+    color:'#6a1b9a',
+    goodReasons:{
+      moon:['満月（月齢13〜16）：吸収力最高潮、カラー剤の色素・トリートメント成分が最も定着する','上弦後〜満月前（月齢7〜13）：吸収力が高い時期'],
+      roku:['大安・友引・先勝'],
+      other:['二十八宿：虚・昴・女宿（外見ケアに◎）','天赦日'],
+    },
+    badReasons:{
+      moon:['新月・下弦後：排出・デトックス期、染料が定着しにくく褪色しやすい'],
+      roku:['仏滅：仕上がりが思い通りにならない','不成就日：色の仕上がりに影響'],
+      other:['二十八宿：觜宿（衣類・外見ケアに✕）','土用中：大きな変化は控えめに（土用明けが吉）'],
+    },
+  },
+  {
+    id:'hospital', emoji:'🏥', title:'病院', sub:'内科・検査・一般処置', fn:scoreHospital,
+    color:'#0277bd',
+    goodReasons:{
+      moon:['新月〜下弦後：デトックス・排出が活発、治療効果が出やすい','満月→下弦：デトックス期に入り始める'],
+      roku:['大安・先勝（午前が特に吉）・友引'],
+      other:['十二直：除（病を取り除く）・開（快復への道が開く）・成（治療が成就する）','天赦日・一粒万倍日'],
+    },
+    badReasons:{
+      moon:['満月前後：体液が上昇し出血量が増えやすい（外科処置・手術は特に避けたい）'],
+      roku:['仏滅：新しい治療スタートに凶','受死日・不成就日：重要な処置は避けるべき'],
+      other:['血忌日（丑の日）：出血・鍼灸・採血などに凶','二十八宿：鬼宿（薬の飲み始め・処置に✕）'],
+    },
+  },
+  {
+    id:'dentist', emoji:'🦷', title:'歯科', sub:'特に抜歯・出血処置', fn:scoreDentist,
+    color:'#1565c0',
+    goodReasons:{
+      moon:['新月（月齢0前後）：体液が根方向へ、出血量が最も少なく回復が早い','下弦後〜新月前：出血が少なく腫れにくい'],
+      roku:['大安・先勝（午前が特に吉）・友引'],
+      other:['十二直：除（取り除くに最適）・開・成','天赦日'],
+    },
+    badReasons:{
+      moon:['満月前後（月齢13〜16）：体液が上昇、出血しやすく腫れやすい。特に抜歯は避けたい','上弦後〜満月：出血が増えていく時期'],
+      roku:['仏滅：処置に凶','受死日・不成就日'],
+      other:['血忌日（丑の日）：出血処置に最大の凶','二十八宿：鬼宿（処置に✕）'],
+    },
+  },
+];
+
+// スコアをレベルに変換
+function scToLevel(sc){
+  if(sc>=7)  return 'best';
+  if(sc>=4)  return 'good';
+  if(sc>=2)  return 'ok';
+  if(sc<=-6) return 'worst';
+  if(sc<=-3) return 'bad';
+  if(sc<=-1) return 'ng';
+  return 'neutral';
+}
+function scToGoodBad(sc){
+  if(sc>=2)  return 'good';
+  if(sc<=-1) return 'bad';
+  return 'none';
+}
+
+// ミニカレンダー1ヶ月分を生成（集中表示・大きめセル）
+function buildMiniCal(cat, y, m){
+  const days=new Date(y,m,0).getDate();
+  const first=new Date(y,m-1,1).getDay();
+  const today=new Date();
+  const todayY=today.getFullYear(),todayM=today.getMonth()+1,todayD=today.getDate();
+
+  // 全日スコアを計算
+  const scores=[];
+  for(let d=1;d<=days;d++) scores.push({d, ...cat.fn(y,m,d)});
+  const maxSc=Math.max(...scores.map(s=>s.sc));
+  const minSc=Math.min(...scores.map(s=>s.sc));
+
+  // セルを生成
+  let cells='';
+  for(let i=0;i<first;i++) cells+=`<div class="gcell emp"></div>`;
+  for(const {d,sc,reasons} of scores){
+    const dow=new Date(y,m-1,d).getDay();
+    const isToday=(y===todayY&&m===todayM&&d===todayD);
+    const isBest=(sc===maxSc&&sc>=3);
+    const isWorst=(sc===minSc&&sc<=-2);
+    let lv=scToLevel(sc);
+    if(isBest) lv='g-best';
+    else if(sc>=4) lv='g-good';
+    else if(sc>=2) lv='g-ok';
+    else if(isWorst) lv='b-worst';
+    else if(sc<=-3) lv='b-bad';
+    else if(sc<=-1) lv='b-ng';
+    else lv='neutral';
+
+    const tip=`${y}/${m}/${d}　${reasons.join(' / ')||'特記なし'}`;
+    const dowCls=dow===0?'sun-cell':dow===6?'sat-cell':'';
+    const cls=['gcell',lv,isToday?'today-cell':'',dowCls].filter(Boolean).join(' ');
+
+    // セル内：最良★ 最悪▲ それ以外は日付
+    let inner=`<span>${isBest?'★':isWorst?'▲':d}</span>`;
+    if(isBest||isWorst){
+      inner=`<span style="font-size:.72rem;font-weight:900">${isBest?'★':'▲'}</span><span class="gcell-badge">${d}</span>`;
+    }
+    cells+=`<div class="${cls}" title="${tip}">${inner}</div>`;
+  }
+
+  return`
+  <div class="gcal-wrap">
+    <div class="gcal-wk"><div>日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div></div>
+    <div class="gcal-days">${cells}</div>
+    <div class="gcal-legend">
+      <div class="gcal-legend-item"><div class="gcal-legend-dot" style="background:#1b5e20"></div>最良日★</div>
+      <div class="gcal-legend-item"><div class="gcal-legend-dot" style="background:#388e3c"></div>良い</div>
+      <div class="gcal-legend-item"><div class="gcal-legend-dot" style="background:#c8e6c9"></div>まあ良い</div>
+      <div class="gcal-legend-item"><div class="gcal-legend-dot" style="background:#b71c1c"></div>最悪日▲</div>
+      <div class="gcal-legend-item"><div class="gcal-legend-dot" style="background:#e53935"></div>避けたい</div>
+      <div class="gcal-legend-item"><div class="gcal-legend-dot" style="background:#ffcdd2"></div>やや注意</div>
+    </div>
+  </div>`;
+}
+
+// 日付リストを生成（良い日・悪い日）
+function buildDayList(cat, y, m){
+  const days=new Date(y,m,0).getDate();
+  const today=new Date();
+  const todayY=today.getFullYear(),todayM=today.getMonth()+1,todayD=today.getDate();
+  const WK=['日','月','火','水','木','金','土'];
+  const MN=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+
+  const allScores=[];
+  for(let d=1;d<=days;d++){
+    const {sc,reasons}=cat.fn(y,m,d);
+    const dow=new Date(y,m-1,d).getDay();
+    allScores.push({d,sc,reasons,dow});
+  }
+  const maxSc=Math.max(...allScores.map(s=>s.sc));
+  const minSc=Math.min(...allScores.map(s=>s.sc));
+
+  const goodDays=allScores.filter(s=>s.sc>=2).sort((a,b)=>b.sc-a.sc);
+  const badDays =allScores.filter(s=>s.sc<=-1).sort((a,b)=>a.sc-b.sc);
+
+  function chip(s,type){
+    const isBest=(s.sc===maxSc&&s.sc>=3);
+    const isWorst=(s.sc===minSc&&s.sc<=-2);
+    let cls=isBest?'best':isWorst?'worst':type==='good'?(s.sc>=4?'good':'ok'):(s.sc<=-3?'bad':'ng');
+    const badge=isBest?' ★':isWorst?' ▲':'';
+    const isToday=(y===todayY&&m===todayM&&s.d===todayD);
+    const topR=s.reasons.slice(0,2).join(' / ');
+    return`<span class="glist-chip ${cls}" title="${y}/${m}/${s.d}　${topR}">${m}/${s.d}（${WK[s.dow]}）${badge}${isToday?' ◀今日':''}</span>`;
+  }
+
+  return`
+  <div class="glist-section">
+    <div class="glist-section-ttl glist-ttl-good">✅ ${MN[m-1]}の良い日（${goodDays.length}日）</div>
+    <div class="glist-chips">${goodDays.map(s=>chip(s,'good')).join('')||'<span style="font-size:.6rem;color:#8d6e4f;padding:2px 4px">今月は該当なし</span>'}</div>
+  </div>
+  <div class="glist-section">
+    <div class="glist-section-ttl glist-ttl-bad">⚠️ ${MN[m-1]}の避けたい日（${badDays.length}日）</div>
+    <div class="glist-chips">${badDays.map(s=>chip(s,'bad')).join('')||'<span style="font-size:.6rem;color:#8d6e4f;padding:2px 4px">今月は該当なし</span>'}</div>
+  </div>`;
+}
+
+// 判定理由パネルを生成
+function buildReasonBox(cat){
+  const goodR=[
+    {label:'月齢',items:cat.goodReasons.moon},
+    {label:'六曜',items:cat.goodReasons.roku},
+    {label:'十二直・二十八宿・特別日',items:cat.goodReasons.other},
+  ];
+  const badR=[
+    {label:'月齢',items:cat.badReasons.moon},
+    {label:'六曜・特別凶日',items:cat.badReasons.roku},
+    {label:'十二直・二十八宿',items:cat.badReasons.other},
+  ];
+  const mkItems=(arr)=>arr.filter(Boolean).map(s=>`<div class="guide-reason-item">${s}</div>`).join('');
+  return`
+  <div class="guide-reason-title">📋 ${cat.title}の判定基準</div>
+  <div class="guide-reason-cols">
+    <div class="guide-reason-col good">
+      <h5>✅ 良い日の根拠</h5>
+      ${goodR.map(g=>g.items.length?`<div style="font-size:.55rem;color:rgba(232,201,122,.5);margin:4px 0 2px;letter-spacing:.06em">${g.label}</div>${mkItems(g.items)}`:'').join('')}
+    </div>
+    <div class="guide-reason-col bad">
+      <h5>⚠️ 避ける日の根拠</h5>
+      ${badR.map(g=>g.items.length?`<div style="font-size:.55rem;color:rgba(232,201,122,.5);margin:4px 0 2px;letter-spacing:.06em">${g.label}</div>${mkItems(g.items)}`:'').join('')}
+    </div>
+  </div>`;
+}
+
+// 暦ガイドページ描画
+let guideCatId='haircut'; // 選択中カテゴリ
+
+function selectGuideCat(id){
+  guideCatId=id;
+  document.querySelectorAll('.gcat-btn').forEach(b=>b.classList.toggle('active',b.dataset.cat===id));
+  renderGuideContent();
+}
+
+function renderGuidePage(){
+  // カテゴリ選択ボタンを描画（初回のみ）
+  if(!document.getElementById('guideCatBar').children.length){
+    document.getElementById('guideCatBar').innerHTML=GUIDE_CATS.map(c=>`
+      <button class="gcat-btn${c.id===guideCatId?' active':''}" data-cat="${c.id}" onclick="selectGuideCat('${c.id}')">
+        <span class="gb-emoji">${c.emoji}</span>
+        <span class="gb-label">${c.title}</span>
+      </button>`).join('');
+  }
+  renderGuideContent();
+}
+
+function renderGuideContent(){
+  const MN=['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  let ny=guideYear, nm=guideMonth+1;
+  if(nm>12){nm=1;ny++;}
+
+  document.getElementById('guideMTitle').textContent=
+    `${guideYear}年${MN[guideMonth-1]} ／ ${ny}年${MN[nm-1]}`;
+
+  const cat=GUIDE_CATS.find(c=>c.id===guideCatId)||GUIDE_CATS[0];
+
+  // 2ヶ月分を横並び
+  document.getElementById('guideMonths').innerHTML=`
+    <div class="guide-month-card">
+      <div class="guide-month-hdr" style="color:${cat.color}">${guideYear}年${MN[guideMonth-1]}</div>
+      ${buildMiniCal(cat,guideYear,guideMonth)}
+      <div class="glist-wrap">${buildDayList(cat,guideYear,guideMonth)}</div>
+    </div>
+    <div class="guide-month-card">
+      <div class="guide-month-hdr" style="color:${cat.color}">${ny}年${MN[nm-1]}</div>
+      ${buildMiniCal(cat,ny,nm)}
+      <div class="glist-wrap">${buildDayList(cat,ny,nm)}</div>
+    </div>`;
+
+  // 判定理由パネル
+  document.getElementById('guideReasonBox').innerHTML=buildReasonBox(cat);
 }
 
 // =====================================================
