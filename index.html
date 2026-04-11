@@ -88,16 +88,14 @@ header p{color:rgba(232,201,122,.5);font-size:.58rem;letter-spacing:.14em;margin
 /* ─── 土用バナー ─── */
 .doyou-bar{
   position:absolute;top:0;left:0;right:0;
-  height:5px;background:linear-gradient(90deg,#e65100,#ffa000);
+  height:4px;
+  background:linear-gradient(90deg,#6b4c11,#a0722a,#c4952a,#a0722a,#6b4c11);
   z-index:2;
+  opacity:.85;
 }
 .doyou-bar.start{border-radius:0;left:0;}
 .doyou-bar.end{border-radius:0;right:0;}
-.doyou-label{
-  font-size:.38rem;font-weight:700;color:#e65100;
-  letter-spacing:.04em;line-height:1;margin-bottom:1px;
-  padding-top:6px; /* バナー分の余白 */
-}
+.doyou-label{display:none;} /* 帯のみ・ラベル非表示 */
 
 /* ─── 惑星逆行バナー ─── */
 .retro-bar{
@@ -472,12 +470,41 @@ header p{color:rgba(232,201,122,.5);font-size:.58rem;letter-spacing:.14em;margin
 .sched-btn:hover{opacity:.85;}
 
 /* ─── タブ ─── */
-.tab-bar{display:flex;gap:0;background:rgba(26,16,8,.95);border-bottom:2px solid var(--gold);position:sticky;top:56px;z-index:99;}
-.tab-btn{flex:1;padding:9px 4px;font-family:'Noto Serif JP',serif;font-size:.7rem;letter-spacing:.08em;border:none;background:transparent;color:rgba(232,201,122,.45);cursor:pointer;transition:all .2s;border-bottom:3px solid transparent;margin-bottom:-2px;}
-.tab-btn.active{color:var(--gold-l);border-bottom-color:var(--gold-l);background:rgba(201,168,76,.08);}
+.tab-bar{display:flex;gap:0;background:rgba(26,16,8,.95);border-bottom:2px solid var(--gold);position:sticky;top:56px;z-index:99;overflow:hidden;}
+.tab-btn{flex:1;padding:9px 4px;font-family:'Noto Serif JP',serif;font-size:.7rem;letter-spacing:.08em;border:none;background:transparent;color:rgba(232,201,122,.45);cursor:pointer;transition:all .2s;position:relative;}
+.tab-btn.active{color:var(--gold-l);background:rgba(201,168,76,.08);}
 .tab-btn:hover:not(.active){color:rgba(232,201,122,.7);}
-.tab-pane{display:none;}
-.tab-pane.active{display:block;}
+/* タブバー下部に滑らかにスライドするインジケーター */
+.tab-indicator{
+  position:absolute;bottom:-2px;left:0;height:3px;
+  background:var(--gold-l);border-radius:2px 2px 0 0;
+  transition:left .3s cubic-bezier(.4,0,.2,1),width .3s cubic-bezier(.4,0,.2,1);
+  z-index:1;
+}
+/* タブコンテナ：横スクロール無しで全タブを横並びに */
+.tab-container{
+  overflow:hidden;
+  position:relative;
+  /* 親要素の幅に厳密に収める */
+  width:100%;
+  max-width:100%;
+}
+.tab-slides{
+  display:flex;
+  width:500%; /* タブ数分（5タブ） */
+  /* トランジションはJSで動的に制御 */
+  will-change:transform;
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+}
+.tab-pane{
+  width:20%; /* 500%の中の1/5 = 実質100vw */
+  flex-shrink:0;
+  min-width:0; /* flexでの崩れ防止 */
+  box-sizing:border-box;
+}
+/* スワイプ中はtransitionを無効化 */
+.tab-slides.swiping{transition:none;}
 
 /* ─── 事業計画ページ ─── */
 .plan-wrap{max-width:900px;margin:0 auto;padding:12px 10px;}
@@ -669,8 +696,8 @@ header p{color:rgba(232,201,122,.5);font-size:.58rem;letter-spacing:.14em;margin
 /* ─── 吉日辞書タブ ─── */
 .jitsu-wrap{max-width:900px;margin:0 auto;padding:12px 10px;}
 .jitsu-header{
-  background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.08));
-  border:1px solid rgba(201,168,76,.3);border-radius:12px;
+  background:rgba(42,28,14,.92);
+  border:1px solid rgba(201,168,76,.28);border-radius:12px;
   padding:12px 14px;margin-bottom:12px;text-align:center;
 }
 .jitsu-header-title{
@@ -679,18 +706,18 @@ header p{color:rgba(232,201,122,.5);font-size:.58rem;letter-spacing:.14em;margin
 }
 .jitsu-header-sub{font-size:.6rem;color:rgba(232,201,122,.6);letter-spacing:.1em;}
 .jitsu-card{
-  background:rgba(250,243,224,.97);border-radius:12px;
+  background:#fff8ee;border-radius:12px;
   margin-bottom:10px;overflow:hidden;
-  box-shadow:0 2px 12px rgba(0,0,0,.15),0 0 0 1px rgba(201,168,76,.2);
+  box-shadow:0 2px 12px rgba(0,0,0,.15),0 0 0 1px rgba(180,130,40,.25);
 }
 .jitsu-card-hdr{
   display:flex;align-items:center;gap:10px;
   padding:10px 14px;cursor:pointer;
-  border-bottom:1px solid rgba(201,168,76,.15);
-  background:rgba(201,168,76,.06);
+  border-bottom:1px solid rgba(180,130,40,.2);
+  background:#fffbf0;
   transition:background .15s;
 }
-.jitsu-card-hdr:hover{background:rgba(201,168,76,.12);}
+.jitsu-card-hdr:hover{background:#fff3d0;}
 .jitsu-card-icon{
   width:36px;height:36px;border-radius:8px;
   display:flex;align-items:center;justify-content:center;
@@ -698,79 +725,101 @@ header p{color:rgba(232,201,122,.5);font-size:.58rem;letter-spacing:.14em;margin
   border:2px solid;background:#fff;font-family:'Noto Serif JP',serif;
 }
 .jitsu-card-meta{flex:1;}
-.jitsu-card-name{font-family:'Kaisei Opti',serif;font-size:.85rem;font-weight:700;color:var(--ink);}
-.jitsu-card-yomi{font-size:.58rem;color:#8d6e4f;letter-spacing:.05em;}
-.jitsu-card-freq{font-size:.55rem;color:rgba(201,168,76,.8);background:rgba(201,168,76,.1);padding:2px 7px;border-radius:10px;white-space:nowrap;}
-.jitsu-card-toggle{font-size:.65rem;color:#8d6e4f;transition:transform .2s;}
-.jitsu-card.open .jitsu-card-toggle{transform:rotate(180deg);}
-.jitsu-card-body{display:none;padding:12px 14px;}
-.jitsu-card.open .jitsu-card-body{display:block;}
-.jitsu-essence-box{
-  background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.05));
-  border:1px solid rgba(201,168,76,.25);border-radius:8px;
-  padding:8px 11px;margin-bottom:10px;
-  font-size:.68rem;color:#5a3a00;line-height:1.65;
-  border-left:4px solid rgba(201,168,76,.5);font-style:italic;
+/* タイトル：各吉日の固有色を使いつつ確実に見える濃さに */
+.jitsu-card-name{font-family:'Kaisei Opti',serif;font-size:.88rem;font-weight:700;color:#1a1008;}
+.jitsu-card-yomi{font-size:.59rem;color:#5a3e1a;letter-spacing:.05em;margin-top:1px;}
+.jitsu-card-freq{
+  font-size:.56rem;color:#3a2400;
+  background:#f5e0a0;padding:2px 8px;border-radius:10px;
+  white-space:nowrap;font-weight:700;border:1px solid #c9a030;
 }
+.jitsu-card-toggle{font-size:.7rem;color:#7a5520;transition:transform .2s;}
+.jitsu-card.open .jitsu-card-toggle{transform:rotate(180deg);}
+.jitsu-card-body{display:none;padding:12px 14px;background:#fffdf5;}
+.jitsu-card.open .jitsu-card-body{display:block;}
+
+/* 本質テキストボックス */
+.jitsu-essence-box{
+  background:#fff9e6;
+  border:1px solid #c9a030;border-radius:8px;
+  padding:9px 12px;margin-bottom:10px;
+  font-size:.7rem;color:#2a1800;line-height:1.7;
+  border-left:4px solid #c9a030;font-style:italic;font-weight:500;
+}
+
+/* セクションタイトル（やること・避けること） */
 .jitsu-section-ttl{
-  font-size:.62rem;font-weight:700;color:#8d6e4f;
+  font-size:.64rem;font-weight:700;color:#3a2000;
   letter-spacing:.1em;margin-bottom:6px;
   display:flex;align-items:center;gap:4px;
 }
 .jitsu-section-ttl::before{
-  content:'';width:3px;height:10px;border-radius:2px;
+  content:'';width:3px;height:11px;border-radius:2px;
   background:linear-gradient(180deg,#c9a84c,#e8c97a);display:inline-block;
 }
+
+/* やること */
 .jitsu-do-list{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;}
 .jitsu-do-item{
   display:flex;align-items:flex-start;gap:8px;
-  background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);
-  border-radius:7px;padding:6px 9px;font-size:.65rem;color:#2c1810;line-height:1.5;
+  background:#f5f0e0;border:1px solid #d4b86a;
+  border-radius:7px;padding:7px 9px;font-size:.67rem;color:#1a1008;line-height:1.55;
 }
 .jitsu-do-num{
-  flex-shrink:0;width:18px;height:18px;border-radius:50%;
-  background:linear-gradient(135deg,#c9a84c,#e8c97a);
-  color:#1a1008;font-size:.56rem;font-weight:900;
+  flex-shrink:0;width:19px;height:19px;border-radius:50%;
+  background:linear-gradient(135deg,#b8860b,#e8c97a);
+  color:#fff;font-size:.58rem;font-weight:900;
   display:flex;align-items:center;justify-content:center;margin-top:1px;
 }
-.jitsu-do-body strong{display:block;color:#7a4000;font-size:.66rem;margin-bottom:1px;}
+.jitsu-do-body strong{display:block;color:#6b3a00;font-size:.68rem;margin-bottom:2px;font-weight:700;}
+
+/* 避けること */
 .jitsu-avoid-list{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;}
 .jitsu-avoid-item{
-  font-size:.63rem;color:#8d4a00;
-  background:rgba(255,80,0,.05);border:1px solid rgba(255,80,0,.12);
-  border-radius:6px;padding:4px 9px;line-height:1.45;
+  font-size:.65rem;color:#5a0e00;
+  background:#fff0ee;border:1px solid #e07060;
+  border-radius:6px;padding:5px 10px;line-height:1.5;font-weight:500;
 }
+
+/* 日付ボックス */
 .jitsu-dates-box{
-  background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.2);
-  border-radius:7px;padding:7px 10px;
+  background:#f5f0e0;border:1px solid #c9a030;
+  border-radius:7px;padding:8px 10px;
 }
-.jitsu-dates-ttl{font-size:.58rem;color:#8d6e4f;margin-bottom:5px;letter-spacing:.08em;}
+.jitsu-dates-ttl{font-size:.6rem;color:#3a2400;margin-bottom:5px;letter-spacing:.08em;font-weight:700;}
 .jitsu-dates-chips{display:flex;flex-wrap:wrap;gap:3px;}
 .jitsu-date-chip{
-  font-size:.56rem;padding:2px 7px;border-radius:10px;
-  background:rgba(201,168,76,.15);color:#5a3a00;border:1px solid rgba(201,168,76,.3);
-  font-family:'Noto Serif JP',serif;
+  font-size:.57rem;padding:3px 8px;border-radius:10px;
+  background:#fff;color:#3a2000;border:1px solid #c9a030;
+  font-family:'Noto Serif JP',serif;font-weight:500;
 }
 .jitsu-date-chip.today{
-  background:linear-gradient(135deg,#c9a84c,#e8c97a);color:#1a1008;
-  font-weight:700;border-color:#c9a84c;
+  background:linear-gradient(135deg,#b8860b,#e8c97a);color:#fff;
+  font-weight:700;border-color:#b8860b;
 }
 .jitsu-date-chip.saikyo{
-  background:linear-gradient(135deg,#e65100,#ff8f00);color:#fff;
-  font-weight:700;border-color:#e65100;font-size:.52rem;
+  background:linear-gradient(135deg,#a02000,#e63000);color:#fff;
+  font-weight:700;border-color:#a02000;font-size:.53rem;
 }
-.jitsu-year-block{margin-bottom:8px;}
+.jitsu-year-block{margin-bottom:9px;}
 .jitsu-year-ttl{
-  font-size:.58rem;font-weight:700;color:#8d6e4f;
+  font-size:.6rem;font-weight:700;color:#3a2400;
   letter-spacing:.12em;margin-bottom:4px;
-  padding-left:2px;border-left:3px solid rgba(201,168,76,.5);
+  padding-left:5px;border-left:3px solid #c9a030;
+}
+
+/* ノートボックス（💡メモ） */
+.tsukasa-note{
+  font-size:.62rem;color:#3a2000;
+  background:#fff9e0;border:1px solid #c9a030;
+  border-radius:6px;padding:5px 9px;line-height:1.5;
 }
 
 /* ─── 暦ガイドタブ ─── */
 .guide-wrap{max-width:900px;margin:0 auto;padding:10px 10px 40px;}
 .guide-header{
-  background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.06));
-  border:1px solid rgba(201,168,76,.3);border-radius:12px;
+  background:rgba(42,28,14,.92);
+  border:1px solid rgba(201,168,76,.28);border-radius:12px;
   padding:10px 14px;margin-bottom:10px;
 }
 .guide-header-title{
@@ -925,6 +974,149 @@ header p{color:rgba(232,201,122,.5);font-size:.58rem;letter-spacing:.14em;margin
 }
 /* 月切り替え */
 .guide-month-pair{margin-bottom:0;}
+
+/* ─── 九星気学方位タブ ─── */
+/* ─── 方位盤 SVG ─── */
+.houiban-wrap{padding:8px 10px 4px;display:flex;flex-direction:column;align-items:center;}
+.houiban-summary{
+  font-size:.65rem;color:#3a2000;
+  background:#fff9e0;border:1px solid rgba(180,120,0,.25);
+  border-radius:7px;padding:5px 10px;margin-bottom:8px;
+  text-align:center;line-height:1.6;width:100%;box-sizing:border-box;
+}
+.houiban-summary strong{color:#7b1fa2;}
+.houiban-svg-wrap{width:100%;max-width:280px;}
+.houiban-svg-wrap svg{width:100%;height:auto;display:block;}
+.houiban-dir-list{width:100%;margin-top:6px;}
+.houiban-dir-row{
+  display:flex;align-items:flex-start;
+  border-bottom:1px solid rgba(201,168,76,.1);
+  padding:6px 4px;
+}
+.houiban-dir-row:last-child{border-bottom:none;}
+.houiban-dir-name{
+  flex-shrink:0;width:34px;
+  font-family:'Kaisei Opti',serif;font-size:.75rem;font-weight:700;color:#2c1810;
+}
+.houiban-dir-tags{display:flex;flex-wrap:wrap;gap:3px;flex:1;}
+
+.houi-wrap{max-width:900px;margin:0 auto;padding:10px 10px 40px;}
+.houi-header{
+  background:rgba(42,28,14,.92);
+  border:1px solid rgba(201,168,76,.28);border-radius:12px;
+  padding:10px 14px;margin-bottom:10px;text-align:center;
+}
+.houi-header-title{
+  font-family:'Kaisei Opti',serif;color:var(--gold-l);
+  font-size:1rem;letter-spacing:.18em;margin-bottom:3px;
+}
+.houi-header-sub{font-size:.58rem;color:rgba(232,201,122,.6);letter-spacing:.08em;}
+
+/* 本命星セレクト */
+.houi-sel-bar{
+  display:flex;gap:5px;margin-bottom:12px;
+}
+.houi-sel-btn{
+  flex:1;padding:8px 4px;border-radius:10px;border:1px solid rgba(140,80,220,.4);
+  background:#2a1e3e;color:#b899dd;
+  font-family:'Noto Serif JP',serif;font-size:.58rem;font-weight:700;
+  cursor:pointer;text-align:center;transition:all .2s;line-height:1.4;
+}
+.houi-sel-btn:hover{background:#3d2860;color:#d8bbf5;}
+.houi-sel-btn.active{
+  background:#5b3a8a;border-color:#c09aee;
+  color:#fff;box-shadow:0 0 8px rgba(180,130,255,.4);
+}
+.houi-sel-btn .hsb-num{font-size:.52rem;color:#d8bbf5;display:block;margin-bottom:1px;}
+
+/* 年盤カード */
+.houi-nenban{
+  background:#fff8ee;border-radius:12px;
+  border:1px solid rgba(140,80,220,.25);
+  margin-bottom:12px;overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,.15);
+}
+.houi-nenban-hdr{
+  background:linear-gradient(135deg,rgba(120,60,200,.15),rgba(100,40,180,.08));
+  padding:8px 13px;border-bottom:1px solid rgba(140,80,220,.2);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.houi-nenban-ttl{
+  font-family:'Kaisei Opti',serif;font-size:.82rem;font-weight:700;color:#5a2d82;
+}
+.houi-nenban-sub{font-size:.56rem;color:#7a4a9a;}
+
+/* 方位グリッド */
+.houi-dir-grid{
+  display:grid;grid-template-columns:1fr;gap:0;
+}
+.houi-dir-row{
+  display:flex;align-items:flex-start;gap:0;
+  border-bottom:1px solid rgba(201,168,76,.1);
+  padding:7px 13px;
+}
+.houi-dir-row:last-child{border-bottom:none;}
+.houi-dir-name{
+  flex-shrink:0;width:36px;
+  font-family:'Kaisei Opti',serif;font-size:.78rem;font-weight:700;
+  color:#2c1810;padding-top:1px;
+}
+.houi-dir-tags{display:flex;flex-wrap:wrap;gap:3px;flex:1;}
+.houi-tag{
+  font-size:.55rem;padding:2px 7px;border-radius:10px;
+  font-family:'Noto Serif JP',serif;font-weight:600;white-space:nowrap;
+}
+/* 吉凶別タグ色 */
+.houi-tag.saikyo-kichi{background:#1b5e20;color:#fff;}     /* 最大吉方 */
+.houi-tag.kichi      {background:#388e3c;color:#fff;}       /* 吉方 */
+.houi-tag.gokyo      {background:#7b1fa2;color:#fff;}       /* 五黄殺 */
+.houi-tag.ankken     {background:#c62828;color:#fff;}       /* 暗剣殺 */
+.houi-tag.saiha      {background:#ad1457;color:#fff;}       /* 歳破 */
+.houi-tag.honmei-s   {background:#e65100;color:#fff;}       /* 本命殺 */
+.houi-tag.honmei-t   {background:#bf360c;color:#fff;}       /* 本命的殺 */
+.houi-tag.tsukinmei-s{background:#1565c0;color:#fff;}       /* 月命殺 */
+.houi-tag.tsukinmei-t{background:#0d47a1;color:#fff;}       /* 月命的殺 */
+.houi-tag.taii       {background:#558b2f;color:#fff;}       /* 定位対冲 */
+.houi-tag.getsuha    {background:#6a1b9a;color:#fff;}       /* 月破 */
+.houi-tag.shoji      {background:#4a148c;color:#fff;}       /* 小児殺 */
+.houi-tag.tendo      {background:#00695c;color:#fff;}       /* 天道 */
+.houi-tag.tentoku    {background:#00838f;color:#fff;}       /* 天徳 */
+.houi-tag.tsukitoku  {background:#0277bd;color:#fff;}       /* 月徳 */
+.houi-tag.tentoku-g  {background:#006064;color:#fff;}       /* 天徳合 */
+.houi-tag.tsukitoku-g{background:#01579b;color:#fff;}       /* 月徳合 */
+.houi-tag.seiki      {background:#2e7d32;color:#fff;}       /* 生気 */
+.houi-tag.tsukikuu   {background:#37474f;color:#fff;}       /* 月空 */
+.houi-tag.nashi      {background:rgba(201,168,76,.15);color:#6b4c2a;border:1px solid rgba(201,168,76,.3);}  /* 吉凶なし */
+
+/* 月盤セクション */
+.houi-tsukinban-section{margin-bottom:0;}
+.houi-month-card{
+  background:#fff8ee;border-radius:12px;
+  border:1px solid rgba(140,80,220,.2);
+  margin-bottom:10px;overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
+}
+.houi-month-hdr{
+  background:linear-gradient(135deg,rgba(100,40,180,.12),rgba(80,20,160,.06));
+  padding:7px 13px;border-bottom:1px solid rgba(140,80,220,.15);
+  display:flex;align-items:center;justify-content:space-between;cursor:pointer;
+}
+.houi-month-ttl{font-family:'Kaisei Opti',serif;font-size:.78rem;font-weight:700;color:#5a2d82;}
+.houi-month-period{font-size:.54rem;color:#7a4a9a;}
+.houi-month-toggle{font-size:.6rem;color:#7a4a9a;transition:transform .2s;}
+.houi-month-card.open .houi-month-toggle{transform:rotate(180deg);}
+.houi-month-body{display:none;}
+.houi-month-card.open .houi-month-body{display:block;}
+/* 今月ハイライト */
+.houi-month-card.current-month .houi-month-hdr{
+  background:linear-gradient(135deg,rgba(180,120,255,.2),rgba(140,80,220,.1));
+  border-bottom-color:rgba(180,120,255,.3);
+}
+.houi-month-card.current-month .houi-month-ttl{color:#7b1fa2;}
+.houi-now-badge{
+  font-size:.48rem;padding:1px 6px;border-radius:8px;
+  background:rgba(180,120,255,.3);color:#5a2d82;font-weight:700;
+}
 </style>
 </head>
 <body>
@@ -935,12 +1127,17 @@ header p{color:rgba(232,201,122,.5);font-size:.58rem;letter-spacing:.14em;margin
 </header>
 
 <!-- タブバー -->
-<div class="tab-bar">
-  <button class="tab-btn active" onclick="switchTab('calendar')">🗓 暦カレンダー</button>
-  <button class="tab-btn" onclick="switchTab('plan')">🚀 事業計画</button>
-  <button class="tab-btn" onclick="switchTab('jitsu')">📖 吉日辞書</button>
-  <button class="tab-btn" onclick="switchTab('guide')">✂️ 暦ガイド</button>
+<div class="tab-bar" id="tabBar">
+  <button class="tab-btn active" onclick="switchTab('calendar')">🗓 暦</button>
+  <button class="tab-btn" onclick="switchTab('plan')">🚀 事業</button>
+  <button class="tab-btn" onclick="switchTab('guide')">✂️ ガイド</button>
+  <button class="tab-btn" onclick="switchTab('houi')">🧭 方位</button>
+  <button class="tab-btn" onclick="switchTab('jitsu')">📖 辞書</button>
+  <div class="tab-indicator" id="tabIndicator"></div>
 </div>
+
+<div class="tab-container" id="tabContainer">
+<div class="tab-slides" id="tabSlides">
 
 <!-- カレンダータブ -->
 <div class="tab-pane active" id="tab-calendar">
@@ -998,17 +1195,6 @@ header p{color:rgba(232,201,122,.5);font-size:.58rem;letter-spacing:.14em;margin
 </div>
 </div><!-- /tab-plan -->
 
-<!-- 吉日辞書タブ -->
-<div class="tab-pane" id="tab-jitsu">
-<div class="jitsu-wrap">
-  <div class="jitsu-header">
-    <div class="jitsu-header-title">📖 吉日辞書</div>
-    <div class="jitsu-header-sub">各吉日の本質・やるべきこと・避けること・2026年の日付一覧</div>
-  </div>
-  <div id="jitsuGrid"></div>
-</div>
-</div><!-- /tab-jitsu -->
-
 <!-- 暦ガイドタブ -->
 <div class="tab-pane" id="tab-guide">
 <div class="guide-wrap">
@@ -1032,6 +1218,32 @@ header p{color:rgba(232,201,122,.5);font-size:.58rem;letter-spacing:.14em;margin
   <div class="guide-reason-box" id="guideReasonBox"></div>
 </div>
 </div><!-- /tab-guide -->
+
+<!-- 吉日辞書タブ -->
+<!-- 九星気学方位タブ -->
+<div class="tab-pane" id="tab-houi">
+<div class="houi-wrap">
+  <div class="houi-header">
+    <div class="houi-header-title">🧭 九星気学 方位盤</div>
+    <div class="houi-header-sub">2026年 年盤・月盤の吉凶方位（八雲院参照）</div>
+  </div>
+  <div class="houi-sel-bar" id="houiSelBar"></div>
+  <div id="houiContent"></div>
+</div>
+</div><!-- /tab-houi -->
+
+<!-- 吉日辞書タブ -->
+<div class="tab-pane" id="tab-jitsu">
+<div class="jitsu-wrap">
+  <div class="jitsu-header">
+    <div class="jitsu-header-title">📖 吉日辞書</div>
+    <div class="jitsu-header-sub">各吉日の本質・やるべきこと・避けること・2026年の日付一覧</div>
+  </div>
+  <div id="jitsuGrid"></div>
+</div>
+</div><!-- /tab-jitsu -->
+</div><!-- /tab-slides -->
+</div><!-- /tab-container -->
 
 <!-- モーダル -->
 <div class="modal-ov" id="detailOv" onclick="closeDetail(event)">
@@ -1883,7 +2095,7 @@ function render(){
     }
 
     // 土用期間中はセルにpadding-topを追加（バナー分）
-    const doyouH=doyouInfo.active&&filters.has('doyou')?5:0;
+    const doyouH=doyouInfo.active&&filters.has('doyou')?4:0;
     const retroH=showRetro?retroPlanets.reduce((s,pl)=>s+(pl.id==='mercury'?9:5),0):0;
     const totalBannerH=doyouH+retroH;
     const cellStyle=totalBannerH>0?`style="padding-top:${totalBannerH+4}px"`:'';
@@ -2775,17 +2987,191 @@ function toggleJitsu(id){
 // =====================================================
 // タブ切り替え
 // =====================================================
-function switchTab(tab){
-  document.querySelectorAll('.tab-btn').forEach((b,i)=>{
-    b.classList.toggle('active',b.getAttribute('onclick').includes(tab));
-  });
-  document.querySelectorAll('.tab-pane').forEach(p=>{
-    p.classList.toggle('active',p.id==='tab-'+tab);
-  });
-  if(tab==='plan') renderPlanPage();
-  if(tab==='jitsu') renderJitsuPage();
-  if(tab==='guide') renderGuidePage();
+// =====================================================
+// タブ切り替え（スライド＋スワイプ対応）
+// =====================================================
+const TAB_ORDER=['calendar','plan','guide','houi','jitsu'];
+let currentTabIdx=0;
+
+// slides要素をpxで直接移動するヘルパー
+function slideTo(px, withAnim=true){
+  const slides=document.getElementById('tabSlides');
+  if(!slides) return;
+  if(withAnim){
+    slides.style.transition='transform .36s cubic-bezier(0.25,0.46,0.45,0.94)';
+  } else {
+    slides.style.transition='none';
+  }
+  slides.style.transform=`translateX(${px}px)`;
 }
+
+function getSlideBaseX(idx){
+  const container=document.getElementById('tabContainer');
+  if(!container) return -(idx * container.offsetWidth);
+  return -(idx * container.offsetWidth);
+}
+
+function updateTabIndicator(idx){
+  const btns=document.querySelectorAll('.tab-btn');
+  const bar=document.getElementById('tabBar');
+  if(!btns[idx]||!bar) return;
+  const btn=btns[idx];
+  const barRect=bar.getBoundingClientRect();
+  const btnRect=btn.getBoundingClientRect();
+  const ind=document.getElementById('tabIndicator');
+  if(ind){
+    ind.style.transition='left .36s cubic-bezier(0.25,0.46,0.45,0.94), width .36s cubic-bezier(0.25,0.46,0.45,0.94)';
+    ind.style.left=(btnRect.left-barRect.left)+'px';
+    ind.style.width=btnRect.width+'px';
+  }
+}
+
+function switchTab(tab, withAnim=true){
+  const idx=TAB_ORDER.indexOf(tab);
+  if(idx<0) return;
+  currentTabIdx=idx;
+
+  // ボタンのactive切り替え
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>{
+    b.classList.toggle('active',i===idx);
+  });
+
+  // スライド移動
+  slideTo(getSlideBaseX(idx), withAnim);
+
+  // インジケーター
+  requestAnimationFrame(()=>updateTabIndicator(idx));
+
+  // タブ固有の初期化（アニメ完了後に実行して描画のガタつきを防ぐ）
+  const doRender=()=>{
+    if(tab==='plan') renderPlanPage();
+    if(tab==='jitsu') renderJitsuPage();
+    if(tab==='guide') renderGuidePage();
+    if(tab==='houi') renderHouiPage();
+  };
+  if(withAnim){
+    setTimeout(doRender, 200); // アニメ中盤で描画（見えていないうちに）
+  } else {
+    doRender();
+  }
+}
+
+// ── スワイプ処理 ──
+(function initSwipe(){
+  const container=document.getElementById('tabContainer');
+  if(!container) return;
+
+  let startX=0, startY=0, lastX=0;
+  let startBaseX=0;    // スワイプ開始時のslides位置(px)
+  let velX=0;          // 速度（px/ms）
+  let lastTime=0;
+  let isSwiping=false;
+  let lockAxis=null;   // 'x' or 'y' or null（未確定）
+  const AXIS_THRESHOLD=8; // 軸確定に必要な移動px
+
+  function getCurrentX(){
+    const slides=document.getElementById('tabSlides');
+    if(!slides) return 0;
+    // computedStyleからmatrixを取得して現在位置を知る
+    const style=window.getComputedStyle(slides);
+    const matrix=new DOMMatrix(style.transform);
+    return matrix.m41; // translateX
+  }
+
+  container.addEventListener('touchstart',e=>{
+    startX=e.touches[0].clientX;
+    startY=e.touches[0].clientY;
+    lastX=startX;
+    lastTime=e.timeStamp;
+    velX=0;
+    lockAxis=null;
+    isSwiping=true;
+    // アニメ中でも現在位置から開始（指に吸い付く感）
+    startBaseX=getCurrentX();
+    const slides=document.getElementById('tabSlides');
+    if(slides) slides.style.transition='none';
+  },{passive:true});
+
+  container.addEventListener('touchmove',e=>{
+    if(!isSwiping) return;
+    const curX=e.touches[0].clientX;
+    const curY=e.touches[0].clientY;
+    const dx=curX-startX;
+    const dy=curY-startY;
+
+    // 軸がまだ未確定 → 一定距離動くまで待つ
+    if(!lockAxis){
+      if(Math.hypot(dx,dy)<AXIS_THRESHOLD) return;
+      lockAxis=Math.abs(dx)>Math.abs(dy)?'x':'y';
+    }
+    if(lockAxis==='y') return; // 縦スクロール
+
+    e.preventDefault();
+
+    // 速度計算（慣性フリックのため）
+    const dt=e.timeStamp-lastTime;
+    if(dt>0) velX=(curX-lastX)/dt;
+    lastX=curX;
+    lastTime=e.timeStamp;
+
+    // 指に吸い付いて移動（端は抵抗感）
+    let newX=startBaseX+dx;
+    const maxX=0;
+    const minX=getSlideBaseX(TAB_ORDER.length-1);
+    if(newX>maxX) newX=maxX+dx*0.25;     // 左端バネ
+    if(newX<minX) newX=minX+(newX-minX)*0.25; // 右端バネ
+
+    const slides=document.getElementById('tabSlides');
+    if(slides) slides.style.transform=`translateX(${newX}px)`;
+  },{passive:false});
+
+  container.addEventListener('touchend',e=>{
+    if(!isSwiping) return;
+    isSwiping=false;
+    if(lockAxis!=='x'){
+      // 縦スクロールだった場合は元の位置に戻す
+      slideTo(getSlideBaseX(currentTabIdx), true);
+      return;
+    }
+
+    const dx=e.changedTouches[0].clientX-startX;
+    const w=container.offsetWidth;
+    // 閾値：15%以上 または 速度0.3px/ms以上でフリック
+    const swipeByDist=Math.abs(dx)>w*0.15;
+    const swipeByVel=Math.abs(velX)>0.3;
+
+    let nextIdx=currentTabIdx;
+    if((swipeByDist||swipeByVel) && dx<0 && currentTabIdx<TAB_ORDER.length-1) nextIdx++;
+    else if((swipeByDist||swipeByVel) && dx>0 && currentTabIdx>0) nextIdx--;
+
+    switchTab(TAB_ORDER[nextIdx], true);
+  },{passive:true});
+
+  container.addEventListener('touchcancel',()=>{
+    if(!isSwiping) return;
+    isSwiping=false;
+    slideTo(getSlideBaseX(currentTabIdx), true);
+  },{passive:true});
+})();
+
+// 初期インジケーター位置設定（DOM描画後）
+window.addEventListener('load',()=>{
+  // tab-slidesの幅をタブ数に合わせて動的設定
+  const slides=document.getElementById('tabSlides');
+  const panes=document.querySelectorAll('.tab-pane');
+  if(slides&&panes.length){
+    slides.style.width=(panes.length*100)+'%';
+    panes.forEach(p=>{p.style.width=(100/panes.length)+'%';});
+  }
+  // 初期位置をpxで設定
+  slideTo(getSlideBaseX(0), false);
+  updateTabIndicator(0);
+  window.addEventListener('resize',()=>{
+    // リサイズ時に位置を再計算
+    slideTo(getSlideBaseX(currentTabIdx), false);
+    updateTabIndicator(currentTabIdx);
+  });
+});
 
 // =====================================================
 // 暦ガイド：行動別スコアリング
@@ -3215,6 +3601,675 @@ function renderGuideContent(){
 
   // 判定理由パネル
   document.getElementById('guideReasonBox').innerHTML=buildReasonBox(cat);
+}
+
+
+// =====================================================
+// 月盤の中宮九星（2026年 2月〜翌1月）
+// 2026年一白中宮年。月盤は九から逆順（陰遁）
+const TSUKINBAN_CHUUGO=['八白','七赤','六白','五黄','四緑','三碧','二黒','一白','九紫','八白','七赤','六白'];
+// 月盤要約
+const TSUKINBAN_SUMMARY={
+  '7_4':[
+    '最大吉方：なし　吉方：西（最大吉方）',
+    '最大吉方：なし　吉方：東（定位対冲）・南東（吉方）',
+    '吉方：北（天道）　特になし',
+    '最大吉方：北（最大吉方）　吉方：南西',
+    '吉方：東・西',
+    '吉方：なし',
+    '最大吉方：南東　吉方：なし',
+    '最大吉方：なし　吉方：西',
+    '最大吉方：北西　吉方：なし',
+    '最大吉方：西　吉方：東',
+    '吉方：なし',
+    '最大吉方：なし　吉方：北',
+  ],
+  '6_4':[
+    '最大吉方：東　吉方：西',
+    '最大吉方：なし　吉方：東・南東',
+    '最大吉方：北（最大吉方）',
+    '最大吉方：北　吉方：南西',
+    '最大吉方：東　吉方：西',
+    '吉方：なし',
+    '最大吉方：南東　吉方：なし',
+    '最大吉方：西　吉方：なし',
+    '最大吉方：南　吉方：西',
+    '最大吉方：西　吉方：東',
+    '吉方：東',
+    '最大吉方：北　吉方：なし',
+  ],
+  '1_7':[
+    '最大吉方：北（最大吉方）',
+    '吉方：南東・北',
+    '吉方：北（天道）',
+    '最大吉方：北・南西',
+    '吉方：東・西',
+    '吉方：なし',
+    '最大吉方：東',
+    '吉方：西',
+    '最大吉方：北・西',
+    '最大吉方：北・西　吉方：東',
+    '最大吉方：西',
+    '最大吉方：北・南西',
+  ],
+};
+
+// 方位色ヘルパー（SVGセルの塗り色）
+function houiCellColor(tags){
+  if(!tags||!tags.length) return '#f0ece0'; // 吉凶なし
+  if(tags.includes('最大吉方')) return '#1b5e20';
+  if(tags.includes('吉方')) return '#43a047';
+  if(tags.includes('五黄殺')) return '#7b1fa2';
+  if(tags.includes('暗剣殺')) return '#c62828';
+  if(tags.includes('本命殺')||tags.includes('本命的殺')) return '#e65100';
+  if(tags.includes('月命殺')||tags.includes('月命的殺')) return '#1565c0';
+  if(tags.includes('歳破')) return '#ad1457';
+  if(tags.includes('定位対冲')) return '#558b2f';
+  if(tags.includes('月破')) return '#6a1b9a';
+  if(tags.includes('小児殺')) return '#4527a0';
+  return '#8d8060'; // その他（天道等）
+}
+
+function houiCellTextColor(tags){
+  if(!tags||!tags.length) return '#5a3e1a';
+  const color=houiCellColor(tags);
+  return color==='#f0ece0'?'#5a3e1a':'#fff';
+}
+
+// 八角形方位盤SVGを生成
+// 北・東・南・西=30度、北東・南東・南西・北西=60度
+// 各方位に九星数字＋吉凶ラベルを表示
+function buildHouibanSVG(dirs, chuugo, monthStr){
+  const VW=480, VH=480;
+  const CX=240, CY=240;
+  const R_OUT=128; // 八角形外周
+  const R_IN=46;   // 中宮
+  const GAP=2.5;   // セル間隙間（角度換算）
+
+  function toRad(d){ return d*Math.PI/180; }
+  function pt(r,deg){ return [CX+r*Math.cos(toRad(deg)), CY+r*Math.sin(toRad(deg))]; }
+
+  const DIR_DEF=[
+    {name:'北',   s:255, e:285, c:270, is30:true },
+    {name:'北東', s:285, e:345, c:315, is30:false},
+    {name:'東',   s:345, e:15,  c:0,   is30:true },
+    {name:'南東', s:15,  e:75,  c:45,  is30:false},
+    {name:'南',   s:75,  e:105, c:90,  is30:true },
+    {name:'南西', s:105, e:165, c:135, is30:false},
+    {name:'西',   s:165, e:195, c:180, is30:true },
+    {name:'北西', s:195, e:255, c:225, is30:false},
+  ];
+
+  // 中宮から各方位の九星を計算
+  const chuuNumMap={'一白':1,'二黒':2,'三碧':3,'四緑':4,'五黄':5,'六白':6,'七赤':7,'八白':8,'九紫':9};
+  const chuuNum=chuuNumMap[chuugo]||1;
+  const HOUBAN_POS={1:'北',2:'南西',3:'東',4:'南東',5:'中宮',6:'北西',7:'西',8:'北東',9:'南'};
+  const STAR_NUM=['一','二','三','四','五','六','七','八','九'];
+  const starAtDir={};
+  for(let n=1;n<=9;n++){
+    const idx=((n-chuuNum+4+90)%9)+1;
+    const pos=HOUBAN_POS[idx];
+    if(pos!=='中宮') starAtDir[pos]=STAR_NUM[n-1];
+  }
+
+  // ★外周を直線で結ぶ扇形パス（円弧なし）
+  function sectorPath(s, e, rIn, rOut){
+    const gA = GAP * (180 / (Math.PI * rOut)); // px→角度変換
+    const s2 = s + gA;
+    const e2 = e - gA;
+    const rI = rIn + GAP * 0.6;
+    const rO = rOut - 1;
+    // 内側2点、外側2点のみ → 完全な直線台形
+    const [ix1,iy1] = pt(rI, s2);
+    const [ix2,iy2] = pt(rI, e2);
+    const [ox1,oy1] = pt(rO, s2);
+    const [ox2,oy2] = pt(rO, e2);
+    return `M${ix1.toFixed(2)},${iy1.toFixed(2)} L${ox1.toFixed(2)},${oy1.toFixed(2)} L${ox2.toFixed(2)},${oy2.toFixed(2)} L${ix2.toFixed(2)},${iy2.toFixed(2)} Z`;
+  }
+
+  // 吉凶による色
+  const colorMap=[
+    {test:t=>t.includes('最大吉方'), fill:'#1a6e1f', stroke:'#0f4514'},
+    {test:t=>t.includes('吉方'),     fill:'#2e8b34', stroke:'#1d6022'},
+    {test:t=>t.includes('五黄殺'),   fill:'#7b1fa2', stroke:'#4a0e66'},
+    {test:t=>t.includes('暗剣殺'),   fill:'#c62828', stroke:'#8a1a1a'},
+    {test:t=>t.includes('本命殺')||t.includes('本命的殺'), fill:'#e65100', stroke:'#a33800'},
+    {test:t=>t.includes('月命殺')||t.includes('月命的殺'), fill:'#1565c0', stroke:'#0a3d80'},
+    {test:t=>t.includes('歳破'),     fill:'#ad1457', stroke:'#780e3c'},
+    {test:t=>t.includes('定位対冲'), fill:'#558b2f', stroke:'#3a6018'},
+    {test:t=>t.includes('月破'),     fill:'#7b3fa0', stroke:'#522878'},
+    {test:t=>t.includes('小児殺'),   fill:'#3d2fa0', stroke:'#251c78'},
+    {test:()=>true,                   fill:'#9e9070', stroke:'#7a6e50'},
+  ];
+  function getCellColor(tags){
+    if(!tags||!tags.length) return {fill:'#c8c0a8', stroke:'#a09878'};
+    return colorMap.find(c=>c.test(tags))||{fill:'#c8c0a8', stroke:'#a09878'};
+  }
+
+  // セル描画：中に九星数字のみ
+  const cells=DIR_DEF.map(d=>{
+    const tags=dirs[d.name]||[];
+    const {fill,stroke}=getCellColor(tags);
+    const path=sectorPath(d.s, d.e, R_IN, R_OUT);
+    const [lx,ly]=pt((R_IN+R_OUT)/2, d.c);
+    const starChar=starAtDir[d.name]||'';
+    const fs=d.is30?20:28;
+    return `<path d="${path}" fill="${fill}" stroke="${stroke}" stroke-width="2"/>
+<text x="${lx.toFixed(1)}" y="${(ly+fs*0.36).toFixed(1)}" text-anchor="middle" font-family="'Kaisei Opti',serif" font-size="${fs}" font-weight="900" fill="#fff">${starChar}</text>`;
+  }).join('\n');
+
+  // 外側ラベル：吉凶テキスト（方位ごとに放射方向に積み上げ）
+  const LABEL_PRIO=['最大吉方','吉方','五黄殺','暗剣殺','歳破','本命殺','本命的殺','月命殺','月命的殺','定位対冲','月破','小児殺','天道','天徳','月徳','天徳合','月徳合','生気','月空'];
+  const BIG_LABELS=['歳破','月破','吉方','最大吉方'];
+
+  // ── 東西南北の方位名を八角形の側面（外壁直上）に大きく配置 ──
+  const MAIN_DIRS=['北','東','南','西'];
+  const dirNameLabels=DIR_DEF.filter(d=>MAIN_DIRS.includes(d.name)).map(d=>{
+    // セル外壁の直上（R_OUTのすぐ外、+8px）に方位名を大きく
+    const r=R_OUT+14;
+    const [x,y]=pt(r, d.c);
+    return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-family="'Kaisei Opti',serif" font-size="15" font-weight="900" fill="#4a3520">${d.name}</text>`;
+  }).join('\n');
+
+  // ── 吉凶ラベルを方位名のさらに外側に配置 ──
+  const labels=DIR_DEF.map(d=>{
+    const tags=dirs[d.name]||[];
+    const sorted=tags.slice().sort((a,b)=>LABEL_PRIO.indexOf(a)-LABEL_PRIO.indexOf(b))
+                      .filter(t=>LABEL_PRIO.includes(t));
+    if(!sorted.length) return '';
+
+    const {fill}=getCellColor(tags);
+    const lblColor=fill==='#c8c0a8'?'#5a4a20':fill;
+
+    // 東西南北は方位名（15px）の外から開始、斜め方位はR_OUTの外から開始
+    const isMain=MAIN_DIRS.includes(d.name);
+    // 方位名分のオフセット（東西南北は方位名15px+余白が先にある）
+    let curR=R_OUT+(isMain?34:14);
+
+    const lblLines=sorted.map((lbl,i)=>{
+      const isBig=BIG_LABELS.includes(lbl);
+      const baseFs=d.is30?10:11;
+      const fs=isBig?baseFs*3:baseFs;
+      const fw=isBig?'900':(i===0?'800':'600');
+      const spacing=isBig?fs*1.1:baseFs*1.4;
+      const [lx,ly]=pt(curR+(spacing/2), d.c);
+      curR+=spacing;
+      return `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-family="serif" font-size="${fs}" font-weight="${fw}" fill="${lblColor}">${lbl}</text>`;
+    }).join('\n');
+
+    return lblLines;
+  }).join('\n');
+
+  // 中宮（正八角形・直線）
+  const octPts=Array.from({length:8},(_,i)=>{
+    const [x,y]=pt(R_IN-GAP*0.5, i*45-90);
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(' ');
+
+  const numMap={'一白':'一','二黒':'二','三碧':'三','四緑':'四','五黄':'五','六白':'六','七赤':'七','八白':'八','九紫':'九'};
+  const chuuNum2=numMap[chuugo]||chuugo;
+
+  return `<svg viewBox="0 0 ${VW} ${VH}" xmlns="http://www.w3.org/2000/svg">
+<rect width="${VW}" height="${VH}" fill="#fdf8f0"/>
+${cells}
+<polygon points="${octPts}" fill="#fdf8f0" stroke="#c9a030" stroke-width="2"/>
+<text x="${CX}" y="${CY-5}" text-anchor="middle" dominant-baseline="middle" font-family="'Kaisei Opti',serif" font-size="36" font-weight="900" fill="#5a2d82">${chuuNum2}</text>
+<text x="${CX}" y="${CY+18}" text-anchor="middle" dominant-baseline="middle" font-family="serif" font-size="11" fill="#8a5a00">${chuugo}中宮</text>
+${dirNameLabels}
+${labels}
+</svg>`;
+}
+
+// 九星気学 方位盤データ（八雲院参照・2026年）
+// =====================================================
+
+// タグ分類ヘルパー
+function houiTagClass(label){
+  const m={
+    '最大吉方':'saikyo-kichi','吉方':'kichi',
+    '五黄殺':'gokyo','暗剣殺':'ankken','歳破':'saiha',
+    '本命殺':'honmei-s','本命的殺':'honmei-t',
+    '月命殺':'tsukinmei-s','月命的殺':'tsukinmei-t',
+    '定位対冲':'taii','月破':'getsuha','小児殺':'shoji',
+    '天道':'tendo','天徳':'tentoku','月徳':'tsukitoku',
+    '天徳合':'tentoku-g','月徳合':'tsukitoku-g',
+    '生気':'seiki','月空':'tsukikuu',
+  };
+  return m[label]||'nashi';
+}
+
+function houiTags(items){
+  if(!items||!items.length) return `<span class="houi-tag nashi">吉凶なし</span>`;
+  return items.map(t=>`<span class="houi-tag ${houiTagClass(t)}">${t}</span>`).join('');
+}
+
+// 方位説明
+const HOUI_DESC={
+  '五黄殺':'最大凶。五黄土星の回座方位。特に重大な凶作用をもたらす。',
+  '暗剣殺':'大凶。五黄殺の対冲方位。突発的な災難・他人からの厄災。',
+  '歳破':'大凶。年の干支の対冲方位。計画崩壊・破産・大きな損失。',
+  '本命殺':'凶。本命星の回座方位。本人に直接ダメージが及ぶ。',
+  '本命的殺':'凶。本命殺の対冲方位。本人に関わる人やものへの影響。',
+  '月命殺':'凶。月命星の回座方位。家族・近親者への影響。',
+  '月命的殺':'凶。月命殺の対冲方位。月命に関わる周囲への影響。',
+  '定位対冲':'凶。本命星の定位置の対冲。本来の力を失わせる方位。',
+  '月破':'月の破壊方位。月の干支の対冲。短期的な破壊作用。',
+  '小児殺':'特に子どもへの凶作用。子供のいる家庭は注意。',
+  '最大吉方':'本命・月命両方が吉方。最も強い吉作用をもたらす。',
+  '吉方':'本命星または月命星が吉方。良い気を受け取れる方位。',
+  '天道':'天の恵みの方位。旅行・引越しに吉。',
+  '天徳':'天の徳の方位。万事に吉の働き。',
+  '月徳':'月の恵みの方位。特に家・土地に関することに吉。',
+  '天徳合':'天徳の合神。天徳に準ずる吉作用。',
+  '月徳合':'月徳の合神。月徳に準ずる吉作用。',
+  '生気':'生命力・活力の気。新しいことのスタートに吉。',
+  '月空':'月の空亡方位。凶作用が軽減される。',
+};
+
+// ①七赤金星:四緑木星 の年盤（八雲院より）
+const HOUI_NENBAN = {
+  '7_4': {
+    summary:'吉方は北西・東。最大吉方なし。',
+    dirs:{
+      北:['暗剣殺','歳破'],
+      北東:['本命的殺','月命殺'],
+      東:['吉方'],
+      南東:[],
+      南:['五黄殺'],
+      南西:['本命殺','月命的殺'],
+      西:['定位対冲'],
+      北西:['吉方'],
+    }
+  },
+  '6_4': {
+    // 六白金星:四緑木星 — 2026年一白中宮。六白は乾宮（北西）定位
+    // 北:五黄殺対冲=暗剣殺, 南:五黄殺, 北(歳破), 六白定位北西→定位対冲は南東
+    // 六白の年盤回座：坤宮(南西)→本命殺、艮宮(北東)→本命的殺
+    summary:'吉方は北西・南西・東。最大吉方なし。',
+    dirs:{
+      北:['暗剣殺','歳破'],
+      北東:['本命的殺'],
+      東:['吉方'],
+      南東:['定位対冲'],
+      南:['五黄殺'],
+      南西:['本命殺','月命的殺'],
+      西:['吉方'],
+      北西:['吉方'],
+    }
+  },
+  '1_7': {
+    // 一白水星:七赤金星 — 一白は坎宮(北)定位、2026年中宮に回座
+    // 本命殺=中宮(なし扱い)、本命的殺=中宮対冲(なし)
+    // 七赤は兌宮(西)定位、2026年は巽宮(南東)回座→月命殺=南東、月命的殺=北西
+    summary:'最大吉方は北東・南西。吉方なし。',
+    dirs:{
+      北:['暗剣殺','歳破'],
+      北東:['最大吉方'],
+      東:[],
+      南東:['月命殺'],
+      南:['五黄殺'],
+      南西:['最大吉方'],
+      西:['定位対冲'],
+      北西:['月命的殺'],
+    }
+  },
+};
+
+// ①七赤:四緑 月盤（八雲院より取得済み・全12ヶ月）
+// 月の節気期間と方位データ
+const HOUI_TSUKINBAN = {
+  '7_4': [
+    {month:'2月',period:'2/4〜3/4',dirs:{北:['月命殺','天徳合','生気','月空'],北東:['暗剣殺','定位対冲'],東:['吉方'],南東:['本命殺'],南:['月命的殺','天道','天徳','月徳'],南西:['五黄殺','月破'],西:['最大吉方','月徳合'],北西:['本命的殺']}},
+    {month:'3月',period:'3/5〜4/4',dirs:{北:['月命的殺','生気'],北東:['五黄殺','月徳'],東:['定位対冲'],南東:['吉方','月徳合'],南:['月命殺','天道','天徳'],南西:['暗剣殺','月破','月空'],西:[],北西:['小児殺']}},
+    {month:'4月',period:'4/5〜5/4',dirs:{北:['吉方','天道','天徳','月徳'],北東:[],東:['月命殺'],南東:['五黄殺','本命的殺'],南:['定位対冲','天徳合','月徳合','生気','月空'],南西:[],西:['小児殺','月命的殺'],北西:['暗剣殺','月破','本命殺']}},
+    {month:'5月',period:'5/5〜6/5',dirs:{北:['最大吉方'],北東:['小児殺'],東:['本命的殺','月徳合','生気','月空'],南東:['月命殺'],南:['天徳合'],南西:['吉方'],西:['本命殺','天道','天徳','月徳'],北西:['月破','月命的殺']}},
+    {month:'6月',period:'6/6〜7/6',dirs:{北:['定位対冲','月破','月空'],北東:['本命殺'],東:['吉方'],南東:['暗剣殺','生気'],南:['小児殺','月徳'],南西:['本命的殺'],西:['吉方','月徳合'],北西:['五黄殺','天道','天徳']}},
+    {month:'7月',period:'7/7〜8/6',dirs:{北:['小児殺','本命的殺'],北東:['月破'],東:['暗剣殺','天道','天徳','月徳'],南東:['月命的殺'],南:['本命殺','天徳合','月徳合'],南西:['五黄殺','生気','月空'],西:['定位対冲','月命殺'],北西:[]}},
+    {month:'8月',period:'8/7〜9/6',dirs:{北:['本命殺','天道','天徳','月徳'],北東:['五黄殺','月破'],東:['月命的殺'],南東:['最大吉方'],南:['本命的殺','天徳合','月徳合','生気','月空'],南西:['暗剣殺','定位対冲','小児殺'],西:['月命殺'],北西:[]}},
+    {month:'9月',period:'9/7〜10/7',dirs:{北:['暗剣殺'],北東:['本命的殺','月命殺','天道','天徳'],東:['月破','小児殺','月徳合','月空'],南東:[],南:['本命殺','月命的殺','生気'],南西:['定位対冲','月徳'],西:['吉方'],北西:[]}},
+    {month:'10月',period:'10/8〜11/6',dirs:{北:['五黄殺','月命的殺','生気','月空'],北東:['定位対冲','本命殺'],東:['月破','小児殺'],南東:['暗剣殺','月命殺','天道','天徳','月徳'],南:['吉方'],南西:['本命的殺','天徳合','月徳合'],西:['最大吉方'],北西:[]}},
+    {month:'11月',period:'11/7〜12/6',dirs:{北:['月命殺'],北東:['暗剣殺','定位対冲'],東:['吉方','天道','天徳','月徳'],南東:['月破','本命殺'],南:['月命的殺','月徳合'],南西:['五黄殺'],西:['最大吉方','天徳合','生気','月空'],北西:['本命的殺']}},
+    {month:'12月',period:'12/7〜1/4',dirs:{北:['月徳'],北東:['月命的殺'],東:['五黄殺'],南東:['定位対冲','天道','天徳'],南:['月破','月徳合','月空'],南西:['月命殺'],西:['暗剣殺'],北西:['小児殺','生気']}},
+    {month:'1月',period:'1/5〜2/3',dirs:{北:['吉方'],北東:['月命殺','天徳合','月徳合','生気','月空'],東:['五黄殺','本命的殺'],南東:['定位対冲'],南:['月破'],南西:['小児殺','月命的殺','天道','天徳','月徳'],西:['暗剣殺','本命殺'],北西:[]}},
+  ],
+  '6_4': [
+    {month:'2月',period:'2/4〜3/4',dirs:{北:['天徳合','生気','月空','月命殺'],北東:['暗剣殺'],東:['本命殺'],南東:['定位対冲'],南:['天道','天徳','月徳','月命的殺'],南西:['月破','五黄殺'],西:['月徳合','本命的殺'],北西:[]}},
+    {month:'3月',period:'3/5〜4/4',dirs:{北:['生気'],北東:['月徳','月命的殺'],東:['五黄殺'],南東:['月徳合','本命殺','定位対冲'],南:['天道','天徳'],南西:['月破','月空','月命殺'],西:['暗剣殺'],北西:['小児殺','本命的殺']}},
+    {month:'4月',period:'4/5〜5/4',dirs:{北:['天道','天徳','月徳'],北東:[],東:['月命殺'],南東:['五黄殺','定位対冲'],南:['天徳合','月徳合','生気','月空'],南西:[],西:['小児殺','月命的殺'],北西:['月破','暗剣殺']}},
+    {month:'5月',period:'5/5〜6/5',dirs:{北:[],北東:['小児殺'],東:['月徳合','生気','月空'],南東:['本命的殺','月命殺','定位対冲'],南:['天徳合'],南西:[],西:['天道','天徳','月徳'],北西:['月破','本命殺','月命的殺']}},
+    {month:'6月',period:'6/6〜7/6',dirs:{北:['月破','月空'],北東:[],東:['本命的殺'],南東:['生気','暗剣殺','定位対冲'],南:['小児殺','月徳'],南西:[],西:['月徳合','本命殺'],北西:['天道','天徳','五黄殺']}},
+    {month:'7月',period:'7/7〜8/6',dirs:{北:['小児殺'],北東:['月破','本命殺'],東:['天道','天徳','月徳','暗剣殺'],南東:['月命的殺','定位対冲'],南:['天徳合','月徳合'],南西:['生気','月空','本命的殺'],西:['五黄殺'],北西:['月命殺']}},
+    {month:'8月',period:'8/7〜9/6',dirs:{北:['天道','天徳','月徳','本命的殺'],北東:['月破','五黄殺'],東:['月命的殺'],南東:['定位対冲'],南:['天徳合','月徳合','生気','月空','本命殺'],南西:['小児殺','暗剣殺'],西:['月命殺'],北西:[]}},
+    {month:'9月',period:'9/7〜10/7',dirs:{北:['暗剣殺','本命殺'],北東:['天道','天徳','月命殺'],東:['月破','小児殺','月徳合','月空'],南東:['定位対冲'],南:['生気','五黄殺','本命的殺'],南西:['月徳','月命的殺'],西:[],北西:[]}},
+    {month:'10月',period:'10/8〜11/6',dirs:{北:['生気','月空','五黄殺','月命的殺'],北東:['本命的殺'],東:['月破','小児殺'],南東:['天道','天徳','月徳','定位対冲'],南:['暗剣殺','月命殺'],南西:['天徳合','月徳合','本命殺'],西:[],北西:[]}},
+    {month:'11月',period:'11/7〜12/6',dirs:{北:['月命殺'],北東:['暗剣殺'],東:['天道','天徳','月徳','本命殺'],南東:['月破','定位対冲'],南:['月徳合','月命的殺'],南西:['五黄殺'],西:['天徳合','生気','月空','本命的殺'],北西:[]}},
+    {month:'12月',period:'12/7〜1/4',dirs:{北:['月徳'],北東:['月命的殺'],東:['五黄殺'],南東:['天道','天徳','本命殺','定位対冲'],南:['月破','月徳合','月空'],南西:['月命殺'],西:['暗剣殺'],北西:['小児殺','生気','本命的殺']}},
+    {month:'1月',period:'1/5〜2/3',dirs:{北:[],北東:['天徳合','月徳合','生気','月空'],東:['月命殺'],南東:['五黄殺','定位対冲'],南:['月破'],南西:['小児殺','天道','天徳','月徳'],西:['月命的殺'],北西:['暗剣殺']}},
+  ],
+  '1_7': [
+    {month:'2月',period:'2/4〜3/4',dirs:{北:['天徳合','生気','月空'],北東:['暗剣殺'],東:['本命的殺'],南東:['月命殺'],南:['天道','天徳','月徳','定位対冲'],南西:['月破','五黄殺'],西:['月徳合','本命殺'],北西:['月命的殺']}},
+    {month:'3月',period:'3/5〜4/4',dirs:{北:['生気'],北東:['月徳','本命殺'],東:['五黄殺'],南東:['月徳合'],南:['天道','天徳','定位対冲'],南西:['月破','月空','本命的殺'],西:['暗剣殺'],北西:['小児殺']}},
+    {month:'4月',period:'4/5〜5/4',dirs:{北:['天道','天徳','月徳','本命的殺'],北東:[],東:[],南東:['五黄殺','月命的殺'],南:['天徳合','月徳合','生気','月空','本命殺','定位対冲'],南西:[],西:['小児殺'],北西:['月破','暗剣殺','月命殺']}},
+    {month:'5月',period:'5/5〜6/5',dirs:{北:['本命殺'],北東:['小児殺'],東:['月徳合','生気','月空','月命的殺'],南東:[],南:['天徳合','本命的殺','定位対冲'],南西:[],西:['天道','天徳','月徳','月命殺'],北西:['月破']}},
+    {month:'6月',period:'6/6〜7/6',dirs:{北:['月破','月空'],北東:['本命的殺','月命殺'],東:[],南東:['生気','暗剣殺'],南:['小児殺','月徳','定位対冲'],南西:['本命殺','月命的殺'],西:['月徳合'],北西:['天道','天徳','五黄殺']}},
+    {month:'7月',period:'7/7〜8/6',dirs:{北:['小児殺','月命的殺'],北東:['月破'],東:['天道','天徳','月徳','暗剣殺','本命殺'],南東:[],南:['天徳合','月徳合','月命殺','定位対冲'],南西:['生気','月空'],西:['五黄殺','本命的殺'],北西:[]}},
+    {month:'8月',period:'8/7〜9/6',dirs:{北:['天道','天徳','月徳','月命殺'],北東:['月破','五黄殺'],東:[],南東:['本命殺'],南:['天徳合','月徳合','生気','月空','月命的殺','定位対冲'],南西:['小児殺','暗剣殺'],西:[],北西:['本命的殺']}},
+    {month:'9月',period:'9/7〜10/7',dirs:{北:['暗剣殺'],北東:['天道','天徳','月命的殺'],東:['月破','小児殺','月徳合','月空'],南東:[],南:['生気','五黄殺','定位対冲'],南西:['月徳','月命殺'],西:[],北西:[]}},
+    {month:'10月',period:'10/8〜11/6',dirs:{北:['生気','月空','五黄殺'],北東:[],東:['月破','小児殺','月命殺'],南東:['天道','天徳','月徳','本命的殺'],南:['暗剣殺','定位対冲'],南西:['天徳合','月徳合'],西:['月命的殺'],北西:['本命殺']}},
+    {month:'11月',period:'11/7〜12/6',dirs:{北:[],北東:['暗剣殺'],東:['天道','天徳','月徳','本命的殺'],南東:['月破','月命殺'],南:['月徳合','定位対冲'],南西:['五黄殺'],西:['天徳合','生気','月空','本命殺'],北西:['月命的殺']}},
+    {month:'12月',period:'12/7〜1/4',dirs:{北:['月徳'],北東:['本命殺'],東:['五黄殺'],南東:['天道','天徳'],南:['月破','月徳合','月空','定位対冲'],南西:['本命的殺'],西:['暗剣殺'],北西:['小児殺','生気']}},
+    {month:'1月',period:'1/5〜2/3',dirs:{北:['本命的殺'],北東:['天徳合','月徳合','生気','月空'],東:[],南東:['五黄殺','月命的殺'],南:['月破','本命殺','定位対冲'],南西:['小児殺','天道','天徳','月徳'],西:[],北西:['暗剣殺','月命殺']}},
+  ],
+};
+
+// 3パターンの定義
+const HOUI_PATTERNS=[
+  {id:'7_4',  label:'① 七赤金星', sub:'月命:四緑木星', honmei:'七赤金星', tsuki:'四緑木星'},
+  {id:'6_4',  label:'② 六白金星', sub:'月命:四緑木星', honmei:'六白金星', tsuki:'四緑木星'},
+  {id:'1_7',  label:'③ 一白水星', sub:'月命:七赤金星', honmei:'一白水星', tsuki:'七赤金星'},
+  {id:'3star', label:'④ 3星合算', sub:'①②③の共通吉方', honmei:'', tsuki:''},
+];
+
+// 今月の旧暦月インデックスを求める（節気ベース）
+function getCurrentHouiMonthIdx(){
+  const now=new Date();
+  const m=now.getMonth()+1, d=now.getDate();
+  // 節気の月切り替え日（おおよそ）
+  const breaks=[[2,4],[3,5],[4,5],[5,5],[6,6],[7,7],[8,7],[9,7],[10,8],[11,7],[12,7],[1,5]];
+  for(let i=0;i<breaks.length;i++){
+    const [bm,bd]=breaks[i];
+    const [nm,nd]=breaks[(i+1)%12];
+    if(m===bm&&d>=bd) return i;
+    if(m===nm&&d<nd) return i;
+  }
+  return 0;
+}
+
+let houiPatternId='7_4';
+
+function selectHouiPattern(id){
+  houiPatternId=id;
+  document.querySelectorAll('.houi-sel-btn').forEach(b=>b.classList.toggle('active',b.dataset.pid===id));
+  renderHouiContent();
+}
+
+function renderHouiPage(){
+  const bar=document.getElementById('houiSelBar');
+  if(bar&&!bar.children.length){
+    bar.innerHTML=HOUI_PATTERNS.map(p=>{
+      const is3star=(p.id==='3star');
+      const activeClass=(p.id===houiPatternId)?' active':'';
+      let inner='';
+      if(is3star){
+        inner=`<span class="hsb-num">④</span><span style="font-size:.62rem;font-weight:900;display:block">3星合算</span><small style="font-size:.48rem;display:block;opacity:.85">共通吉方</small>`;
+      } else {
+        inner=`<span class="hsb-num">${p.label.split(' ')[0]}</span>${p.honmei}<small style="font-size:.48rem;display:block;opacity:.8">（${p.tsuki}）</small>`;
+      }
+      const extraStyle=is3star?'style="border-color:rgba(201,168,76,.7);background:#2a2010;color:#e8c97a;"':'';
+      return`<button class="houi-sel-btn${activeClass}" data-pid="${p.id}" onclick="selectHouiPattern('${p.id}')" ${extraStyle}>${inner}</button>`;
+    }).join('');
+  }
+  renderHouiContent();
+}
+
+// ── 3星合算：3パターンを重ね合わせた共通方位を算出 ──
+function calc3StarDirs(dirsA, dirsB, dirsC){
+  // ロジック：
+  //   2つ以上が吉方(最大吉方/吉方) → '吉方'（3つなら最大吉方）
+  //   3つすべて空([]) → '影響なし'
+  //   それ以外 → null（非表示）
+  const DIRS=['北','北東','東','南東','南','南西','西','北西'];
+  const KICHI=['最大吉方','吉方'];
+  const result={};
+  DIRS.forEach(d=>{
+    const tA=dirsA[d]||[], tB=dirsB[d]||[], tC=dirsC[d]||[];
+    const isKichiA=KICHI.some(k=>tA.includes(k));
+    const isKichiB=KICHI.some(k=>tB.includes(k));
+    const isKichiC=KICHI.some(k=>tC.includes(k));
+    const kichiCount=[isKichiA,isKichiB,isKichiC].filter(Boolean).length;
+    const allNone=!tA.length&&!tB.length&&!tC.length;
+    const allMax=tA.includes('最大吉方')&&tB.includes('最大吉方')&&tC.includes('最大吉方');
+
+    if(allMax) result[d]=['最大吉方'];
+    else if(kichiCount>=2) result[d]=['吉方'];
+    else if(allNone) result[d]=[];
+    else result[d]=null;
+  });
+  return result;
+}
+
+// 3星合算方位盤SVGの描画（吉方・影響なし・非表示のみ）
+function build3StarSVG(dirs3, chuugo){
+  // dirs3: {北:['吉方']|[]|null, ...}
+  const VW=480, VH=480, CX=240, CY=240;
+  const R_OUT=128, R_IN=46, GAP=2.5;
+  function toRad(d){return d*Math.PI/180;}
+  function pt(r,deg){return [CX+r*Math.cos(toRad(deg)), CY+r*Math.sin(toRad(deg))];}
+  const DIR_DEF=[
+    {name:'北',  s:255,e:285,c:270,is30:true},
+    {name:'北東',s:285,e:345,c:315,is30:false},
+    {name:'東',  s:345,e:15, c:0,  is30:true},
+    {name:'南東',s:15, e:75, c:45, is30:false},
+    {name:'南',  s:75, e:105,c:90, is30:true},
+    {name:'南西',s:105,e:165,c:135,is30:false},
+    {name:'西',  s:165,e:195,c:180,is30:true},
+    {name:'北西',s:195,e:255,c:225,is30:false},
+  ];
+  function sectorPath(s,e,rIn,rOut){
+    const gA=GAP*(180/(Math.PI*rOut));
+    const s2=s+gA,e2=e-gA,rI=rIn+GAP*0.6,rO=rOut-1;
+    const [ix1,iy1]=pt(rI,s2),[ix2,iy2]=pt(rI,e2),[ox1,oy1]=pt(rO,s2),[ox2,oy2]=pt(rO,e2);
+    return `M${ix1.toFixed(2)},${iy1.toFixed(2)} L${ox1.toFixed(2)},${oy1.toFixed(2)} L${ox2.toFixed(2)},${oy2.toFixed(2)} L${ix2.toFixed(2)},${iy2.toFixed(2)} Z`;
+  }
+  const cells=DIR_DEF.map(d=>{
+    const tags=dirs3[d.name];
+    if(tags===null) return ''; // 非表示（透明）
+    let fill,stroke,label='',tc='#fff';
+    if(tags.includes('最大吉方')){fill='#1a6e1f';stroke='#0f4514';label='最大吉方';}
+    else if(tags.includes('吉方')){fill='#2e8b34';stroke='#1d6022';label='吉方';}
+    else{fill='#e8e4d4';stroke='#c8c0a0';tc='#8a7a50';label='影響なし';} // 影響なし
+    const path=sectorPath(d.s,d.e,R_IN,R_OUT);
+    const [lx,ly]=pt((R_IN+R_OUT)/2,d.c);
+    const fs=d.is30?14:22;
+    return `<path d="${path}" fill="${fill}" stroke="${stroke}" stroke-width="2"/>
+<text x="${lx.toFixed(1)}" y="${(ly+fs*0.36).toFixed(1)}" text-anchor="middle" font-family="serif" font-size="${fs}" font-weight="900" fill="${tc}">${label}</text>`;
+  }).join('\n');
+
+  // 方位名（東西南北のみ）
+  const dirNames=['北','東','南','西'].map(name=>{
+    const d=DIR_DEF.find(x=>x.name===name);
+    const [x,y]=pt(R_OUT+14,d.c);
+    return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-family="'Kaisei Opti',serif" font-size="15" font-weight="900" fill="#4a3520">${name}</text>`;
+  }).join('\n');
+
+  const octPts=Array.from({length:8},(_,i)=>{const[x,y]=pt(R_IN-GAP*0.5,i*45-90);return`${x.toFixed(1)},${y.toFixed(1)}`;}).join(' ');
+  const numMap={'一白':'一','二黒':'二','三碧':'三','四緑':'四','五黄':'五','六白':'六','七赤':'七','八白':'八','九紫':'九'};
+  const chuuNum2=numMap[chuugo]||chuugo;
+
+  return `<svg viewBox="0 0 ${VW} ${VH}" xmlns="http://www.w3.org/2000/svg">
+<rect width="${VW}" height="${VH}" fill="#fdf8f0"/>
+${cells}
+<polygon points="${octPts}" fill="#fdf8f0" stroke="#c9a030" stroke-width="2"/>
+<text x="${CX}" y="${CY-5}" text-anchor="middle" dominant-baseline="middle" font-family="'Kaisei Opti',serif" font-size="32" font-weight="900" fill="#5a2d82">${chuuNum2}</text>
+<text x="${CX}" y="${CY+17}" text-anchor="middle" dominant-baseline="middle" font-family="serif" font-size="10" fill="#8a5a00">${chuugo}中宮</text>
+${dirNames}
+</svg>`;
+}
+
+function render3StarContent(){
+  const DIRS=['北','北東','東','南東','南','南西','西','北西'];
+  const curIdx=getCurrentHouiMonthIdx();
+
+  // 年盤合算
+  const n7=HOUI_NENBAN['7_4'].dirs, n6=HOUI_NENBAN['6_4'].dirs, n1=HOUI_NENBAN['1_7'].dirs;
+  const nen3=calc3StarDirs(n7,n6,n1);
+  const nenSvg=build3StarSVG(nen3,'一白');
+
+  // 年盤の吉方リスト
+  const nenKichiDirs=DIRS.filter(d=>nen3[d]&&nen3[d].length>0&&nen3[d]!==null);
+  const nenNoneDirs=DIRS.filter(d=>nen3[d]!==null&&nen3[d].length===0);
+
+  const nenHtml=`
+    <div class="houi-nenban">
+      <div class="houi-nenban-hdr">
+        <div class="houi-nenban-ttl">📅 2026年 年盤（3星合算）</div>
+        <div class="houi-nenban-sub">①②③すべてが吉=吉方　すべて影響なし=影響なし　それ以外=非表示</div>
+      </div>
+      <div class="houiban-wrap">
+        <div class="houiban-summary">
+          <strong>吉方：${nenKichiDirs.length?nenKichiDirs.join('・'):'なし'}</strong>　
+          影響なし：${nenNoneDirs.length?nenNoneDirs.join('・'):'なし'}
+        </div>
+        <div class="houiban-svg-wrap">${nenSvg}</div>
+      </div>
+    </div>`;
+
+  // 月盤合算（全12ヶ月）
+  const monthHtml=TSUKINBAN_CHUUGO.map((chuugo,i)=>{
+    const isCurrent=(i===curIdx);
+    const mb7=HOUI_TSUKINBAN['7_4'][i], mb6=HOUI_TSUKINBAN['6_4'][i], mb1=HOUI_TSUKINBAN['1_7'][i];
+    const dirs3=calc3StarDirs(mb7.dirs, mb6.dirs, mb1.dirs);
+    const svgHtml=build3StarSVG(dirs3, chuugo);
+    const kichiDirs=DIRS.filter(d=>dirs3[d]&&dirs3[d].length>0);
+    const noneDirs=DIRS.filter(d=>dirs3[d]!==null&&dirs3[d].length===0);
+    const period=mb7.period;
+    return`
+      <div class="houi-month-card${isCurrent?' open current-month':''}" id="hm-3star-${i}">
+        <div class="houi-month-hdr" onclick="toggleHouiMonth('3star',${i})">
+          <div class="houi-month-ttl">${mb7.month}　<span class="houi-month-period">${period}</span></div>
+          <div style="display:flex;align-items:center;gap:6px">
+            ${isCurrent?`<span class="houi-now-badge">◀今月</span>`:''}
+            <span class="houi-month-toggle">▼</span>
+          </div>
+        </div>
+        <div class="houi-month-body">
+          <div class="houiban-wrap">
+            <div class="houiban-summary">
+              <strong style="color:#1b6e20">吉方：${kichiDirs.length?kichiDirs.join('・'):'なし'}</strong>　
+              影響なし：${noneDirs.length?noneDirs.join('・'):'なし'}
+            </div>
+            <div class="houiban-svg-wrap">${svgHtml}</div>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  // 凡例
+  const legendHtml=`
+    <div style="background:#fff8ee;border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:9px 12px;margin-bottom:12px;">
+      <div style="font-size:.6rem;font-weight:700;color:#5a2d82;margin-bottom:6px;">凡例（3星すべての合算結果）</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;font-size:.62rem;">
+        <span style="background:#1a6e1f;color:#fff;padding:3px 10px;border-radius:8px;font-weight:700;">最大吉方（3星すべて最大吉方）</span>
+        <span style="background:#2e8b34;color:#fff;padding:3px 10px;border-radius:8px;font-weight:700;">吉方（2星以上が吉方）</span>
+        <span style="background:#e8e4d4;color:#8a7a50;padding:3px 10px;border-radius:8px;border:1px solid #c8c0a0;">影響なし（3星すべて影響なし）</span>
+        <span style="background:#d0c8c0;color:#6a6050;padding:3px 10px;border-radius:8px;font-size:.56rem;">1星以下の吉方・または凶含む方位は非表示</span>
+      </div>
+    </div>`;
+
+  document.getElementById('houiContent').innerHTML=
+    legendHtml+nenHtml+
+    `<div style="font-family:'Kaisei Opti',serif;font-size:.72rem;color:#5a2d82;letter-spacing:.1em;margin-bottom:8px;padding:4px 2px;border-bottom:1px solid rgba(140,80,220,.2)">📅 月盤（全12ヶ月・3星合算）</div>`+
+    monthHtml;
+}
+
+function renderHouiContent(){
+  // ── 3星合算モード ──
+  if(houiPatternId==='3star'){
+    render3StarContent();
+    return;
+  }
+
+  const pat=HOUI_PATTERNS.find(p=>p.id===houiPatternId);
+  const nenban=HOUI_NENBAN[houiPatternId];
+  const tsukinban=HOUI_TSUKINBAN[houiPatternId];
+  const DIRS=['北','北東','東','南東','南','南西','西','北西'];
+  const curIdx=getCurrentHouiMonthIdx();
+
+  // 年盤
+  const nenSvg=buildHouibanSVG(nenban.dirs,'一白','2026年');
+  const nenHtml=`
+    <div class="houi-nenban">
+      <div class="houi-nenban-hdr">
+        <div class="houi-nenban-ttl">📅 2026年 年盤</div>
+        <div class="houi-nenban-sub">${pat.honmei} / 月命:${pat.tsuki}　${nenban.summary}</div>
+      </div>
+      <div class="houiban-wrap">
+        <div class="houiban-svg-wrap">${nenSvg}</div>
+        <div class="houiban-dir-list">
+          ${DIRS.map(dir=>`
+            <div class="houiban-dir-row">
+              <div class="houiban-dir-name">${dir}</div>
+              <div class="houiban-dir-tags">${houiTags(nenban.dirs[dir]||[])}</div>
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+
+  // 月盤
+  const monthHtml=tsukinban.map((mb,i)=>{
+    const isCurrent=(i===curIdx);
+    const chuugo=TSUKINBAN_CHUUGO[i];
+    const summary=(TSUKINBAN_SUMMARY[houiPatternId]||[])[i]||'';
+    const DIRS=['北','北東','東','南東','南','南西','西','北西'];
+    const svgHtml=buildHouibanSVG(mb.dirs, chuugo, mb.month);
+    return`
+      <div class="houi-month-card${isCurrent?' open current-month':''}" id="hm-${houiPatternId}-${i}">
+        <div class="houi-month-hdr" onclick="toggleHouiMonth('${houiPatternId}',${i})">
+          <div class="houi-month-ttl">${mb.month}　<span class="houi-month-period">${mb.period}</span></div>
+          <div style="display:flex;align-items:center;gap:6px">
+            ${isCurrent?`<span class="houi-now-badge">◀今月</span>`:''}
+            <span class="houi-month-toggle">▼</span>
+          </div>
+        </div>
+        <div class="houi-month-body">
+          <div class="houiban-wrap">
+            <div class="houiban-summary">${chuugo}中宮の月　<strong>${summary}</strong></div>
+            <div class="houiban-svg-wrap">${svgHtml}</div>
+            <div class="houiban-dir-list">
+              ${DIRS.map(dir=>`
+                <div class="houiban-dir-row">
+                  <div class="houiban-dir-name">${dir}</div>
+                  <div class="houiban-dir-tags">${houiTags(mb.dirs[dir]||[])}</div>
+                </div>`).join('')}
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  // 凡例
+  const legendItems=[
+    {cls:'saikyo-kichi',label:'最大吉方'},
+    {cls:'kichi',label:'吉方'},
+    {cls:'gokyo',label:'五黄殺'},
+    {cls:'ankken',label:'暗剣殺'},
+    {cls:'saiha',label:'歳破'},
+    {cls:'honmei-s',label:'本命殺'},
+    {cls:'honmei-t',label:'本命的殺'},
+    {cls:'tsukinmei-s',label:'月命殺'},
+    {cls:'tsukinmei-t',label:'月命的殺'},
+    {cls:'taii',label:'定位対冲'},
+    {cls:'getsuha',label:'月破'},
+    {cls:'shoji',label:'小児殺'},
+    {cls:'tendo',label:'天道'},
+    {cls:'tentoku',label:'天徳'},
+    {cls:'seiki',label:'生気'},
+  ];
+  const legendHtml=`
+    <div style="background:#fff8ee;border:1px solid rgba(140,80,220,.2);border-radius:10px;padding:9px 12px;margin-bottom:12px;">
+      <div style="font-size:.58rem;font-weight:700;color:#5a2d82;margin-bottom:6px;letter-spacing:.08em">凡例</div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;">
+        ${legendItems.map(l=>`<span class="houi-tag ${l.cls}">${l.label}</span>`).join('')}
+      </div>
+    </div>`;
+
+  document.getElementById('houiContent').innerHTML=legendHtml+nenHtml+
+    `<div style="font-family:'Kaisei Opti',serif;font-size:.72rem;color:#5a2d82;letter-spacing:.1em;margin-bottom:8px;padding:4px 2px;border-bottom:1px solid rgba(140,80,220,.2)">📅 月盤（全12ヶ月）</div>`+
+    monthHtml;
+}
+
+function toggleHouiMonth(pid,idx){
+  document.getElementById(`hm-${pid}-${idx}`).classList.toggle('open');
 }
 
 // =====================================================
